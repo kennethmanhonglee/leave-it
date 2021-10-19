@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 import { create_pet_thunk } from "../../store/pet";
 
 const PetForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [name, setName] = useState();
   const [age, setAge] = useState();
   const [current_weight, setCurrentWeight] = useState();
   const [ideal_weight, setIdealWeight] = useState();
   const [neutered, setNeutered] = useState();
+  const [errors, setErrors] = useState();
 
   const updateName = (e) => setName(e.target.value);
   const updateAge = (e) => setAge(e.target.value);
@@ -34,10 +37,16 @@ const PetForm = () => {
       neutered,
     };
     const data = await dispatch(create_pet_thunk(newPet));
+    if (data) {
+      setErrors(data);
+    } else {
+      return history.push("/");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {errors && Object.values(errors.map((error) => <h1>{error}</h1>))}
       <div>
         <input type="text" placeholder="Name" onChange={updateName}></input>
       </div>

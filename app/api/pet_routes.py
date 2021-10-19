@@ -20,7 +20,6 @@ def create_pet():
     user_id = current_user.get_id()
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('\n\n\n', form.data, '\n\n\n')
     if form.validate_on_submit():
         # create a pet with given data
         new_pet = Pet(
@@ -33,9 +32,6 @@ def create_pet():
         )
         db.session.add(new_pet)
         db.session.commit()
-        print('\n\n\n', new_pet.to_dict(), '\n\n\n')
         return new_pet.to_dict()
     else:
-        # FIXME - implement validation errors
-        print(form.validationErrors)
-        return ''
+        return {'ok': False, 'errors': form.errors}

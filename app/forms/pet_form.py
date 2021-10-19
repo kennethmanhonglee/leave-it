@@ -1,7 +1,5 @@
 from flask_wtf import FlaskForm
-from sqlalchemy.orm import column_property
 from wtforms import StringField, BooleanField, FloatField, IntegerField
-from wtforms import validators
 from wtforms.validators import DataRequired
 
 

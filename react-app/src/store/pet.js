@@ -18,8 +18,11 @@ export const create_pet_thunk = (pet) => async (dispatch) => {
     body: JSON.stringify(pet),
   });
   const response = await res.json();
-  console.log("\n\n\n\n\n\n hrello");
-  await dispatch(add_pet(response));
+  if (!response.ok) {
+    return response.errors;
+  } else {
+    await dispatch(add_pet(response));
+  }
 };
 
 // reducer
