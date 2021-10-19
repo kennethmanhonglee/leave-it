@@ -38,17 +38,15 @@ const LoginForm = () => {
         ))}
       </div>
       <div>
-        <label htmlFor="email">Email</label>
         <input
           name="login_param"
           type="text"
-          placeholder="Email"
+          placeholder="Username/Email"
           value={login_param}
           onChange={updateLoginParam}
         />
       </div>
       <div>
-        <label htmlFor="password">Password</label>
         <input
           name="password"
           type="password"
