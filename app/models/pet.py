@@ -6,7 +6,7 @@ class Pet(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     current_weight = db.Column(db.Float, nullable=False)
     ideal_weight = db.Column(db.Float, nullable=False)
