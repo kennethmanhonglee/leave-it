@@ -32,9 +32,9 @@ function App() {
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
-        <Route path="/add_a_pet" exact={true}>
+        <ProtectedRoute path="/add_a_pet" exact={true}>
           <PetForm />
-        </Route>
+        </ProtectedRoute>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
