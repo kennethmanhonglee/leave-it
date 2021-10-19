@@ -18,6 +18,10 @@ const LoginForm = () => {
     }
   };
 
+  const demoUser = async () => {
+    await dispatch(login("demo", "password"));
+  };
+
   const updateLoginParam = (e) => {
     setLogin_param(e.target.value);
   };
@@ -31,32 +35,35 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <input
-          name="login_param"
-          type="text"
-          placeholder="Username/Email"
-          value={login_param}
-          onChange={updateLoginParam}
-        />
-      </div>
-      <div>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+    <>
+      <form onSubmit={onLogin}>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <div>
+          <input
+            name="login_param"
+            type="text"
+            placeholder="Username/Email"
+            value={login_param}
+            onChange={updateLoginParam}
+          />
+        </div>
+        <div>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <button onClick={demoUser}>Demo User</button>
+    </>
   );
 };
 
