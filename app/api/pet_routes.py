@@ -1,8 +1,8 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from app.forms import PetForm
-from app.models import Pet
+from app.models import db, Pet
 
 pet_routes = Blueprint('pets', __name__)
 
@@ -17,11 +17,25 @@ def pets():
 @login_required
 def create_pet():
     # take in form data
+    user_id = current_user.get_id()
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     print('\n\n\n', form.data, '\n\n\n')
-    print(form.validate_on_submit())
     if form.validate_on_submit():
         # create a pet with given data
-        print('\n\n\n', 'helleo', '\n\n\n')
-    return 'hello this is the POST /pets route'
+        new_pet = Pet(
+            name=form.data['name'],
+            user_id=user_id,
+            age=form.data['age'],
+            current_weight=form.data['current_weight'],
+            ideal_weight=form.data['ideal_weight'],
+            neutered=form.data['neutered'],
+        )
+        db.session.add(new_pet)
+        db.session.commit()
+        print('\n\n\n', new_pet.to_dict(), '\n\n\n')
+        return new_pet.to_dict()
+    else:
+        # FIXME - implement validation errors
+        print(form.validationErrors)
+        return ''
