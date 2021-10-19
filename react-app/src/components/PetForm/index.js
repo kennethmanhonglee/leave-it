@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { create_pet_thunk } from "../../store/pet";
 
 const PetForm = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState();
   const [age, setAge] = useState();
-  const [currentWeight, setCurrentWeight] = useState();
-  const [idealWeight, setIdealWeight] = useState();
+  const [current_weight, setCurrentWeight] = useState();
+  const [ideal_weight, setIdealWeight] = useState();
   const [neutered, setNeutered] = useState();
 
   const updateName = (e) => setName(e.target.value);
@@ -14,14 +18,22 @@ const PetForm = () => {
   const updateNeutered = (e) => setNeutered(e.target.value);
 
   const isEmptyForm = () => {
-    if (!name || !age || !currentWeight || !idealWeight) return true;
+    if (!name || !age || !current_weight || !ideal_weight) return true;
     if (neutered === undefined) return true;
     return false;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // call thunk and make request
+    const newPet = {
+      name,
+      age,
+      current_weight,
+      ideal_weight,
+      neutered,
+    };
+    const data = await dispatch(create_pet_thunk(newPet));
   };
 
   return (

@@ -4,7 +4,8 @@ const CREATE_PET = "pets/CREATE_PET";
 // actions
 
 // thunks
-export const create_pet_thunk = (pet) => {
+export const create_pet_thunk = (pet) => async (dispatch) => {
+  console.log(pet);
   const res = fetch("/api/pets", {
     method: "POST",
     headers: {
@@ -12,7 +13,7 @@ export const create_pet_thunk = (pet) => {
     },
     body: JSON.stringify(pet),
   });
-  console.log(res);
+  const response = await res.json();
 };
 
 // reducer

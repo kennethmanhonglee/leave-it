@@ -16,7 +16,9 @@ def pets():
 @pet_routes.route('', methods=['POST'])
 def create_pet():
     # take in form data
+    print('\n\n\n i am in the post route! \n\n\n')
     form = PetForm()
+    print('\n\n\n', form.data, '\n\n\n')
     if form.validate_on_submit():
         # create a pet with given data
         print('\n\n\n', form.data, '\n\n\n')
