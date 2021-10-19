@@ -19,5 +19,5 @@ def create_pet():
     form = PetForm()
     if form.validate_on_submit():
         # create a pet with given data
-        pass
+        print('\n\n\n', form.data, '\n\n\n')
     return 'hello this is the POST /pets route'
