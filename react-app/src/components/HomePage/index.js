@@ -19,7 +19,7 @@ const HomePage = () => {
       {Object.values(pets).length > 0 ? (
         <div className={styles.meal_trackers}>
           {Object.values(pets).map((pet) => (
-            <MealTracker pet_id={pet.id} />
+            <MealTracker key={pet.id} pet_id={pet.id} />
           ))}
         </div>
       ) : (

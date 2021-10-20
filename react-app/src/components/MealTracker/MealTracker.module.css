@@ -1,4 +1,9 @@
 .meal_tracker {
   border: 1px solid black;
   width: 70vw;
+  margin-bottom: 20px;
+}
+
+.util_bar {
+  border-bottom: 1px solid black;
 }

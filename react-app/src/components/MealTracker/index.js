@@ -1,4 +1,6 @@
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+
 import styles from "./MealTracker.module.css";
 
 const MealTracker = ({ pet_id }) => {
@@ -8,14 +10,16 @@ const MealTracker = ({ pet_id }) => {
     currentPet = pets[pet_id];
   }
 
+  // const edit
+
   if (!currentPet) return "loading";
   else {
     return (
       <div className={styles.meal_tracker}>
-        <h1>{currentPet.name}</h1>
-        <h1>{currentPet.age}</h1>
-        <h1>{currentPet.current_weight}</h1>
-        <h1>{currentPet.ideal_weight}</h1>
+        <div className={styles.util_bar}>
+          <NavLink to={`/edit_pet/${pet_id}`}>Edit your Pet</NavLink>
+        </div>
+        <div className={styles.entries}>placeholder for each food entry</div>
       </div>
     );
   }

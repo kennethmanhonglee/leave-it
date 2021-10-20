@@ -7,8 +7,10 @@ import NavBar from "./components/Navbar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { authenticate } from "./store/session";
 import PetForm from "./components/PetForm";
+import EditPetForm from "./components/EditPetForm";
 import HomePage from "./components/HomePage";
 import SplashPage from "./components/SplashPage";
+import { get_pets_thunk } from "./store/pet";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -16,7 +18,8 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate());
+      const logged_in = await dispatch(authenticate());
+      if (logged_in) await dispatch(get_pets_thunk());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -34,6 +37,9 @@ function App() {
         </Route>
         <ProtectedRoute path="/add_a_pet" exact={true}>
           <PetForm />
+        </ProtectedRoute>
+        <ProtectedRoute path="/edit_pet/:pet_id" exact={true}>
+          <EditPetForm />
         </ProtectedRoute>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />

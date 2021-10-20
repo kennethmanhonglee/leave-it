@@ -20,7 +20,6 @@ export const remove_pets = () => ({
 export const get_pets_thunk = () => async (dispatch) => {
   const res = await fetch("api/pets");
   const all_pets = await res.json();
-  console.log("\n\n\n", all_pets, "\n\n\n");
   await dispatch(load_pets(all_pets));
   return true;
 };
