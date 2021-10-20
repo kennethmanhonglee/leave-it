@@ -10,7 +10,7 @@ class Pet(db.Model):
     age = db.Column(db.Integer, nullable=False)
     current_weight = db.Column(db.Float, nullable=False)
     ideal_weight = db.Column(db.Float, nullable=False)
-    neutered = db.Column(db.Boolean, nullable=False)
+    neutered = db.Column(db.String, nullable=False)
 
     # relationships
     user = db.relationship('User', back_populates='pets', uselist=False)
@@ -19,7 +19,6 @@ class Pet(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'user_id': self.user_id,
             'age': self.age,
             'current_weight': self.current_weight,
             'ideal_weight': self.ideal_weight,

@@ -1,17 +1,27 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 
-import { create_pet_thunk } from "../../store/pet";
+import { edit_pet_thunk } from "../../store/pet";
 
-const PetForm = () => {
+const EditPetForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [name, setName] = useState();
-  const [age, setAge] = useState();
-  const [current_weight, setCurrentWeight] = useState();
-  const [ideal_weight, setIdealWeight] = useState();
-  const [neutered, setNeutered] = useState();
+  const { pet_id } = useParams();
+  const pets = useSelector((state) => state.pets);
+  let current_pet;
+  if (Object.values(pets).length > 0) {
+    if (pets[pet_id]) {
+      current_pet = pets[pet_id];
+    }
+  }
+  const [name, setName] = useState(current_pet?.name);
+  const [age, setAge] = useState(current_pet?.age);
+  const [current_weight, setCurrentWeight] = useState(
+    current_pet?.current_weight
+  );
+  const [ideal_weight, setIdealWeight] = useState(current_pet?.ideal_weight);
+  const [neutered, setNeutered] = useState(current_pet?.neutered);
   const [errors, setErrors] = useState();
 
   const updateName = (e) => setName(e.target.value);
@@ -29,15 +39,15 @@ const PetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // call thunk and make request
-    console.log(neutered);
     const newPet = {
+      pet_id: +pet_id,
       name,
       age,
       current_weight,
       ideal_weight,
       neutered,
     };
-    const data = await dispatch(create_pet_thunk(newPet));
+    const data = await dispatch(edit_pet_thunk(newPet));
     if (data) {
       setErrors(data);
     } else {
@@ -49,7 +59,12 @@ const PetForm = () => {
     <form onSubmit={handleSubmit}>
       {errors && Object.values(errors).map((error) => <h1>{error}</h1>)}
       <div>
-        <input type="text" placeholder="Name" onChange={updateName}></input>
+        <input
+          type="text"
+          placeholder="Name"
+          onChange={updateName}
+          value={name}
+        ></input>
       </div>
       <div>
         <input
@@ -57,6 +72,7 @@ const PetForm = () => {
           min="0"
           placeholder="Age"
           onChange={updateAge}
+          value={age}
         ></input>
       </div>
       <div>
@@ -65,6 +81,7 @@ const PetForm = () => {
           min="0"
           placeholder="Current Weight"
           onChange={updateCurrentWeight}
+          value={current_weight}
         ></input>
       </div>
       <div>
@@ -73,6 +90,7 @@ const PetForm = () => {
           min="0"
           placeholder="Ideal Weight"
           onChange={updateIdealWeight}
+          value={ideal_weight}
         ></input>
       </div>
       <div>
@@ -99,10 +117,10 @@ const PetForm = () => {
         </div>
       </div>
       <button disabled={isEmptyForm()} type="submit">
-        Add a pet
+        Edit {current_pet.name}
       </button>
     </form>
   );
 };
 
-export default PetForm;
+export default EditPetForm;

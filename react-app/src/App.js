@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import LoginForm from "./components/auth/LoginForm";
-import SignUpForm from "./components/auth/SignUpForm";
-import NavBar from "./components/NavBar";
+import LoginForm from "./components//LoginForm";
+import SignUpForm from "./components/SignupForm";
+import NavBar from "./components/Navbar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
-import User from "./components/User";
 import { authenticate } from "./store/session";
 import PetForm from "./components/PetForm";
+import EditPetForm from "./components/EditPetForm";
+import HomePage from "./components/HomePage";
+import SplashPage from "./components/SplashPage";
+import { get_pets_thunk } from "./store/pet";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -16,7 +18,8 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate());
+      const logged_in = await dispatch(authenticate());
+      if (logged_in) await dispatch(get_pets_thunk());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -35,18 +38,18 @@ function App() {
         <ProtectedRoute path="/add_a_pet" exact={true}>
           <PetForm />
         </ProtectedRoute>
+        <ProtectedRoute path="/edit_pet/:pet_id" exact={true}>
+          <EditPetForm />
+        </ProtectedRoute>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path="/users" exact={true}>
-          <UsersList />
+        <ProtectedRoute path="/home" exact={true}>
+          <HomePage />
         </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true}>
-          <User />
-        </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
+        <Route path="/" exact>
+          <SplashPage />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

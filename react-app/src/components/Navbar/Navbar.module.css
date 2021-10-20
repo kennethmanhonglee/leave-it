@@ -1,0 +1,18 @@
+.nav {
+  border-bottom: 1px solid black;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.nav ul {
+  width: 100vw;
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+  margin: 0 40px;
+}
+
+.login_buttons {
+  display: flex;
+}
