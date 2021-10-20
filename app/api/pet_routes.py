@@ -22,7 +22,7 @@ def create_pet():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         existing_pet = Pet.query.filter(
-            Pet.name == form.data['name'] and Pet.user_id == user_id).first()
+            Pet.name == form.data['name'], Pet.user_id == user_id).first()
         if existing_pet:
             return {'ok': False, 'errors': ['Pet already exists.']}
 

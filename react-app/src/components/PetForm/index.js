@@ -46,7 +46,7 @@ const PetForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {errors && Object.values(errors.map((error) => <h1>{error}</h1>))}
+      {errors && Object.values(errors).map((error) => <h1>{error}</h1>)}
       <div>
         <input type="text" placeholder="Name" onChange={updateName}></input>
       </div>
