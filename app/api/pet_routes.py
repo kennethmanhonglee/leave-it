@@ -55,8 +55,6 @@ def edit_pet(pet_id):
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        # existing_pet = Pet.query.filter(
-        #     Pet.name == form.data['name'], Pet.user_id == user_id).first()
         existing_pet = Pet.query.get(pet_id)
         if not existing_pet:
             return {'ok': False, 'errors': ['Pet does not exist.']}
@@ -71,3 +69,16 @@ def edit_pet(pet_id):
         return existing_pet.to_dict()
     else:
         return {'ok': False, 'errors': form.errors}
+
+
+@pet_routes.route('/<int:pet_id>', methods=['DELETE'])
+@login_required
+def delete_pet(pet_id):
+    user_id = current_user.get_id()
+    existing_pet = Pet.query.get(pet_id)
+    if not existing_pet:
+        return {'ok': False, 'errors': ['Pet does not exist.']}
+    db.session.delete(existing_pet)
+    db.session.commit()
+
+    return {'deleted': True}

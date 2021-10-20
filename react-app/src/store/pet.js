@@ -2,6 +2,7 @@
 const LOAD_PETS = "pets/LOAD_PETS";
 const CREATE_PET = "pets/CREATE_PET";
 const REMOVE_PETS = "pets/REMOVE_PETS";
+const DELETE_PET = "pets/DELETE_PET";
 
 // actions
 const load_pets = (pets) => ({
@@ -14,6 +15,11 @@ const add_pet = (pet) => ({
 });
 export const remove_pets = () => ({
   type: REMOVE_PETS,
+});
+
+const delete_pet = (pet_id) => ({
+  type: DELETE_PET,
+  payload: pet_id,
 });
 
 // thunks
@@ -57,13 +63,26 @@ export const edit_pet_thunk = (pet) => async (dispatch) => {
   }
 };
 
+export const delete_pet_thunk = (pet_id) => async (dispatch) => {
+  const res = await fetch(`${window.location.origin}/api/pets/${pet_id}`, {
+    method: "DELETE",
+  });
+  const response = await res.json();
+  if (response.deleted) {
+    await dispatch(delete_pet(pet_id));
+    return true;
+  } else {
+    return false;
+  }
+};
+
 // reducer
 const initialState = {};
 const reducer = (state = initialState, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case CREATE_PET:
-      const pet = action.payload;
+      let pet = action.payload;
       newState[pet.id] = pet;
       return newState;
     case LOAD_PETS:
@@ -74,6 +93,10 @@ const reducer = (state = initialState, action) => {
       return newState;
     case REMOVE_PETS:
       return {};
+    case DELETE_PET:
+      const pet_id = action.payload;
+      delete newState[pet_id];
+      return newState;
     default:
       return state;
   }
