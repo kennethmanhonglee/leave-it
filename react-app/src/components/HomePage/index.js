@@ -13,10 +13,6 @@ const HomePage = () => {
     dispatch(get_pets_thunk());
   }, []);
 
-  useEffect(() => {
-    
-  })
-
   return (
     <div className={styles.home_page}>
       <h1>Welcome back, {currentUser.firstname}</h1>

@@ -117,7 +117,7 @@ const EditPetForm = () => {
         </div>
       </div>
       <button disabled={isEmptyForm()} type="submit">
-        Add a pet
+        Edit {current_pet.name}
       </button>
     </form>
   );
