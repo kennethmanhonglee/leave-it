@@ -29,6 +29,7 @@ const PetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // call thunk and make request
+    console.log(neutered);
     const newPet = {
       name,
       age,
@@ -81,7 +82,7 @@ const PetForm = () => {
             id="neutered"
             type="radio"
             name="neutered"
-            value="true"
+            value="yes"
             onChange={updateNeutered}
           ></input>
           Yes
@@ -91,7 +92,7 @@ const PetForm = () => {
             id="neutered"
             type="radio"
             name="neutered"
-            value="false"
+            value="no"
             onChange={updateNeutered}
           ></input>
           No

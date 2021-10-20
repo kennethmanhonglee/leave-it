@@ -25,6 +25,7 @@ export const get_pets_thunk = () => async (dispatch) => {
 };
 
 export const create_pet_thunk = (pet) => async (dispatch) => {
+  console.log(pet.neutered);
   const res = await fetch(`${window.location.origin}/api/pets`, {
     method: "POST",
     headers: {
@@ -36,6 +37,22 @@ export const create_pet_thunk = (pet) => async (dispatch) => {
   if (!response.ok) {
     return response.errors;
   } else {
+    await dispatch(add_pet(response));
+  }
+};
+export const edit_pet_thunk = (pet) => async (dispatch) => {
+  const res = await fetch(`${window.location.origin}/api/pets`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(pet),
+  });
+  const response = await res.json();
+  if (!response.ok) {
+    return response.errors;
+  } else {
+    // edit does the same thing as adding a pet in terms of redux store state
     await dispatch(add_pet(response));
   }
 };

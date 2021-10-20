@@ -8,4 +8,4 @@ class PetForm(FlaskForm):
     age = IntegerField('age', validators=[DataRequired()])
     current_weight = FloatField('current_weight', validators=[DataRequired()])
     ideal_weight = FloatField('ideal_weight', validators=[DataRequired()])
-    neutered = BooleanField('neutered', validators=[DataRequired()])
+    neutered = StringField('neutered', validators=[DataRequired()])

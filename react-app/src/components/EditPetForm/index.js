@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
-import { create_pet_thunk } from "../../store/pet";
+import { edit_pet_thunk } from "../../store/pet";
 
 const EditPetForm = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const EditPetForm = () => {
       neutered,
     };
     // FIXME - change this thunk
-    const data = await dispatch(create_pet_thunk(newPet));
+    const data = await dispatch(edit_pet_thunk(newPet));
     if (data) {
       setErrors(data);
     } else {
