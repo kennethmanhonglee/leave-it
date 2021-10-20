@@ -16,18 +16,13 @@ const NavBar = () => {
           </NavLink>
         </li>
         {!currentUser && (
-          <>
+          <div className={styles.login_buttons}>
             <li>
               <NavLink to="/login" exact={true} activeClassName="active">
                 Login
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/sign-up" exact={true} activeClassName="active">
-                Sign Up
-              </NavLink>
-            </li>
-          </>
+          </div>
         )}
         {currentUser && (
           <>

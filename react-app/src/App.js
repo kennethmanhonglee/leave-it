@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import LoginForm from "./components//LoginForm";
 import SignUpForm from "./components/SignupForm";
@@ -42,6 +42,11 @@ function App() {
         </ProtectedRoute>
         <Route path="/" exact>
           {/* splash page */}
+          <li>
+            <NavLink to="/sign-up" exact={true} activeClassName="active">
+              Sign Up
+            </NavLink>
+          </li>
           SPLASH!
         </Route>
       </Switch>
