@@ -18,14 +18,14 @@ export const remove_pets = () => ({
 
 // thunks
 export const get_pets_thunk = () => async (dispatch) => {
-  const res = await fetch("api/pets");
+  const res = await fetch(`${window.location.origin}/api/pets`);
   const all_pets = await res.json();
   await dispatch(load_pets(all_pets));
   return true;
 };
 
 export const create_pet_thunk = (pet) => async (dispatch) => {
-  const res = await fetch("/api/pets", {
+  const res = await fetch(`${window.location.origin}/api/pets`, {
     method: "POST",
     headers: {
       "content-type": "application/json",

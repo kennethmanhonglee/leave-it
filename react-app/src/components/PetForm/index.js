@@ -40,7 +40,7 @@ const PetForm = () => {
     if (data) {
       setErrors(data);
     } else {
-      return history.push("/");
+      return history.push("/home");
     }
   };
 

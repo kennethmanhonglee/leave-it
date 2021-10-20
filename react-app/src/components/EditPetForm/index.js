@@ -8,19 +8,21 @@ const EditPetForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { pet_id } = useParams();
-  const [name, setName] = useState();
-  const [age, setAge] = useState();
-  const [current_weight, setCurrentWeight] = useState();
-  const [ideal_weight, setIdealWeight] = useState();
-  const [neutered, setNeutered] = useState();
-  const [errors, setErrors] = useState();
-
   const pets = useSelector((state) => state.pets);
   let current_pet;
   if (Object.values(pets).length > 0) {
-    if (pets[pet_id]) current_pet = pets[pet_id];
-    else console.log("no such pet");
+    if (pets[pet_id]) {
+      current_pet = pets[pet_id];
+    }
   }
+  const [name, setName] = useState(current_pet?.name);
+  const [age, setAge] = useState(current_pet?.age);
+  const [current_weight, setCurrentWeight] = useState(
+    current_pet?.current_weight
+  );
+  const [ideal_weight, setIdealWeight] = useState(current_pet?.ideal_weight);
+  const [neutered, setNeutered] = useState(current_pet?.neutered);
+  const [errors, setErrors] = useState();
 
   const updateName = (e) => setName(e.target.value);
   const updateAge = (e) => setAge(e.target.value);
@@ -44,6 +46,7 @@ const EditPetForm = () => {
       ideal_weight,
       neutered,
     };
+    // FIXME - change this thunk
     const data = await dispatch(create_pet_thunk(newPet));
     if (data) {
       setErrors(data);
@@ -56,7 +59,12 @@ const EditPetForm = () => {
     <form onSubmit={handleSubmit}>
       {errors && Object.values(errors).map((error) => <h1>{error}</h1>)}
       <div>
-        <input type="text" placeholder="Name" onChange={updateName}></input>
+        <input
+          type="text"
+          placeholder="Name"
+          onChange={updateName}
+          value={name}
+        ></input>
       </div>
       <div>
         <input
@@ -64,6 +72,7 @@ const EditPetForm = () => {
           min="0"
           placeholder="Age"
           onChange={updateAge}
+          value={age}
         ></input>
       </div>
       <div>
@@ -72,6 +81,7 @@ const EditPetForm = () => {
           min="0"
           placeholder="Current Weight"
           onChange={updateCurrentWeight}
+          value={current_weight}
         ></input>
       </div>
       <div>
@@ -80,6 +90,7 @@ const EditPetForm = () => {
           min="0"
           placeholder="Ideal Weight"
           onChange={updateIdealWeight}
+          value={ideal_weight}
         ></input>
       </div>
       <div>
@@ -91,6 +102,7 @@ const EditPetForm = () => {
             name="neutered"
             value="true"
             onChange={updateNeutered}
+            checked={neutered === "true"}
           ></input>
           Yes
         </div>
@@ -101,6 +113,7 @@ const EditPetForm = () => {
             name="neutered"
             value="false"
             onChange={updateNeutered}
+            checked={neutered === "false"}
           ></input>
           No
         </div>
