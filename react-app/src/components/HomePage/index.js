@@ -14,11 +14,19 @@ const HomePage = () => {
     dispatch(get_pets_thunk());
   }, []);
 
+  console.log(Object.values(pets));
+
   return (
     <>
-      <h1>home page</h1>
+      <h1>Welcome back</h1>
       {currentUser && <h1>{currentUser.firstname}</h1>}
-      {pets && console.log(pets)}
+      {pets &&
+        Object.values(pets).map((pet) => (
+          <>
+            <h1>{pet.name}</h1>
+            <h1>{pet.age}</h1>
+          </>
+        ))}
     </>
   );
 };
