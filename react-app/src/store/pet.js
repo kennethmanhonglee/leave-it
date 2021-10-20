@@ -16,7 +16,9 @@ const add_pet = (pet) => ({
 export const get_pets_thunk = () => async (dispatch) => {
   const res = await fetch("api/pets");
   const all_pets = await res.json();
+  console.log("\n\n\n", all_pets, "\n\n\n");
   await dispatch(load_pets(all_pets));
+  return true;
 };
 
 export const create_pet_thunk = (pet) => async (dispatch) => {
@@ -43,6 +45,12 @@ const reducer = (state = initialState, action) => {
     case CREATE_PET:
       const pet = action.payload;
       newState[pet.id] = pet;
+      return newState;
+    case LOAD_PETS:
+      const pets = action.payload;
+      Object.values(pets).forEach((pet) => {
+        newState[pet.id] = pet;
+      });
       return newState;
     default:
       return state;

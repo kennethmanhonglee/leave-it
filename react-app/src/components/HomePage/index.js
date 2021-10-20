@@ -1,11 +1,26 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { get_pets_thunk } from "../../store/pet";
+import { isSelected } from "../../utils";
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const pets = useSelector((state) => state.pets);
+  const currentUser = useSelector((state) => state.session.user);
   useEffect(() => {
-    // call thunk to get all pets that belong to user and display it first
-  });
-  return <h1>I AM HOME PAGE</h1>;
+    // IIFE to load pets to state
+    console.log("HELLO?");
+    dispatch(get_pets_thunk());
+  }, []);
+
+  return (
+    <>
+      <h1>home page</h1>
+      {currentUser && <h1>{currentUser.firstname}</h1>}
+      {pets && console.log(pets)}
+    </>
+  );
 };
 
 export default HomePage;
