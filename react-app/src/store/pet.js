@@ -1,6 +1,7 @@
 // constants
 const LOAD_PETS = "pets/LOAD_PETS";
 const CREATE_PET = "pets/CREATE_PET";
+const REMOVE_PETS = "pets/REMOVE_PETS";
 
 // actions
 const load_pets = (pets) => ({
@@ -10,6 +11,9 @@ const load_pets = (pets) => ({
 const add_pet = (pet) => ({
   type: CREATE_PET,
   payload: pet,
+});
+export const remove_pets = () => ({
+  type: REMOVE_PETS,
 });
 
 // thunks
@@ -52,6 +56,8 @@ const reducer = (state = initialState, action) => {
         newState[pet.id] = pet;
       });
       return newState;
+    case REMOVE_PETS:
+      return {};
     default:
       return state;
   }
