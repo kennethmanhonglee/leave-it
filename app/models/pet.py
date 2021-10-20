@@ -19,7 +19,6 @@ class Pet(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'user_id': self.user_id,
             'age': self.age,
             'current_weight': self.current_weight,
             'ideal_weight': self.ideal_weight,

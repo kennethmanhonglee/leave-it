@@ -8,9 +8,14 @@ pet_routes = Blueprint('pets', __name__)
 
 
 @pet_routes.route('')
+@login_required
 def pets():
-    # get logged in user, and get all pets that belong to the user
-    return 'this is the get pets route! its working!'
+    '''
+    Returns all pets that belong to the currently logged in user.
+    '''
+    user_id = current_user.get_id()
+    all_pets_for_user = Pet.query.filter(Pet.user_id == user_id).all()
+    return {pet.id: pet.to_dict()for pet in all_pets_for_user}
 
 
 @pet_routes.route('', methods=['POST'])

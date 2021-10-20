@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import LogoutButton from "../auth/LogoutButton";
-import PetForm from "../PetForm";
 import styles from "./Navbar.module.css";
 
 const NavBar = () => {
