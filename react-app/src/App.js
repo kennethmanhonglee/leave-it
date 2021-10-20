@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { authenticate } from "./store/session";
 import PetForm from "./components/PetForm";
 import HomePage from "./components/HomePage";
+import SplashPage from "./components/SplashPage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -41,13 +42,7 @@ function App() {
           <HomePage />
         </ProtectedRoute>
         <Route path="/" exact>
-          {/* splash page */}
-          <li>
-            <NavLink to="/sign-up" exact={true} activeClassName="active">
-              Sign Up
-            </NavLink>
-          </li>
-          SPLASH!
+          <SplashPage />
         </Route>
       </Switch>
     </BrowserRouter>
