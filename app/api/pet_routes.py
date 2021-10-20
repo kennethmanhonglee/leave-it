@@ -32,13 +32,6 @@ def create_pet():
             return {'ok': False, 'errors': ['Pet already exists.']}
 
         # create a pet with given data
-        print('\n\n\n', form.data['neutered'], '\n\n\n')
-        print('\n\n\n', form.data, '\n\n\n')
-        if form.data['neutered'] == 'yes':
-            form.data['neutered'] = True
-        if form.data['neutered'] == 'no':
-            form.data['neutered'] = False
-
         new_pet = Pet(
             name=form.data['name'],
             user_id=user_id,
@@ -54,16 +47,17 @@ def create_pet():
         return {'ok': False, 'errors': form.errors}
 
 
-@pet_routes.route('', methods=['PUT'])
+@pet_routes.route('/<int:pet_id>', methods=['PUT'])
 @login_required
-def edit_pet():
+def edit_pet(pet_id):
     # take in form data
     user_id = current_user.get_id()
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        existing_pet = Pet.query.filter(
-            Pet.name == form.data['name'], Pet.user_id == user_id).first()
+        # existing_pet = Pet.query.filter(
+        #     Pet.name == form.data['name'], Pet.user_id == user_id).first()
+        existing_pet = Pet.query.get(pet_id)
         if not existing_pet:
             return {'ok': False, 'errors': ['Pet does not exist.']}
 
@@ -76,5 +70,4 @@ def edit_pet():
         db.session.commit()
         return existing_pet.to_dict()
     else:
-        print('\n\n\n', form.errors, '\n\n\n')
         return {'ok': False, 'errors': form.errors}

@@ -40,18 +40,18 @@ const EditPetForm = () => {
     e.preventDefault();
     // call thunk and make request
     const newPet = {
+      pet_id: +pet_id,
       name,
       age,
       current_weight,
       ideal_weight,
       neutered,
     };
-    // FIXME - change this thunk
     const data = await dispatch(edit_pet_thunk(newPet));
     if (data) {
       setErrors(data);
     } else {
-      return history.push("/");
+      return history.push("/home");
     }
   };
 
@@ -102,7 +102,6 @@ const EditPetForm = () => {
             name="neutered"
             value="true"
             onChange={updateNeutered}
-            checked={neutered === "true"}
           ></input>
           Yes
         </div>
@@ -113,7 +112,6 @@ const EditPetForm = () => {
             name="neutered"
             value="false"
             onChange={updateNeutered}
-            checked={neutered === "false"}
           ></input>
           No
         </div>

@@ -82,7 +82,7 @@ const PetForm = () => {
             id="neutered"
             type="radio"
             name="neutered"
-            value="yes"
+            value="true"
             onChange={updateNeutered}
           ></input>
           Yes
@@ -92,7 +92,7 @@ const PetForm = () => {
             id="neutered"
             type="radio"
             name="neutered"
-            value="no"
+            value="false"
             onChange={updateNeutered}
           ></input>
           No

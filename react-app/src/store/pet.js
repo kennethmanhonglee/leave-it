@@ -41,7 +41,7 @@ export const create_pet_thunk = (pet) => async (dispatch) => {
   }
 };
 export const edit_pet_thunk = (pet) => async (dispatch) => {
-  const res = await fetch(`${window.location.origin}/api/pets`, {
+  const res = await fetch(`${window.location.origin}/api/pets/${pet.pet_id}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
