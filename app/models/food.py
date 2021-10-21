@@ -13,3 +13,13 @@ class Food(db.Model):
 
     user = db.relationship(
         'User', back_populates='created_foods', uselist=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'food_name': self.food_name,
+            'food_type': self.food_type,
+            'calories': self.calories,
+            'created_at': self.created_at
+        }
