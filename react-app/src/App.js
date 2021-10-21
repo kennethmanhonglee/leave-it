@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import LoginForm from "./components//LoginForm";
 import SignUpForm from "./components/SignupForm";
 import NavBar from "./components/Navbar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import { authenticate } from "./store/session";
 import PetForm from "./components/PetForm";
 import EditPetForm from "./components/EditPetForm";
 import HomePage from "./components/HomePage";
 import SplashPage from "./components/SplashPage";
+import AboutPage from "./components/AboutPage";
+import { authenticate } from "./store/session";
 import { get_pets_thunk } from "./store/pet";
 
 function App() {
@@ -47,6 +49,9 @@ function App() {
         <ProtectedRoute path="/home" exact={true}>
           <HomePage />
         </ProtectedRoute>
+        <Route path="/about" exact>
+          <AboutPage />
+        </Route>
         <Route path="/" exact>
           <SplashPage />
         </Route>
