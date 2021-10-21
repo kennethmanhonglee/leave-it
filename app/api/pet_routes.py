@@ -1,8 +1,9 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
+from datetime import datetime
 
 from app.forms import PetForm
-from app.models import db, Pet
+from app.models import db, Pet, PetWeight
 
 pet_routes = Blueprint('pets', __name__)
 
@@ -42,6 +43,13 @@ def create_pet():
         )
         db.session.add(new_pet)
         db.session.commit()
+        new_pet_weight = PetWeight(
+            pet_id=new_pet.id,
+            weight=new_pet.current_weight,
+            created_at=datetime.now()
+        )
+        db.session.add(new_pet_weight)
+        db.session.commit()
         return new_pet.to_dict()
     else:
         return {'ok': False, 'errors': form.errors}
@@ -65,6 +73,13 @@ def edit_pet(pet_id):
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
         existing_pet.neutered = form.data['neutered']
+        db.session.commit()
+        new_pet_weight = PetWeight(
+            pet_id=existing_pet.id,
+            weight=existing_pet.current_weight,
+            created_at=datetime.now()
+        )
+        db.session.add(new_pet_weight)
         db.session.commit()
         return existing_pet.to_dict()
     else:
