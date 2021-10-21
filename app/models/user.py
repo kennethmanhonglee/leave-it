@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     # relationships
     pets = db.relationship('Pet', back_populates='user',
                            cascade="all, delete-orphan")
+    created_foods = db.relationship('Food', back_populates='user')
 
     @property
     def password(self):
