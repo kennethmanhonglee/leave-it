@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const CreateFoodForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const currentUser = useSelector((state) => state.session.user);
 
   const [food_name, setFood_name] = useState("");
-  const [food_type, setFood_type] = useState("");
+  const [food_type, setFood_type] = useState("kibbles");
   const [calories, setCalories] = useState(0);
   const [serving_size, setServing_size] = useState(0);
 
@@ -20,12 +19,13 @@ const CreateFoodForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const new_food = {
-      user_id: currentUser.id,
       food_name,
       food_type,
       calories,
+      serving_size,
     };
 
+    // call thunk to create the food, and also dispatch to store
     console.log(new_food);
   };
 
@@ -44,10 +44,18 @@ const CreateFoodForm = () => {
       <div>
         <label htmlFor="food_type">Food Type</label>
         <select id="food_type" onChange={updateFoodType} value={food_type}>
-          <option value={1}>Kibbles</option>
-          <option value={2}>Fresh Food</option>
-          <option value={3}>Raw Meat</option>
-          <option value={4}>Others</option>
+          <option onSelect={updateFoodType} value={"kibbles"}>
+            Kibbles
+          </option>
+          <option onSelect={updateFoodType} value={"fresh_food"}>
+            Fresh Food
+          </option>
+          <option onSelect={updateFoodType} value={"raw_meat"}>
+            Raw Meat
+          </option>
+          <option onSelect={updateFoodType} value={"others"}>
+            Others
+          </option>
         </select>
       </div>
       <div>
