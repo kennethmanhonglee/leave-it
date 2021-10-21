@@ -5,5 +5,34 @@
 }
 
 .util_bar {
+  display: flex;
+  justify-content: flex-end;
   border-bottom: 1px solid black;
+  height: 50px;
+}
+
+.util_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 20%;
+  margin-right: 20px;
+}
+
+.editing_div,
+.deleting_div {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  padding: 5px 10px;
+  background-color: #ff9400;
+  color: white;
+}
+
+.editing_div:hover,
+.deleting_div:hover {
+  text-decoration: none;
+  background-color: rgba(255, 148, 0, 0.5);
 }

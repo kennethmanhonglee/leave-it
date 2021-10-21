@@ -23,12 +23,16 @@ const MealTracker = ({ pet_id }) => {
     return (
       <div className={styles.meal_tracker}>
         <div className={styles.util_bar}>
-          <div className={styles.editing_div}>
-            <NavLink to={`/edit_pet/${pet_id}`}>Edit {currentPet.name}</NavLink>
-          </div>
-          <div className={styles.deleting_div}>
-            {/* show modal later on */}
-            <button onClick={delete_pet}>Delete {currentPet.name}</button>
+          <div className={styles.util_div}>
+            <div className={styles.editing_div}>
+              <button onClick={() => history.push(`/edit_pet/${pet_id}`)}>
+                Edit {currentPet.name}
+              </button>
+            </div>
+            <div className={styles.deleting_div}>
+              {/* show modal later on */}
+              <button onClick={delete_pet}>Delete {currentPet.name}</button>
+            </div>
           </div>
         </div>
         <div className={styles.entries}>placeholder for each food entry</div>
