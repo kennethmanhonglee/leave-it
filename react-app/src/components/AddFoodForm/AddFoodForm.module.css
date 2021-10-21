@@ -1,0 +1,28 @@
+.container {
+  border: 1px solid black;
+  height: 50vh;
+}
+
+.header_bar {
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.add_button_div {
+  margin-right: 20px;
+}
+
+.button {
+  background-color: #ff9400;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  padding: 5px 5px;
+}
+
+.food_entry {
+  height: 30px;
+  border: 1px solid red;
+}

@@ -18,6 +18,11 @@ const MealTracker = ({ pet_id }) => {
     if (result) return history.push("/home");
   };
 
+  const addFood = () => {
+    // later change to modal
+    history.push("/add_food");
+  };
+
   if (!currentPet) return "loading";
   else {
     return (
@@ -25,7 +30,7 @@ const MealTracker = ({ pet_id }) => {
         <div className={styles.util_bar}>
           <div className={styles.food_div}>
             <div className={styles.add_button_div}>
-              <button>Add a meal</button>
+              <button onClick={addFood}>Add a meal</button>
             </div>
           </div>
           <div className={styles.util_div}>

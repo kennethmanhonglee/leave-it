@@ -9,3 +9,4 @@ class Meal(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
 
     pet = db.relationship('Pet', back_populates='meals', uselist=False)
+    

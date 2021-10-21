@@ -76,7 +76,7 @@ const PetForm = () => {
         ></input>
       </div>
       <div>
-        <label htmlFor="neutered">Is your dog neutered?</label>
+        <label htmlFor="neutered">Is your dog fixed?</label>
         <div>
           <input
             id="neutered"
