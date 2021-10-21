@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { create_food_thunk } from "../../store/food";
 
 const CreateFoodForm = () => {
   const dispatch = useDispatch();
@@ -10,13 +11,14 @@ const CreateFoodForm = () => {
   const [food_type, setFood_type] = useState("kibbles");
   const [calories, setCalories] = useState(0);
   const [serving_size, setServing_size] = useState(0);
+  const [errors, setErrors] = useState({});
 
   const updateFoodName = (e) => setFood_name(e.target.value);
   const updateFoodType = (e) => setFood_type(e.target.value);
   const updateCalories = (e) => setCalories(e.target.value);
   const updateServingSize = (e) => setServing_size(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const new_food = {
       food_name,
@@ -26,7 +28,12 @@ const CreateFoodForm = () => {
     };
 
     // call thunk to create the food, and also dispatch to store
-    console.log(new_food);
+    const data = await dispatch(create_food_thunk(new_food));
+    if (data) {
+      console.log(data);
+      setErrors(data);
+      console.log(errors);
+    }
   };
 
   return (
@@ -40,6 +47,9 @@ const CreateFoodForm = () => {
           onChange={updateFoodName}
           value={food_name}
         ></input>
+        {Object.keys(errors).length > 0 && errors["food_name"] && (
+          <h2>{errors["food_name"]}</h2>
+        )}
       </div>
       <div>
         <label htmlFor="food_type">Food Type</label>
