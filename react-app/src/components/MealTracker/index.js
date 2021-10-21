@@ -23,6 +23,11 @@ const MealTracker = ({ pet_id }) => {
     return (
       <div className={styles.meal_tracker}>
         <div className={styles.util_bar}>
+          <div className={styles.food_div}>
+            <div className={styles.add_button_div}>
+              <button>Add a meal</button>
+            </div>
+          </div>
           <div className={styles.util_div}>
             <div className={styles.editing_div}>
               <button onClick={() => history.push(`/edit_pet/${pet_id}`)}>
