@@ -11,6 +11,7 @@ const HomePage = () => {
   const currentUser = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(get_pets_thunk());
+    // call thunk to load all meals from today
   }, [dispatch]);
 
   return (

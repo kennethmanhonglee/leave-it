@@ -47,6 +47,7 @@ const MealTracker = ({ pet_id }) => {
             </div>
           </div>
         </div>
+        {/* map through and show all meals created by this user, and later all that are used by this user */}
         <div className={styles.entries}>placeholder for each food entry</div>
       </div>
     );

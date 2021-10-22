@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from datetime import datetime
+from app.api.auth_routes import login
 
 from app.models import db, Meal, Food, Pet
 
@@ -8,14 +9,14 @@ meal_routes = Blueprint('meals', __name__)
 
 
 @meal_routes.route('')
-@login_required
+# @login_required
 def get_meals():
     '''
     get all meals made by this user on ALL days
     '''
     user_id = current_user.get_id()
     all_user_meals = Meal.query.filter(Meal.user_id == user_id).all()
-    print(all_user_meals)
+    print('\n\n\n', all_user_meals, '\n\n\n')
 
     return 'testing user_meals right now'
 
@@ -46,4 +47,7 @@ def create_meal():
 
     return new_meal.to_dict()
 
-@meal_routes
+
+# @meal_routes.route('/today')
+# @login_required
+# def get_today_meals():

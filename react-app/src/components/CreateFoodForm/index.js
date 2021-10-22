@@ -35,7 +35,8 @@ const CreateFoodForm = () => {
     } else {
       // if modal, close modal
       // not yet modal, so we redirect to food page
-      history.push("/add_food");
+      // history.push("/add_food");
+      history.goBack();
     }
   };
 
