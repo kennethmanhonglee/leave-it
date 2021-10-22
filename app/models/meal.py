@@ -7,7 +7,7 @@ class Meal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'), nullable=False)
     food_id = db.Column(db.Integer, db.ForeignKey('foods.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.Date, nullable=False)
 
     pet = db.relationship('Pet', back_populates='meals', uselist=False)
 

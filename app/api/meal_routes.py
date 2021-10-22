@@ -28,6 +28,7 @@ def create_meal():
     take the food_id and pet_id to make a meal in db, so we can show later.
     uses request.get_json() since the data was sent as json
     '''
+    user_id = current_user.get_id()
     food_id = request.get_json()['food_id']
     pet_id = request.get_json()['pet_id']
     food = Food.query.get(food_id)
@@ -38,9 +39,10 @@ def create_meal():
         return {'ok': False, 'errors': 'This pet does not exist.'}
 
     new_meal = Meal(
+        user_id=user_id,
         pet_id=pet_id,
         food_id=food_id,
-        created_at=datetime.now()
+        created_at=datetime.today()
     )
     db.session.add(new_meal)
     db.session.commit()
@@ -48,6 +50,8 @@ def create_meal():
     return new_meal.to_dict()
 
 
-# @meal_routes.route('/today')
-# @login_required
-# def get_today_meals():
+@meal_routes.route('/today')
+@login_required
+def get_today_meals():
+    user_id = current_user.get_id()
+    all_user_meals_today = Meal.query.filter(Meal.user_id == user_id).all()

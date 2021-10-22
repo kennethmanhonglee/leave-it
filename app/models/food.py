@@ -10,7 +10,7 @@ class Food(db.Model):
     food_type = db.Column(db.String(100), nullable=False)
     serving_size = db.Column(db.Float, nullable=False)
     calories = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.Date, nullable=False)
 
     user = db.relationship(
         'User', back_populates='created_foods', uselist=False)

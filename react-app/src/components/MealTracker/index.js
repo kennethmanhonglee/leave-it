@@ -1,15 +1,31 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { delete_pet_thunk } from "../../store/pet";
 
+import { load_food_thunk } from "../../store/food";
+import { delete_pet_thunk } from "../../store/pet";
 import styles from "./MealTracker.module.css";
 
 const MealTracker = ({ pet_id }) => {
   const pets = useSelector((state) => state.pets);
   const dispatch = useDispatch();
   const history = useHistory();
+  useEffect(() => {
+    dispatch(load_food_thunk());
+  }, [dispatch]);
+
+  const allMeals = useSelector((state) => state.meals);
+  let currentPetMeals;
+  if (Object.values(allMeals).length > 0) {
+    currentPetMeals = Object.values(allMeals).filter(
+      (meal) => meal.pet_id === +pet_id
+    );
+    // test after making load meals
+    console.log(currentPetMeals);
+  }
+
   let currentPet;
-  if (Object.values(pets)) {
+  if (Object.values(pets).length > 0) {
     currentPet = pets[pet_id];
   }
 

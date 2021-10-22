@@ -35,7 +35,7 @@ def create_food():
             food_type=form.data['food_type'],
             serving_size=form.data['serving_size'],
             calories=form.data['calories'],
-            created_at=datetime.now()
+            created_at=datetime.today()
         )
         db.session.add(new_food)
         db.session.commit()

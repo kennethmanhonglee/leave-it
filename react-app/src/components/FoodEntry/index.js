@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import styles from "./FoodEntry.module.css";
 import { create_meal_thunk } from "../../store/meal";
@@ -7,6 +7,7 @@ import { create_meal_thunk } from "../../store/meal";
 const FoodEntry = ({ food }) => {
   const dispatch = useDispatch();
   const { pet_id } = useParams();
+  const history = useHistory();
   const addFood = async () => {
     //   call thunk to create a meal
     const newMeal = {
@@ -14,6 +15,7 @@ const FoodEntry = ({ food }) => {
       pet_id,
     };
     await dispatch(create_meal_thunk(newMeal));
+    history.goBack();
   };
   return (
     <div className={styles.food_entry}>

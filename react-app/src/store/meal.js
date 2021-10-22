@@ -1,12 +1,16 @@
-import { useDispatch } from "react-redux";
-
 // constants
 const CREATE_MEAL = "meals/CREATE_MEAL";
+const LOAD_MEALS = "meals/LOAD_MEALS";
 
 // actions
 const create_meal = (meal) => ({
   type: CREATE_MEAL,
   payload: meal,
+});
+
+const load_meals = (meals) => ({
+  type: LOAD_MEALS,
+  payload: meals,
 });
 
 // thunks
@@ -28,6 +32,11 @@ export const create_meal_thunk =
       await dispatch(create_meal(response));
     }
   };
+
+export const load_meals_thunk = () => async (dispatch) => {
+  const res = await fetch(`${window.location.origin}/api/meals/today`);
+  const response = await res.json();
+};
 
 // reducer
 const initialState = {};

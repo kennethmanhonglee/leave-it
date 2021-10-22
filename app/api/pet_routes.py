@@ -46,7 +46,7 @@ def create_pet():
         new_pet_weight = PetWeight(
             pet_id=new_pet.id,
             weight=new_pet.current_weight,
-            created_at=datetime.now()
+            created_at=datetime.today()
         )
         db.session.add(new_pet_weight)
         db.session.commit()
@@ -77,7 +77,7 @@ def edit_pet(pet_id):
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,
             weight=existing_pet.current_weight,
-            created_at=datetime.now()
+            created_at=datetime.today()
         )
         db.session.add(new_pet_weight)
         db.session.commit()
