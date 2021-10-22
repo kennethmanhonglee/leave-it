@@ -14,8 +14,10 @@ def get_foods():
     '''
     GET /api/foods will return all food entries in the database
     '''
-    foods = Food.query.all()
-    return {food.id: food for food in foods}
+    print('\n\n\n i am here in the foods route \n\n\n')
+    user_id = current_user.get_id()
+    foods = Food.query.filter(Food.user_id == user_id)
+    return {food.id: food.to_dict() for food in foods}
 
 
 @food_routes.route('', methods=['POST'])

@@ -27,13 +27,15 @@ const CreateFoodForm = () => {
       serving_size,
     };
 
+    console.log(new_food);
+
     const data = await dispatch(create_food_thunk(new_food));
     if (data.errors) {
       setErrors(data.errors);
     } else {
       // if modal, close modal
       // not yet modal, so we redirect to food page
-      history.push("/");
+      history.push("/add_food");
     }
   };
 
@@ -53,16 +55,16 @@ const CreateFoodForm = () => {
       <div>
         <label htmlFor="food_type">Food Type</label>
         <select id="food_type" onChange={updateFoodType} value={food_type}>
-          <option onSelect={updateFoodType} value={"kibbles"}>
+          <option onSelect={updateFoodType} value={"Kibbles"}>
             Kibbles
           </option>
-          <option onSelect={updateFoodType} value={"fresh_food"}>
+          <option onSelect={updateFoodType} value={"Fresh Food"}>
             Fresh Food
           </option>
-          <option onSelect={updateFoodType} value={"raw_meat"}>
+          <option onSelect={updateFoodType} value={"Raw Meat"}>
             Raw Meat
           </option>
-          <option onSelect={updateFoodType} value={"others"}>
+          <option onSelect={updateFoodType} value={"Others"}>
             Others
           </option>
         </select>

@@ -36,5 +36,4 @@ class User(db.Model, UserMixin):
             'firstname': self.firstname,
             'lastname': self.lastname,
             'email': self.email,
-            'created_foods': {food.id: food.to_dict() for food in self.created_foods}
         }

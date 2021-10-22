@@ -22,5 +22,6 @@ class Food(db.Model):
             'food_name': self.food_name,
             'food_type': self.food_type,
             'calories': self.calories,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'serving_size': self.serving_size
         }
