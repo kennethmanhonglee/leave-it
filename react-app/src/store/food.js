@@ -52,8 +52,8 @@ const reducer = (state = initialState, action) => {
       return newState;
     case LOAD_FOOD:
       const foods = action.payload;
-      for (let [_id, food] of Object.entries(foods)) {
-        newState[food.id] = food;
+      for (let [id, food] of Object.entries(foods)) {
+        newState[id] = food;
       }
       return newState;
     case REMOVE_FOODS:

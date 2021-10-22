@@ -17,7 +17,7 @@ const AddFoodForm = () => {
 
   useEffect(() => {
     dispatch(load_food_thunk());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>

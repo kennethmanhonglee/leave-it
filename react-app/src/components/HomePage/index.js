@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./HomePage.module.css";
@@ -11,7 +11,7 @@ const HomePage = () => {
   const currentUser = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(get_pets_thunk());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.home_page}>

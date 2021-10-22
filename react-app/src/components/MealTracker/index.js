@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { delete_pet_thunk } from "../../store/pet";
 
 import styles from "./MealTracker.module.css";
