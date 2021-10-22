@@ -52,7 +52,7 @@ function App() {
           <HomePage />
         </ProtectedRoute>
         {/* for development: will make into a modal later */}
-        <ProtectedRoute path="/add_food" exact={true}>
+        <ProtectedRoute path="/pets/:pet_id/add_food" exact={true}>
           <AddFoodForm />
         </ProtectedRoute>
         <ProtectedRoute path="/create_food" exact={true}>

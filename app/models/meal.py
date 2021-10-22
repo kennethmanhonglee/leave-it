@@ -10,3 +10,10 @@ class Meal(db.Model):
 
     pet = db.relationship('Pet', back_populates='meals', uselist=False)
     
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'pet_id': self.pet_id,
+            'food_id': self.food_id,
+            'created_at': self.created_at
+        }

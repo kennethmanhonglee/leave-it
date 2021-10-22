@@ -20,7 +20,9 @@ const MealTracker = ({ pet_id }) => {
 
   const addFood = () => {
     // later change to modal
-    history.push("/add_food");
+    // redirect to add food, but need to keep track of for which pet as well
+    // route params
+    history.push(`/pets/${pet_id}/add_food`);
   };
 
   if (!currentPet) return "loading";
