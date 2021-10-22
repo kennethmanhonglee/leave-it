@@ -26,6 +26,7 @@ def create_food():
     '''
     Take in data from form and create a food entry
     '''
+    print('\n\n\n i am in the post food route \n\n\n')
     form = CreateFoodForm()
     user_id = current_user.get_id()
     form['csrf_token'].data = request.cookies['csrf_token']
