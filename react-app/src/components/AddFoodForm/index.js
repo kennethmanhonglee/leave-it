@@ -1,12 +1,17 @@
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./AddFoodForm.module.css";
+import { useEffect } from "react";
 
 const AddFoodForm = () => {
   const history = useHistory();
   const createFood = () => {
     return history.push("/create_food");
   };
+
+  const currentUser = useSelector((state) => state.session.user);
+  const currentUserFoods = currentUser?.created_foods;
 
   return (
     <div className={styles.container}>
@@ -24,11 +29,13 @@ const AddFoodForm = () => {
         </div>
       </div>
       <div className={styles.food_entries}>
-        <div className={styles.food_entry}>Food item</div>
-        <div className={styles.food_entry}>Food item</div>
-        <div className={styles.food_entry}>Food item</div>
-        <div className={styles.food_entry}>Food item</div>
-        <div className={styles.food_entry}>Food item</div>
+        {currentUserFoods &&
+          Object.values(currentUserFoods).map((food) => (
+            // make component to go from name to all info
+            <div className={styles.food_entry}>
+              <h2>{food.food_name}</h2>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const CreateFoodForm = () => {
   const [food_type, setFood_type] = useState("kibbles");
   const [calories, setCalories] = useState(0);
   const [serving_size, setServing_size] = useState(0);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState();
 
   const updateFoodName = (e) => setFood_name(e.target.value);
   const updateFoodType = (e) => setFood_type(e.target.value);
@@ -27,12 +27,13 @@ const CreateFoodForm = () => {
       serving_size,
     };
 
-    // call thunk to create the food, and also dispatch to store
     const data = await dispatch(create_food_thunk(new_food));
-    if (data) {
-      console.log(data);
-      setErrors(data);
-      console.log(errors);
+    if (data.errors) {
+      setErrors(data.errors);
+    } else {
+      // if modal, close modal
+      // not yet modal, so we redirect to food page
+      history.push("/");
     }
   };
 
@@ -47,9 +48,7 @@ const CreateFoodForm = () => {
           onChange={updateFoodName}
           value={food_name}
         ></input>
-        {Object.keys(errors).length > 0 && errors["food_name"] && (
-          <h2>{errors["food_name"]}</h2>
-        )}
+        {errors && errors["food_name"] && <h2>{errors["food_name"]}</h2>}
       </div>
       <div>
         <label htmlFor="food_type">Food Type</label>
@@ -67,6 +66,7 @@ const CreateFoodForm = () => {
             Others
           </option>
         </select>
+        {errors && errors["food_type"] && <h2>{errors["food_type"]}</h2>}
       </div>
       <div>
         <label htmlFor="serving_size">Serving Size in Grams</label>
@@ -77,6 +77,7 @@ const CreateFoodForm = () => {
           onChange={updateServingSize}
           value={serving_size}
         ></input>
+        {errors && errors["serving_size"] && <h2>{errors["serving_size"]}</h2>}
       </div>
       <div>
         <label htmlFor="calories">Calories</label>
@@ -87,6 +88,7 @@ const CreateFoodForm = () => {
           onChange={updateCalories}
           value={calories}
         ></input>
+        {errors && errors["calories"] && <h2>{errors["calories"]}</h2>}
       </div>
       <button type="submit">Submit</button>
     </form>

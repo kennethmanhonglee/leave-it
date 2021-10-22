@@ -22,7 +22,7 @@ export const create_food_thunk = (food) => async (dispatch) => {
     return response;
   } else {
     //   response contains food
-    await dispatch(response);
+    await dispatch(create_food(response));
   }
 };
 
