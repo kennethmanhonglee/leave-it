@@ -1,17 +1,20 @@
+import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./AddFoodForm.module.css";
-import { useEffect } from "react";
 import { load_food_thunk } from "../../store/food";
+import FoodEntry from "../FoodEntry";
 
 const AddFoodForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   let currentUserFoods = useSelector((state) => state.foods);
   const createFood = () => {
+    // redirect for now, close modal later
     return history.push("/create_food");
   };
+
   useEffect(() => {
     dispatch(load_food_thunk());
   }, []);
@@ -25,7 +28,7 @@ const AddFoodForm = () => {
             your own:
           </h3>
         </div>
-        <div className={styles.add_button_div}>
+        <div className={styles.create_button_div}>
           <button onClick={createFood} className={styles.button}>
             Create a Food
           </button>
@@ -36,10 +39,7 @@ const AddFoodForm = () => {
           Object.values(currentUserFoods).map((food) => (
             // make component to go from name to all info
             <div key={food.id} className={styles.food_entry}>
-              <h2>{food.food_name}</h2>
-              <h2>{food.food_type}</h2>
-              <h2>{food.calories} CALORIES!</h2>
-              <h2>{food.serving_size} g</h2>
+              <FoodEntry food={food} />
             </div>
           ))}
       </div>

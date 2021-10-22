@@ -11,6 +11,7 @@
   height: 50px;
 }
 
+.create_button_div,
 .add_button_div {
   margin-right: 20px;
 }
@@ -24,4 +25,7 @@
 
 .food_entry {
   border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
