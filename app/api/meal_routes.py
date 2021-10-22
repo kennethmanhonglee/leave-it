@@ -45,3 +45,5 @@ def create_meal():
     db.session.commit()
 
     return new_meal.to_dict()
+
+@meal_routes

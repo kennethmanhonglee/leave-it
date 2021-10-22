@@ -6,7 +6,7 @@ const CREATE_MEAL = "meals/CREATE_MEAL";
 // actions
 const create_meal = (meal) => ({
   type: CREATE_MEAL,
-  action: meal,
+  payload: meal,
 });
 
 // thunks
@@ -22,6 +22,11 @@ export const create_meal_thunk =
       body: JSON.stringify({ food_id, pet_id }),
     });
     const response = await res.json();
+    if (response.ok === false) {
+      return response.errors;
+    } else {
+      await dispatch(create_meal(response));
+    }
   };
 
 // reducer
