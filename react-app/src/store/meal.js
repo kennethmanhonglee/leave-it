@@ -36,6 +36,7 @@ export const create_meal_thunk =
 export const load_meals_thunk = () => async (dispatch) => {
   const res = await fetch(`${window.location.origin}/api/meals/today`);
   const response = await res.json();
+  await dispatch(load_meals(response));
 };
 
 // reducer
@@ -46,6 +47,11 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_MEAL:
       newState[action.payload.id] = action.payload;
+      return newState;
+    case LOAD_MEALS:
+      for (let [id, meal] of Object.entries(action.payload)) {
+        newState[id] = meal;
+      }
       return newState;
     default:
       return state;

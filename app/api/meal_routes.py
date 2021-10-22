@@ -54,4 +54,6 @@ def create_meal():
 @login_required
 def get_today_meals():
     user_id = current_user.get_id()
-    all_user_meals_today = Meal.query.filter(Meal.user_id == user_id).all()
+    all_user_meals_today = Meal.query.filter(
+        Meal.user_id == user_id, Meal.created_at == datetime.today().date()).all()
+    return {meal.id: meal.to_dict() for meal in all_user_meals_today}

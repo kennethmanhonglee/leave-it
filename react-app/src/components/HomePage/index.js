@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./HomePage.module.css";
 import { get_pets_thunk } from "../../store/pet";
 import MealTracker from "../MealTracker";
+import { load_meals_thunk } from "../../store/meal";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(get_pets_thunk());
     // call thunk to load all meals from today
+    dispatch(load_meals_thunk());
   }, [dispatch]);
 
   return (
