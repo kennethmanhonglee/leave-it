@@ -1,6 +1,7 @@
 // constants
 const CREATE_MEAL = "meals/CREATE_MEAL";
 const LOAD_MEALS = "meals/LOAD_MEALS";
+const REMOVE_MEALS = "meals/REMOVE_MEALS";
 
 // actions
 const create_meal = (meal) => ({
@@ -11,6 +12,9 @@ const create_meal = (meal) => ({
 const load_meals = (meals) => ({
   type: LOAD_MEALS,
   payload: meals,
+});
+export const remove_meals = () => ({
+  type: REMOVE_MEALS,
 });
 
 // thunks
@@ -53,6 +57,8 @@ const reducer = (state = initialState, action) => {
         newState[id] = meal;
       }
       return newState;
+    case REMOVE_MEALS:
+      return {};
     default:
       return state;
   }
