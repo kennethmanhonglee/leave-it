@@ -10,9 +10,6 @@ const MealTracker = ({ pet_id }) => {
   const pets = useSelector((state) => state.pets);
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {
-    dispatch(load_food_thunk());
-  }, [dispatch]);
 
   const allMeals = useSelector((state) => state.meals);
   let currentPetMeals;
@@ -20,9 +17,11 @@ const MealTracker = ({ pet_id }) => {
     currentPetMeals = Object.values(allMeals).filter(
       (meal) => meal.pet_id === +pet_id
     );
-    // test after making load meals
-    console.log(currentPetMeals);
   }
+  console.log(currentPetMeals);
+  useEffect(() => {
+    dispatch(load_food_thunk());
+  }, [dispatch, currentPetMeals]);
 
   let currentPet;
   if (Object.values(pets).length > 0) {
@@ -64,7 +63,13 @@ const MealTracker = ({ pet_id }) => {
           </div>
         </div>
         {/* map through and show all meals created by this user, and later all that are used by this user */}
-        <div className={styles.entries}>placeholder for each food entry</div>
+        <div className={styles.entries}>
+          <h1>meeeh</h1>
+          {currentPetMeals &&
+            currentPetMeals.map((meal) => {
+              <h1>hello</h1>;
+            })}
+        </div>
       </div>
     );
   }
