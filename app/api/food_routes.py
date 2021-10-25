@@ -14,8 +14,13 @@ def get_foods():
     '''
     GET /api/foods will return all food entries in the database
     '''
-    user_id = current_user.get_id()
-    foods = Food.query.filter(Food.user_id == user_id)
+    # user_id = current_user.get_id()
+    # foods = Food.query.filter(Food.user_id == user_id)
+    # return {food.id: food.to_dict() for food in foods}
+    # use above lines to only show food that user made. save for later when we have a search feature for food
+
+    # for now, load all food into redux store
+    foods = Food.query.all()
     return {food.id: food.to_dict() for food in foods}
 
 

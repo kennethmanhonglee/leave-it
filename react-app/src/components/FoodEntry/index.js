@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 
 import styles from "./FoodEntry.module.css";
@@ -9,6 +9,7 @@ const FoodEntry = ({ food }) => {
   const dispatch = useDispatch();
   const { pet_id } = useParams();
   const history = useHistory();
+  const currentUser = useSelector((state) => state.session.user);
   const addFood = async () => {
     //   call thunk to create a meal
     const newMeal = {
@@ -18,6 +19,7 @@ const FoodEntry = ({ food }) => {
     await dispatch(create_meal_thunk(newMeal));
     history.goBack();
   };
+
   return (
     <div className={styles.food_entry}>
       <div className={styles.food_info}>
@@ -28,6 +30,14 @@ const FoodEntry = ({ food }) => {
       </div>
       <div className={styles.add_button_div}>
         {/* placeholder, will likely use a fontawesome icon later */}
+        {currentUser && food.user_id === currentUser.id && (
+          <button
+            className={styles.button}
+            onClick={() => history.push(`/edit_food/${food.id}`)}
+          >
+            Edit
+          </button>
+        )}
         <button onClick={addFood} className={styles.button}>
           Add
         </button>

@@ -14,6 +14,7 @@ const AddFoodForm = () => {
   let pets = useSelector((state) => state.pets);
 
   useEffect(() => {
+    console.log('inside of load food use effect')
     dispatch(load_food_thunk());
   }, [dispatch]);
 
