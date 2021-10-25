@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { load_food_thunk } from "../../store/food";
 import { delete_pet_thunk } from "../../store/pet";
+import MealEntry from "../MealEntry";
 import styles from "./MealTracker.module.css";
 
 const MealTracker = ({ pet_id }) => {
@@ -64,8 +65,8 @@ const MealTracker = ({ pet_id }) => {
         </div>
         {/* map through and show all meals created by this user, and later all that are used by this user */}
         <div className={styles.entries}>
-          <h1>meeeh</h1>
-          {currentPetMeals && currentPetMeals.map((meal) => <h1>hello</h1>)}
+          {currentPetMeals &&
+            currentPetMeals.map((meal) => <MealEntry meal={meal} />)}
         </div>
       </div>
     );

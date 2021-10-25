@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import styles from "./FoodEntry.module.css";
 import { create_meal_thunk } from "../../store/meal";
 
+// This component is for food entries in adding food into meals
 const FoodEntry = ({ food }) => {
   const dispatch = useDispatch();
   const { pet_id } = useParams();
