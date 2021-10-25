@@ -65,10 +65,7 @@ const MealTracker = ({ pet_id }) => {
         {/* map through and show all meals created by this user, and later all that are used by this user */}
         <div className={styles.entries}>
           <h1>meeeh</h1>
-          {currentPetMeals &&
-            currentPetMeals.map((meal) => {
-              <h1>hello</h1>;
-            })}
+          {currentPetMeals && currentPetMeals.map((meal) => <h1>hello</h1>)}
         </div>
       </div>
     );
