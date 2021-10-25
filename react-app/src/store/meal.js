@@ -2,6 +2,7 @@
 const CREATE_MEAL = "meals/CREATE_MEAL";
 const LOAD_MEALS = "meals/LOAD_MEALS";
 const REMOVE_MEALS = "meals/REMOVE_MEALS";
+const DELETE_MEAL = "meals/DELETE_MEAL";
 
 // actions
 const create_meal = (meal) => ({
@@ -15,6 +16,10 @@ const load_meals = (meals) => ({
 });
 export const remove_meals = () => ({
   type: REMOVE_MEALS,
+});
+const delete_meal = (meal_id) => ({
+  type: DELETE_MEAL,
+  payload: meal_id,
 });
 
 // thunks
@@ -40,8 +45,20 @@ export const create_meal_thunk =
 export const load_meals_thunk = () => async (dispatch) => {
   const res = await fetch(`${window.location.origin}/api/meals/today`);
   const response = await res.json();
-  console.log(response);
   await dispatch(load_meals(response));
+};
+
+export const delete_meal_thunk = (meal_id) => async (dispatch) => {
+  console.log(meal_id);
+  const res = await fetch(`${window.location.origin}/api/meals/${meal_id}`, {
+    method: "DELETE",
+  });
+  const response = await res.json();
+  if (!response.ok) {
+    return response.errors;
+  } else {
+    await dispatch(delete_meal(meal_id));
+  }
 };
 
 // reducer
@@ -60,6 +77,11 @@ const reducer = (state = initialState, action) => {
       return newState;
     case REMOVE_MEALS:
       return {};
+    case DELETE_MEAL:
+      console.log("\n\n\n LEE LOO \n\n\n");
+      console.log(newState[action.payload]);
+      delete newState[action.payload];
+      return newState;
     default:
       return state;
   }

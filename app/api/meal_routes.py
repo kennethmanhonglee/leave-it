@@ -57,3 +57,16 @@ def get_today_meals():
     all_user_meals_today = Meal.query.filter(
         Meal.user_id == user_id, Meal.created_at == datetime.today().date()).all()
     return {meal.id: meal.to_dict() for meal in all_user_meals_today}
+
+
+@meal_routes.route('/<int:meal_id>', methods=['DELETE'])
+@login_required
+def delete_meal(meal_id):
+    meal_to_delete = Meal.query.get(meal_id)
+    if not meal_to_delete:
+        print('\n\n\n', meal_to_delete, '\n\n\n')
+        return {'ok': False, 'errors': 'This meal does not exist.'}
+    db.session.delete(meal_to_delete)
+    db.session.commit()
+
+    return {'ok': True, 'meal_id': meal_id}

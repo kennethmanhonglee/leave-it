@@ -89,7 +89,6 @@ def edit_pet(pet_id):
 @pet_routes.route('/<int:pet_id>', methods=['DELETE'])
 @login_required
 def delete_pet(pet_id):
-    user_id = current_user.get_id()
     existing_pet = Pet.query.get(pet_id)
     if not existing_pet:
         return {'ok': False, 'errors': ['Pet does not exist.']}

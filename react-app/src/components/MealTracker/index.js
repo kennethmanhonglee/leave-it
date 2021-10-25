@@ -19,7 +19,6 @@ const MealTracker = ({ pet_id }) => {
       (meal) => meal.pet_id === +pet_id
     );
   }
-  console.log(currentPetMeals);
   useEffect(() => {
     dispatch(load_food_thunk());
   }, [dispatch, currentPetMeals]);
@@ -71,7 +70,9 @@ const MealTracker = ({ pet_id }) => {
         {/* map through and show all meals created by this user, and later all that are used by this user */}
         <div className={styles.entries}>
           {currentPetMeals &&
-            currentPetMeals.map((meal) => <MealEntry meal={meal} />)}
+            currentPetMeals.map((meal) => (
+              <MealEntry key={meal.id} meal={meal} />
+            ))}
         </div>
       </div>
     );

@@ -29,7 +29,6 @@ const PetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // call thunk and make request
-    console.log(neutered);
     const newPet = {
       name,
       age,

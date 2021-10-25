@@ -27,8 +27,6 @@ const CreateFoodForm = () => {
       serving_size,
     };
 
-    console.log(new_food);
-
     const data = await dispatch(create_food_thunk(new_food));
     if (data.errors) {
       setErrors(data.errors);
