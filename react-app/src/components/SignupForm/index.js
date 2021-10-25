@@ -50,7 +50,8 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
-  const demoUser = async () => {
+  const demoUser = async (e) => {
+    e.preventDefault();
     await dispatch(login("demo", "password"));
   };
 
@@ -129,6 +130,7 @@ const SignUpForm = () => {
           ></input>
         </div>
         <div className={styles.button_div}>
+          {/* make demo into a link */}
           <button className={styles.button} onClick={demoUser}>
             Demo
           </button>

@@ -7,7 +7,7 @@ class PetWeight(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'), nullable=False)
     weight = db.Column(db.Float, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.Date, nullable=False)
 
     # relationships
     pet = db.relationship('Pet', back_populates='weights', uselist=False)

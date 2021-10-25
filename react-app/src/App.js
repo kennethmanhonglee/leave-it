@@ -13,6 +13,10 @@ import SplashPage from "./components/SplashPage";
 import AboutPage from "./components/AboutPage";
 import { authenticate } from "./store/session";
 import { get_pets_thunk } from "./store/pet";
+import { load_food_thunk } from "./store/food";
+import CreateFoodForm from "./components/CreateFoodForm";
+import AddFoodForm from "./components/AddFoodForm";
+import EditFoodForm from "./components/EditFoodForm";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -22,6 +26,7 @@ function App() {
     (async () => {
       const logged_in = await dispatch(authenticate());
       if (logged_in) await dispatch(get_pets_thunk());
+      await dispatch(load_food_thunk());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -48,6 +53,16 @@ function App() {
         </Route>
         <ProtectedRoute path="/home" exact={true}>
           <HomePage />
+        </ProtectedRoute>
+        {/* for development: will make into a modal later */}
+        <ProtectedRoute path="/pets/:pet_id/add_food" exact={true}>
+          <AddFoodForm />
+        </ProtectedRoute>
+        <ProtectedRoute path="/create_food" exact={true}>
+          <CreateFoodForm />
+        </ProtectedRoute>
+        <ProtectedRoute path="/edit_food/:food_id" exact={true}>
+          <EditFoodForm />
         </ProtectedRoute>
         <Route path="/about" exact>
           <AboutPage />

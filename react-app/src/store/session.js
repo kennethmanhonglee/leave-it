@@ -1,4 +1,6 @@
 import { remove_pets } from "./pet";
+import { remove_foods } from "./food";
+import { remove_meals } from "./meal";
 
 // constants
 const SET_USER = "session/SET_USER";
@@ -68,6 +70,8 @@ export const logout = () => async (dispatch) => {
   if (response.ok) {
     dispatch(removeUser());
     dispatch(remove_pets());
+    dispatch(remove_foods());
+    dispatch(remove_meals());
   }
 };
 

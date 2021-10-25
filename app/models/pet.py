@@ -15,7 +15,9 @@ class Pet(db.Model):
     # relationships
     user = db.relationship('User', back_populates='pets', uselist=False)
     weights = db.relationship(
-        'PetWeight', back_populates='pet', cascade="all, delete-orphan")
+        'PetWeight', back_populates='pet', cascade='all, delete-orphan')
+    meals = db.relationship('Meal', back_populates='pet',
+                            cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
