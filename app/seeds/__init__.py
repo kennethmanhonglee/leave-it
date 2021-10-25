@@ -1,4 +1,6 @@
 from flask.cli import AppGroup
+
+from .foods import seed_foods, undo_foods
 from .users import seed_users, undo_users
 from .pets import seed_pets, undo_pets
 
@@ -13,6 +15,7 @@ def seed():
     seed_users()
     # Add other seed functions here
     seed_pets()
+    seed_foods()
 
 
 # Creates the `flask seed undo` command
@@ -21,3 +24,4 @@ def undo():
     undo_users()
     # Add other undo functions here
     undo_pets()
+    undo_foods()

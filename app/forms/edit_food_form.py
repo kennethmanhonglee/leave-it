@@ -4,7 +4,7 @@ from wtforms import StringField
 from wtforms.fields.core import FloatField, IntegerField
 from wtforms.validators import DataRequired, ValidationError
 
-ACCEPTED_FOOD_TYPES = {'kibbles', 'fresh_food', 'raw_meat', 'others'}
+ACCEPTED_FOOD_TYPES = {'Kibbles', 'Fresh Food', 'Raw Meat', 'Others'}
 
 
 def type_accepted(form, field):
