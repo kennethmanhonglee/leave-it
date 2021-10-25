@@ -16,9 +16,12 @@ const HomePage = () => {
     dispatch(load_meals_thunk());
   }, [dispatch]);
 
+  const date = new Date();
+
   return (
     <div className={styles.home_page}>
       <h1>Welcome back, {currentUser.firstname}</h1>
+      <h1>{date.toDateString()}</h1>
       {Object.values(pets).length > 0 ? (
         <div className={styles.meal_trackers}>
           {Object.values(pets).map((pet) => (

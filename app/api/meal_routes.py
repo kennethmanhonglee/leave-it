@@ -64,7 +64,6 @@ def get_today_meals():
 def delete_meal(meal_id):
     meal_to_delete = Meal.query.get(meal_id)
     if not meal_to_delete:
-        print('\n\n\n', meal_to_delete, '\n\n\n')
         return {'ok': False, 'errors': 'This meal does not exist.'}
     db.session.delete(meal_to_delete)
     db.session.commit()

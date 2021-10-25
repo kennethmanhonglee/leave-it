@@ -1,6 +1,7 @@
 .container {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 50vh;
+  overflow-y: scroll;
 }
 
 .header_bar {
@@ -11,7 +12,7 @@
   height: 50px;
 }
 
-.create_button_div{
+.create_button_div {
   margin-right: 20px;
 }
 
@@ -22,3 +23,6 @@
   padding: 5px 5px;
 }
 
+.food_entries {
+  overflow: scroll;
+}
