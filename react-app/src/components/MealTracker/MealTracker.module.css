@@ -12,13 +12,19 @@
 }
 
 .util_div,
-.food_div {
+.food_div,
+.pet_name_div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 20%;
   margin-right: 20px;
   margin-left: 20px;
+}
+
+.pet_name_div {
+  display: flex;
+  justify-content: center;
 }
 
 .editing_div,

@@ -16,6 +16,9 @@ const MealEntry = ({ meal }) => {
       <div>{currentFood.food_name}</div>
       <div>{currentFood.serving_size} g</div>
       <div>{currentFood.calories} calories</div>
+      <div className={styles.button_div}>
+        <button className={styles.button}>delete</button>
+      </div>
     </div>
   );
 };

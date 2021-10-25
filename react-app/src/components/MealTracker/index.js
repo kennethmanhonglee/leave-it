@@ -51,6 +51,11 @@ const MealTracker = ({ pet_id }) => {
               <button onClick={addFood}>Add a meal</button>
             </div>
           </div>
+          <div className={styles.pet_name_div}>
+            <div className={styles.pet_name}>
+              {currentPet && currentPet.name}
+            </div>
+          </div>
           <div className={styles.util_div}>
             <div className={styles.editing_div}>
               <button onClick={() => history.push(`/edit_pet/${pet_id}`)}>
