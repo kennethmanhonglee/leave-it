@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from datetime import datetime
 
 from app.forms import CreateFoodForm
+from app.forms.edit_food_form import EditFoodForm
 from app.models import db, Food
 
 food_routes = Blueprint('foods', __name__)
@@ -45,5 +46,30 @@ def create_food():
         db.session.add(new_food)
         db.session.commit()
         return new_food.to_dict()
+    else:
+        return {'ok': False, 'errors': form.errors}
+
+
+@food_routes.route('/<int:food_id>', methods=['PUT'])
+@login_required
+def edit_food(food_id):
+    '''
+    Take in data from form and edit a food entry with it
+    '''
+    food_to_edit = Food.query.get(food_id)
+    if not food_to_edit:
+        return {'ok': False, 'errors': 'This food does not exist.'}
+
+    form = EditFoodForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if (form.validate_on_submit()):
+        food_to_edit.food_name = form.data['food_name']
+        food_to_edit.food_type = form.data['food_type']
+        food_to_edit.serving_size = form.data['serving_size']
+        food_to_edit.calories = form.data['calories']
+        food_to_edit.created_at = datetime.today()
+
+        db.session.commit()
+        return {'ok': True, 'food': food_to_edit.to_dict()}
     else:
         return {'ok': False, 'errors': form.errors}

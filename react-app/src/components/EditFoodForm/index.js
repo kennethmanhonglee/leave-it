@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { create_food_thunk } from "../../store/food";
+import { edit_food_thunk } from "../../store/food";
 
 const EditFoodForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { food_id } = useParams();
   const foods = useSelector((state) => state.foods);
-  console.log(foods);
   let currentFood;
   if (foods) {
     currentFood = foods[food_id];
@@ -34,8 +33,8 @@ const EditFoodForm = () => {
       serving_size,
     };
 
-    const data = await dispatch(create_food_thunk(new_food));
-    if (data.errors) {
+    const data = await dispatch(edit_food_thunk(food_id, new_food));
+    if (data && data.errors) {
       setErrors(data.errors);
     } else {
       // if modal, close modal
