@@ -25,8 +25,10 @@ function App() {
   useEffect(() => {
     (async () => {
       const logged_in = await dispatch(authenticate());
-      if (logged_in) await dispatch(get_pets_thunk());
-      await dispatch(load_food_thunk());
+      if (logged_in) {
+        await dispatch(get_pets_thunk());
+        dispatch(load_food_thunk());
+      }
       setLoaded(true);
     })();
   }, [dispatch]);
