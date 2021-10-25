@@ -27,7 +27,7 @@ export const create_meal_thunk =
   ({ food_id, pet_id }) =>
   async (dispatch) => {
     // make post request with food_id
-    const res = await fetch(`${window.location.origin}/api/meals`, {
+    const res = await fetch(`/api/meals`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -43,14 +43,14 @@ export const create_meal_thunk =
   };
 
 export const load_meals_thunk = () => async (dispatch) => {
-  const res = await fetch(`${window.location.origin}/api/meals/today`);
+  const res = await fetch(`/api/meals/today`);
   const response = await res.json();
   await dispatch(load_meals(response));
 };
 
 export const delete_meal_thunk = (meal_id) => async (dispatch) => {
   console.log(meal_id);
-  const res = await fetch(`${window.location.origin}/api/meals/${meal_id}`, {
+  const res = await fetch(`/api/meals/${meal_id}`, {
     method: "DELETE",
   });
   const response = await res.json();

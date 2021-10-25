@@ -26,7 +26,7 @@ const edit_food = (food) => ({
 
 // thunks
 export const create_food_thunk = (food) => async (dispatch) => {
-  const res = await fetch(`${window.location.origin}/api/foods`, {
+  const res = await fetch(`/api/foods`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -44,13 +44,13 @@ export const create_food_thunk = (food) => async (dispatch) => {
 };
 
 export const load_food_thunk = () => async (dispatch) => {
-  const res = await fetch(`${window.location.origin}/api/foods`);
+  const res = await fetch(`/api/foods`);
   const response = await res.json();
   await dispatch(load_food(response));
 };
 
 export const edit_food_thunk = (food_id, new_food) => async (dispatch) => {
-  const res = await fetch(`${window.location.origin}/api/foods/${food_id}`, {
+  const res = await fetch(`/api/foods/${food_id}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
