@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 
+import styles from "./MealEntry.module.css";
+
 const MealEntry = ({ meal }) => {
   const foods = useSelector((state) => state.foods);
   let currentFood;
@@ -9,9 +11,11 @@ const MealEntry = ({ meal }) => {
   console.log(currentFood);
   if (!currentFood) return null;
   return (
-    <div>
-      this is one food entry:
-      {currentFood && currentFood.food_name}
+    <div className={styles.container}>
+      <div>{currentFood.food_type}</div>
+      <div>{currentFood.food_name}</div>
+      <div>{currentFood.serving_size} g</div>
+      <div>{currentFood.calories} calories</div>
     </div>
   );
 };
