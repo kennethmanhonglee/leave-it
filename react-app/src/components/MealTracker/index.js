@@ -40,7 +40,7 @@ const MealTracker = ({ pet_id }) => {
     history.push(`/pets/${pet_id}/add_food`);
   };
 
-  if (!currentPet) return "loading";
+  if (!currentPet) return "loading...";
   else {
     return (
       <div className={styles.meal_tracker}>
