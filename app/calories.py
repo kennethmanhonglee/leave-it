@@ -15,10 +15,25 @@ def get_rer(weight):
 
 
 def get_calories(pet):
-    # FIXME
-    rer = get_rer(pet.current_weight)
-    if pet.age > 11:
-        if pet.neutered:
-            return 1.6 * rer
-        else:
-            return 1.8 * rer
+    '''
+    take current and ideal weight, and goal, and return corresponding RER for the goal
+    source: https://vet.osu.edu/vmc/companion/our-services/nutrition-support-service/basic-calorie-calculator
+    '''
+    current_rer = get_rer(pet.current_weight)
+    ideal_rer = get_rer(pet.ideal_weight)
+    if pet.goal == 'Neutered Adult':
+        return 1.6 * current_rer
+    if pet.goal == 'Intact Adult':
+        return 1.8 * current_rer
+    if pet.goal == 'Inactive/obese prone':
+        return 1.3 * current_rer
+    if pet.goal == 'Weight Loss':
+        return ideal_rer
+    if pet.goal == 'Weight Gain':
+        return 1.5 * ideal_rer
+    if pet.goal == 'Active, working dogs':
+        return 3.5 * current_rer
+    if pet.goal == 'Puppy 0-4 months':
+        return 3 * current_rer
+    if pet.goal == 'Puppy 4 months to adult':
+        return 2 * current_rer

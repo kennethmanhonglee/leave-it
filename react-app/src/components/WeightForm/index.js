@@ -21,10 +21,9 @@ const WeightForm = ({ pet_id }) => {
       pet_id,
       name: currentPet.name,
       user_id: currentPet.user_id,
-      age: currentPet.age,
+      goal: currentPet.goal,
       current_weight: weight,
       ideal_weight: currentPet.ideal_weight,
-      neutered: currentPet.neutered,
     };
     // call thunk to create new weight
     const errors = await dispatch(edit_pet_thunk(new_pet));

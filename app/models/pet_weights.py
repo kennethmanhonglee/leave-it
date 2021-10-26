@@ -1,4 +1,5 @@
 from .db import db
+from app.calories import get_calories
 
 
 class PetWeight(db.Model):
@@ -17,5 +18,6 @@ class PetWeight(db.Model):
             'id': self.id,
             'pet_id': self.pet_id,
             'weight': self.weight,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'calories': get_calories(self.pet)
         }
