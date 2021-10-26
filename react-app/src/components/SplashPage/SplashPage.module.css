@@ -1,6 +1,45 @@
 .splash_page {
   height: 60vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 70px;
+}
+
+.slogan_container {
+  height: 80vh;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.slogan {
+  color: #455555;
+}
+
+.slogan h1 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+.slogan h4 {
+  font-size: 20px;
+  text-indent: 5px;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.signup_button {
+  background-color: #183962;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 3px;
+}
+
+.signup_button:hover {
+  background-color: #224a7a;
 }
