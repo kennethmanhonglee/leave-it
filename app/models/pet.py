@@ -22,9 +22,8 @@ class Pet(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'age': self.age,
             'current_weight': self.current_weight,
             'ideal_weight': self.ideal_weight,
-            'neutered': self.neutered,
-            'weights': [weight.to_dict() for weight in self.weights]
+            'weights': [weight.to_dict() for weight in self.weights],
+            'goal': self.goal
         }

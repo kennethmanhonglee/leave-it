@@ -15,24 +15,33 @@ const EditPetForm = () => {
       current_pet = pets[pet_id];
     }
   }
+
+  const ACCEPTED_GOALS = [
+    "Neutered Adult",
+    "Intact Adult",
+    "Inactive/obese prone",
+    "Weight Loss",
+    "Weight Gain",
+    "Active, working dogs",
+    "Puppy 0-4 months",
+    "Puppy 4 months to adult",
+  ];
+
   const [name, setName] = useState(current_pet?.name);
-  const [age, setAge] = useState(current_pet?.age);
   const [current_weight, setCurrentWeight] = useState(
     current_pet?.current_weight
   );
   const [ideal_weight, setIdealWeight] = useState(current_pet?.ideal_weight);
-  const [neutered, setNeutered] = useState(current_pet?.neutered);
+  const [goal, setGoal] = useState(current_pet?.goal);
   const [errors, setErrors] = useState();
 
   const updateName = (e) => setName(e.target.value);
-  const updateAge = (e) => setAge(e.target.value);
+  const updateGoal = (e) => setGoal(e.target.value);
   const updateCurrentWeight = (e) => setCurrentWeight(e.target.value);
   const updateIdealWeight = (e) => setIdealWeight(e.target.value);
-  const updateNeutered = (e) => setNeutered(e.target.value);
 
   const isEmptyForm = () => {
-    if (!name || !age || !current_weight || !ideal_weight) return true;
-    if (neutered === undefined) return true;
+    if (!name || !goal || !current_weight || !ideal_weight) return true;
     return false;
   };
 
@@ -42,10 +51,9 @@ const EditPetForm = () => {
     const newPet = {
       pet_id: +pet_id,
       name,
-      age,
       current_weight,
       ideal_weight,
-      neutered,
+      goal,
     };
     const data = await dispatch(edit_pet_thunk(newPet));
     if (data) {
@@ -67,13 +75,13 @@ const EditPetForm = () => {
         ></input>
       </div>
       <div>
-        <input
-          type=""
-          min="0"
-          placeholder="Age in months"
-          onChange={updateAge}
-          value={age}
-        ></input>
+        <select value={goal} onChange={updateGoal}>
+          {ACCEPTED_GOALS.map((goal) => (
+            <option key={goal} value={goal}>
+              {goal}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <input
@@ -92,29 +100,6 @@ const EditPetForm = () => {
           onChange={updateIdealWeight}
           value={ideal_weight}
         ></input>
-      </div>
-      <div>
-        <label htmlFor="neutered">Is your dog fixed?</label>
-        <div>
-          <input
-            id="neutered"
-            type="radio"
-            name="neutered"
-            value="true"
-            onChange={updateNeutered}
-          ></input>
-          Yes
-        </div>
-        <div>
-          <input
-            id="neutered"
-            type="radio"
-            name="neutered"
-            value="false"
-            onChange={updateNeutered}
-          ></input>
-          No
-        </div>
       </div>
       <button disabled={isEmptyForm()} type="submit">
         Edit {current_pet.name}
