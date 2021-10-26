@@ -8,7 +8,7 @@ const CreateFoodForm = () => {
   const history = useHistory();
 
   const [food_name, setFood_name] = useState("");
-  const [food_type, setFood_type] = useState("kibbles");
+  const [food_type, setFood_type] = useState("Kibbles");
   const [calories, setCalories] = useState(0);
   const [serving_size, setServing_size] = useState(0);
   const [errors, setErrors] = useState();

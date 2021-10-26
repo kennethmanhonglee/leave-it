@@ -33,6 +33,7 @@ def create_food():
     '''
     form = CreateFoodForm()
     user_id = current_user.get_id()
+    print('\n\n\n', form.data, '\n\n\n')
     form['csrf_token'].data = request.cookies['csrf_token']
     if (form.validate_on_submit()):
         new_food = Food(
