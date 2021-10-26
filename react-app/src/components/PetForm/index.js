@@ -54,7 +54,7 @@ const PetForm = () => {
         <input
           type="number"
           min="0"
-          placeholder="Age"
+          placeholder="Age in months"
           onChange={updateAge}
         ></input>
       </div>
@@ -62,7 +62,7 @@ const PetForm = () => {
         <input
           type="number"
           min="0"
-          placeholder="Current Weight"
+          placeholder="Current Weight in Kilograms"
           onChange={updateCurrentWeight}
         ></input>
       </div>
@@ -70,7 +70,7 @@ const PetForm = () => {
         <input
           type="number"
           min="0"
-          placeholder="Ideal Weight"
+          placeholder="Ideal Weight in Kilograms"
           onChange={updateIdealWeight}
         ></input>
       </div>
