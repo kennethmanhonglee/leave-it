@@ -86,13 +86,24 @@ const MealTracker = ({ pet_id }) => {
             Goal: {currentPet && Math.floor(currentPet.goal_calories)}cal
           </div>
           <div>
-            Actual:{" "}
+            Actual:
             {currentPetMeals && foods
               ? currentPetMeals.reduce(
                   (sum, meal) => (sum += foods[meal.food_id]?.calories),
                   0
                 )
               : 0}
+            cal
+          </div>
+          <div>
+            Budget:
+            {currentPet && currentPetMeals && foods
+              ? Math.floor(currentPet.goal_calories) -
+                currentPetMeals.reduce(
+                  (sum, meal) => (sum += foods[meal.food_id]?.calories),
+                  0
+                )
+              : Math.floor(currentPet.goal_calories)}
             cal
           </div>
         </div>
