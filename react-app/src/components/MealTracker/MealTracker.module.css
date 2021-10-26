@@ -46,3 +46,7 @@
   text-decoration: none;
   background-color: rgba(255, 148, 0, 0.5);
 }
+
+.weight_logging {
+  height: 50px;
+}

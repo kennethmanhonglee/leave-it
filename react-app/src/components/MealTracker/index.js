@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { load_food_thunk } from "../../store/food";
 import { delete_pet_thunk } from "../../store/pet";
 import MealEntry from "../MealEntry";
+import WeightForm from "../WeightForm";
 import styles from "./MealTracker.module.css";
 
 const MealTracker = ({ pet_id }) => {
@@ -73,6 +74,9 @@ const MealTracker = ({ pet_id }) => {
             currentPetMeals.map((meal) => (
               <MealEntry key={meal.id} meal={meal} />
             ))}
+        </div>
+        <div className={styles.weight_logging}>
+          <WeightForm pet_id={currentPet.id} />
         </div>
       </div>
     );
