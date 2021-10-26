@@ -3,7 +3,8 @@ from wtforms import StringField, FloatField, IntegerField
 from wtforms.validators import DataRequired, ValidationError
 
 
-ACCEPTED_GOALS = {
+ACCEPTED_GOALS = [
+
     'Neutered Adult',
     'Intact Adult',
     'Inactive/obese prone',
@@ -12,7 +13,7 @@ ACCEPTED_GOALS = {
     'Active, working dogs',
     'Puppy 0-4 months',
     'Puppy 4 months to adult',
-}
+]
 
 
 def goal_accepted(form, field):
