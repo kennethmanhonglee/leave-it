@@ -37,7 +37,7 @@ const WeightForm = ({ pet_id }) => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
           <label htmlFor="weight">
-            {currentPet && currentPet.name}'s weight today:{" "}
+            today's weight :{" "}
           </label>
           <input
             id="weight"

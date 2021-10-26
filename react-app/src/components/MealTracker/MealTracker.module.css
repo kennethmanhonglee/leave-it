@@ -50,3 +50,15 @@
 .weight_logging {
   height: 50px;
 }
+
+.goals {
+  display: flex;
+  justify-content: space-around;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}

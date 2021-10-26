@@ -62,12 +62,12 @@ const MealTracker = ({ pet_id }) => {
           <div className={styles.util_div}>
             <div className={styles.editing_div}>
               <button onClick={() => history.push(`/edit_pet/${pet_id}`)}>
-                Edit {currentPet.name}
+                Edit
               </button>
             </div>
             <div className={styles.deleting_div}>
               {/* show modal later on */}
-              <button onClick={delete_pet}>Delete {currentPet.name}</button>
+              <button onClick={delete_pet}>Delete</button>
             </div>
           </div>
         </div>
@@ -82,11 +82,11 @@ const MealTracker = ({ pet_id }) => {
           <WeightForm pet_id={currentPet.id} />
         </div>
         <div className={styles.goals}>
-          <div>
+          <div className={styles.goal}>
             Goal: {currentPet && Math.floor(currentPet.goal_calories)}cal
           </div>
-          <div>
-            Actual:
+          <div className={styles.actual}>
+            Actual:{" "}
             {currentPetMeals && foods
               ? currentPetMeals.reduce(
                   (sum, meal) => (sum += foods[meal.food_id]?.calories),
@@ -95,8 +95,8 @@ const MealTracker = ({ pet_id }) => {
               : 0}
             cal
           </div>
-          <div>
-            Budget:
+          <div className={styles.budget}>
+            Budget:{" "}
             {currentPet && currentPetMeals && foods
               ? Math.floor(currentPet.goal_calories) -
                 currentPetMeals.reduce(
@@ -104,7 +104,6 @@ const MealTracker = ({ pet_id }) => {
                   0
                 )
               : Math.floor(currentPet.goal_calories)}
-            cal
           </div>
         </div>
       </div>
