@@ -74,3 +74,17 @@ def edit_food(food_id):
         return {'ok': True, 'food': food_to_edit.to_dict()}
     else:
         return {'ok': False, 'errors': form.errors}
+
+
+@food_routes.route('/<int:food_id>', methods=['DELETE'])
+@login_required
+def delete_food(food_id):
+    '''
+    Query for food to delete, and delete it
+    '''
+    food_to_delete = Food.query.get(food_id)
+    if not food_to_delete:
+        return {'ok': False, 'errors': 'This food does not exists.'}
+    db.session.delete(food_to_delete)
+    db.session.commit()
+    return {'ok': True, 'food_id': food_id}
