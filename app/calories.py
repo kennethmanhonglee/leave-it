@@ -15,18 +15,10 @@ def get_rer(weight):
 
 
 def get_calories(pet):
+    # FIXME
     rer = get_rer(pet.current_weight)
     if pet.age > 11:
         if pet.neutered:
             return 1.6 * rer
         else:
             return 1.8 * rer
-
-
-
-print(get_calories({
-    'ideal_weight': 10,
-    'current_weight': 5,
-    'age': 36,
-    'neutered': True
-}))

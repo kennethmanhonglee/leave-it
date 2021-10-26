@@ -7,10 +7,9 @@ class Pet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
     current_weight = db.Column(db.Float, nullable=False)
     ideal_weight = db.Column(db.Float, nullable=False)
-    neutered = db.Column(db.String, nullable=False)
+    goal = db.Column(db.String, nullable=False)
 
     # relationships
     user = db.relationship('User', back_populates='pets', uselist=False)
