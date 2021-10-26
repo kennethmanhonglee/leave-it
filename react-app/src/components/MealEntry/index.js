@@ -15,7 +15,7 @@ const MealEntry = ({ meal }) => {
     const error = await dispatch(delete_meal_thunk(meal.id));
     if (error) {
       //pop up modal later to show something went wrong
-      console.log(error);
+      alert("Not able to delete meal.");
     }
   };
 

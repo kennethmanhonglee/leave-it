@@ -20,9 +20,12 @@ const MealTracker = ({ pet_id }) => {
       (meal) => meal.pet_id === +pet_id
     );
   }
+
+  const foods = useSelector((state) => state.foods);
+
   useEffect(() => {
     dispatch(load_food_thunk());
-  }, [dispatch, currentPetMeals]);
+  }, [dispatch]);
 
   let currentPet;
   if (Object.values(pets).length > 0) {
@@ -41,7 +44,7 @@ const MealTracker = ({ pet_id }) => {
     history.push(`/pets/${pet_id}/add_food`);
   };
 
-  if (!currentPet) return "loading...";
+  if (!currentPet || !foods || !allMeals) return "loading...";
   else {
     return (
       <div className={styles.meal_tracker}>
@@ -77,6 +80,21 @@ const MealTracker = ({ pet_id }) => {
         </div>
         <div className={styles.weight_logging}>
           <WeightForm pet_id={currentPet.id} />
+        </div>
+        <div className={styles.goals}>
+          <div>
+            Goal: {currentPet && Math.floor(currentPet.goal_calories)}cal
+          </div>
+          <div>
+            Actual:{" "}
+            {currentPetMeals && foods
+              ? currentPetMeals.reduce(
+                  (sum, meal) => (sum += foods[meal.food_id]?.calories),
+                  0
+                )
+              : 0}
+            cal
+          </div>
         </div>
       </div>
     );

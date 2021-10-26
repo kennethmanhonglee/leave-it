@@ -1,3 +1,4 @@
+from app.calories import get_calories
 from .db import db
 
 
@@ -25,5 +26,6 @@ class Pet(db.Model):
             'current_weight': self.current_weight,
             'ideal_weight': self.ideal_weight,
             'weights': [weight.to_dict() for weight in self.weights],
-            'goal': self.goal
+            'goal': self.goal,
+            'goal_calories': get_calories(self)
         }

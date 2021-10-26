@@ -19,5 +19,4 @@ class PetWeight(db.Model):
             'pet_id': self.pet_id,
             'weight': self.weight,
             'created_at': self.created_at,
-            'calories': get_calories(self.pet)
         }
