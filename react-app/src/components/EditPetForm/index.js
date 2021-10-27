@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
 import { edit_pet_thunk } from "../../store/pet";
+import styles from "./EditPetForm.module.css";
 
 const EditPetForm = () => {
   const dispatch = useDispatch();
@@ -64,47 +65,62 @@ const EditPetForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {errors && Object.values(errors).map((error) => <h1>{error}</h1>)}
-      <div>
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={updateName}
-          value={name}
-        ></input>
-      </div>
-      <div>
-        <select value={goal} onChange={updateGoal}>
-          {ACCEPTED_GOALS.map((goal) => (
-            <option key={goal} value={goal}>
-              {goal}
-            </option>
+    <div className={styles.container}>
+      <h2 className={styles.header}>Edit {current_pet?.name}</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        {errors &&
+          Object.values(errors).map((error, ind) => (
+            <div className={styles.errors} key={ind}>
+              {error}
+            </div>
           ))}
-        </select>
-      </div>
-      <div>
-        <input
-          type="number"
-          min="0"
-          placeholder="Current Weight in Kilograms"
-          onChange={updateCurrentWeight}
-          value={current_weight}
-        ></input>
-      </div>
-      <div>
-        <input
-          type="number"
-          min="0"
-          placeholder="Ideal Weight in Kilograms"
-          onChange={updateIdealWeight}
-          value={ideal_weight}
-        ></input>
-      </div>
-      <button disabled={isEmptyForm()} type="submit">
-        Edit {current_pet.name}
-      </button>
-    </form>
+        <div>
+          <input
+            type="text"
+            placeholder="Name"
+            onChange={updateName}
+            value={name}
+            className={styles.input}
+          ></input>
+        </div>
+        <div>
+          <select value={goal} onChange={updateGoal} className={styles.select}>
+            {ACCEPTED_GOALS.map((goal) => (
+              <option key={goal} value={goal}>
+                {goal}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <input
+            type="number"
+            min="0"
+            placeholder="Current Weight in Kilograms"
+            onChange={updateCurrentWeight}
+            value={current_weight}
+            className={styles.number}
+          ></input>
+        </div>
+        <div>
+          <input
+            type="number"
+            min="0"
+            placeholder="Ideal Weight in Kilograms"
+            onChange={updateIdealWeight}
+            value={ideal_weight}
+            className={styles.number}
+          ></input>
+        </div>
+        <button
+          disabled={isEmptyForm()}
+          type="submit"
+          className={styles.button}
+        >
+          Edit {current_pet.name}
+        </button>
+      </form>
+    </div>
   );
 };
 

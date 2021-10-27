@@ -85,7 +85,7 @@ const PetForm = () => {
             min="0"
             placeholder="Current Weight in Kilograms"
             onChange={updateCurrentWeight}
-            className={styles.input}
+            className={styles.number}
           ></input>
         </div>
         <div>
@@ -94,10 +94,14 @@ const PetForm = () => {
             min="0"
             placeholder="Ideal Weight in Kilograms"
             onChange={updateIdealWeight}
-            className={styles.input}
+            className={styles.number}
           ></input>
         </div>
-        <button disabled={isEmptyForm()} type="submit">
+        <button
+          className={styles.button}
+          disabled={isEmptyForm()}
+          type="submit"
+        >
           Add a pet
         </button>
       </form>
