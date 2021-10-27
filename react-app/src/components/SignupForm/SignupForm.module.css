@@ -37,6 +37,10 @@
   width: 167px;
 }
 
+.button_div div {
+  text-align: center;
+}
+
 .button {
   background-color: #ff9400;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -44,4 +48,10 @@
   width: 45%;
   padding: 5px 5px;
   color: white;
+}
+
+.button:hover {
+  transition: background-color 0.2s;
+  background-color: #ffab35;
+  cursor: pointer;
 }

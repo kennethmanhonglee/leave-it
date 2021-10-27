@@ -12,6 +12,7 @@ const WeightForm = ({ pet_id }) => {
   }
 
   const [weight, setWeight] = useState(currentPet.current_weight);
+  const [error, setError] = useState();
 
   const updateWeight = (e) => setWeight(e.target.value);
 
@@ -28,7 +29,7 @@ const WeightForm = ({ pet_id }) => {
     // call thunk to create new weight
     const errors = await dispatch(edit_pet_thunk(new_pet));
     if (errors) {
-      console.log(errors);
+      setError(errors);
     }
   };
 
@@ -36,9 +37,7 @@ const WeightForm = ({ pet_id }) => {
     <div className={styles.form_div}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
-          <label htmlFor="weight">
-            today's weight :{" "}
-          </label>
+          <label htmlFor="weight">today's weight : </label>
           <input
             id="weight"
             className={styles.weight_input}
@@ -46,6 +45,7 @@ const WeightForm = ({ pet_id }) => {
             value={weight}
             onChange={updateWeight}
           ></input>
+          {error && <h2 className={styles.error}>{error}</h2>}
           <button className={styles.button} type="submit">
             Record
           </button>

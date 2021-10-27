@@ -131,9 +131,9 @@ const SignUpForm = () => {
         </div>
         <div className={styles.button_div}>
           {/* make demo into a link */}
-          <button className={styles.button} onClick={demoUser}>
+          <div className={styles.button} onClick={demoUser}>
             Demo
-          </button>
+          </div>
           <button className={styles.button} type="submit">
             Sign Up
           </button>

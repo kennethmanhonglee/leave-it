@@ -41,5 +41,23 @@
 }
 
 .signup_button:hover {
+  transition: background-color 0.2s;
   background-color: #224a7a;
+}
+
+.bio {
+  display: flex;
+}
+
+.bio_div {
+  margin: 50px 20px;
+}
+
+.bio_div a i {
+  font-size: 50px;
+}
+
+.bio_div a i:hover {
+  transition: color 0.2s;
+  color: rgba(0, 0, 0, 0.5);
 }

@@ -14,7 +14,21 @@ const SplashPage = () => {
           <div className={styles.signup_button}>Sign Up</div>
         </Link>
       </div>
-      <div className={styles.bio}>this is bio and stuff</div>
+      <div className={styles.bio}>
+        <div className={styles.bio_div}>
+          <a
+            href="https://www.linkedin.com/in/kenneth-lee-75b870158/"
+            target="_blank"
+          >
+            <i className="fab fa-linkedin"></i>
+          </a>
+        </div>
+        <div className={styles.bio_div}>
+          <a href="https://github.com/kennethmanhonglee" target="_blank">
+            <i className="fab fa-github-square"></i>
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

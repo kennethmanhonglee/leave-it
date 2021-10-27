@@ -36,8 +36,8 @@ def seed_pets():
         new_pet = Pet(
             name=name,
             user_id=user_id,
-            current_weight=randint(0, 100),
-            ideal_weight=randint(5, 100),
+            current_weight=randint(4, 50),
+            ideal_weight=randint(4, 50),
             goal=ACCEPTED_GOALS[randint(0, 7)]
         )
         db.session.add(new_pet)
