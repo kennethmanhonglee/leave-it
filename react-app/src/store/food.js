@@ -3,6 +3,7 @@ const CREATE_FOOD = "food/CREATE_FOOD";
 const LOAD_FOOD = "food/LOAD_FOOD";
 const REMOVE_FOODS = "food/REMOVE_FOODS";
 const EDIT_FOOD = "food/EDIT_FOOD";
+const DELETE_FOOD = "food/DELETE_FOOD";
 
 // actions
 const create_food = (food) => ({
@@ -22,6 +23,11 @@ export const remove_foods = () => ({
 const edit_food = (food) => ({
   type: EDIT_FOOD,
   payload: food,
+});
+
+const delete_food = (food_id) => ({
+  type: DELETE_FOOD,
+  payload: food_id,
 });
 
 // thunks
@@ -66,6 +72,18 @@ export const edit_food_thunk = (food_id, new_food) => async (dispatch) => {
   }
 };
 
+export const delete_food_thunk = (food_id) => async (dispatch) => {
+  const res = await fetch(`/api/foods/${food_id}`, {
+    method: "DELETE",
+  });
+  const response = await res.json();
+  if (!response.ok) {
+    return response.errors;
+  } else {
+    await dispatch(delete_food(food_id));
+  }
+};
+
 // reducer
 const initialState = {};
 const reducer = (state = initialState, action) => {
@@ -84,6 +102,9 @@ const reducer = (state = initialState, action) => {
       return {};
     case EDIT_FOOD:
       newState[action.payload.id] = action.payload;
+      return newState;
+    case DELETE_FOOD:
+      delete newState[action.payload];
       return newState;
     default:
       return state;

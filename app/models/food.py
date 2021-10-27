@@ -14,6 +14,8 @@ class Food(db.Model):
 
     user = db.relationship(
         'User', back_populates='created_foods', uselist=False)
+    meals = db.relationship('Meal', back_populates='food',
+                            cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { load_food_thunk } from "../../store/food";
 import { delete_pet_thunk } from "../../store/pet";
 import MealEntry from "../MealEntry";
+import WeightForm from "../WeightForm";
 import styles from "./MealTracker.module.css";
 
 const MealTracker = ({ pet_id }) => {
@@ -19,9 +20,12 @@ const MealTracker = ({ pet_id }) => {
       (meal) => meal.pet_id === +pet_id
     );
   }
+
+  const foods = useSelector((state) => state.foods);
+
   useEffect(() => {
     dispatch(load_food_thunk());
-  }, [dispatch, currentPetMeals]);
+  }, [dispatch]);
 
   let currentPet;
   if (Object.values(pets).length > 0) {
@@ -40,7 +44,7 @@ const MealTracker = ({ pet_id }) => {
     history.push(`/pets/${pet_id}/add_food`);
   };
 
-  if (!currentPet) return "loading...";
+  if (!currentPet || !foods || !allMeals) return "loading...";
   else {
     return (
       <div className={styles.meal_tracker}>
@@ -58,12 +62,12 @@ const MealTracker = ({ pet_id }) => {
           <div className={styles.util_div}>
             <div className={styles.editing_div}>
               <button onClick={() => history.push(`/edit_pet/${pet_id}`)}>
-                Edit {currentPet.name}
+                Edit
               </button>
             </div>
             <div className={styles.deleting_div}>
               {/* show modal later on */}
-              <button onClick={delete_pet}>Delete {currentPet.name}</button>
+              <button onClick={delete_pet}>Delete</button>
             </div>
           </div>
         </div>
@@ -73,6 +77,34 @@ const MealTracker = ({ pet_id }) => {
             currentPetMeals.map((meal) => (
               <MealEntry key={meal.id} meal={meal} />
             ))}
+        </div>
+        <div className={styles.weight_logging}>
+          <WeightForm pet_id={currentPet.id} />
+        </div>
+        <div className={styles.goals}>
+          <div className={styles.goal}>
+            Goal: {currentPet && Math.floor(currentPet.goal_calories)}cal
+          </div>
+          <div className={styles.actual}>
+            Actual:{" "}
+            {currentPetMeals && foods
+              ? currentPetMeals.reduce(
+                  (sum, meal) => (sum += foods[meal.food_id]?.calories),
+                  0
+                )
+              : 0}
+            cal
+          </div>
+          <div className={styles.budget}>
+            Budget:{" "}
+            {currentPet && currentPetMeals && foods
+              ? Math.floor(currentPet.goal_calories) -
+                currentPetMeals.reduce(
+                  (sum, meal) => (sum += foods[meal.food_id]?.calories),
+                  0
+                )
+              : Math.floor(currentPet.goal_calories)}
+          </div>
         </div>
       </div>
     );

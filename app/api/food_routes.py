@@ -5,6 +5,7 @@ from datetime import datetime
 from app.forms import CreateFoodForm
 from app.forms.edit_food_form import EditFoodForm
 from app.models import db, Food
+from app.models.meal import Meal
 
 food_routes = Blueprint('foods', __name__)
 
@@ -33,6 +34,7 @@ def create_food():
     '''
     form = CreateFoodForm()
     user_id = current_user.get_id()
+    print('\n\n\n', form.data, '\n\n\n')
     form['csrf_token'].data = request.cookies['csrf_token']
     if (form.validate_on_submit()):
         new_food = Food(
@@ -73,3 +75,20 @@ def edit_food(food_id):
         return {'ok': True, 'food': food_to_edit.to_dict()}
     else:
         return {'ok': False, 'errors': form.errors}
+
+
+@food_routes.route('/<int:food_id>', methods=['DELETE'])
+@login_required
+def delete_food(food_id):
+    '''
+    Query for food to delete, and delete it
+    '''
+    food_to_delete = Food.query.get(food_id)
+    if not food_to_delete:
+        return {'ok': False, 'errors': 'This food does not exists.'}
+    meals_with_this_food = Meal.query.filter(Meal.food_id == food_id).all()
+    if meals_with_this_food:
+        return {'ok': False, 'errors': 'This food cannot be deleted as it is used in a meal.'}
+    db.session.delete(food_to_delete)
+    db.session.commit()
+    return {'ok': True, 'food_id': food_id}

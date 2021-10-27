@@ -16,7 +16,6 @@ def get_meals():
     '''
     user_id = current_user.get_id()
     all_user_meals = Meal.query.filter(Meal.user_id == user_id).all()
-    print('\n\n\n', all_user_meals, '\n\n\n')
 
     return 'testing user_meals right now'
 
@@ -32,7 +31,7 @@ def create_meal():
     food_id = request.get_json()['food_id']
     pet_id = request.get_json()['pet_id']
     food = Food.query.get(food_id)
-    pet = Pet.query.get(food_id)
+    pet = Pet.query.get(pet_id)
     if not food:
         return {'ok': False, 'errors': 'This food does not exist.'}
     if not pet:

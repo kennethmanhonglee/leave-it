@@ -10,6 +10,7 @@ class Meal(db.Model):
     created_at = db.Column(db.Date, nullable=False)
 
     pet = db.relationship('Pet', back_populates='meals', uselist=False)
+    food = db.relationship('Food', back_populates='meals', uselist=False)
 
     def to_dict(self):
         return {

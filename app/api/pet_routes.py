@@ -36,10 +36,9 @@ def create_pet():
         new_pet = Pet(
             name=form.data['name'],
             user_id=user_id,
-            age=form.data['age'],
+            goal=form.data['goal'],
             current_weight=form.data['current_weight'],
             ideal_weight=form.data['ideal_weight'],
-            neutered=form.data['neutered'],
         )
         db.session.add(new_pet)
         db.session.commit()
@@ -69,10 +68,9 @@ def edit_pet(pet_id):
 
         # create a pet with given data
         existing_pet.name = form.data['name']
-        existing_pet.age = form.data['age']
+        existing_pet.goal = form.data['goal']
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
-        existing_pet.neutered = form.data['neutered']
         db.session.commit()
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,

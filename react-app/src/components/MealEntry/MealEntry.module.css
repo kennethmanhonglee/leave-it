@@ -1,9 +1,16 @@
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   height: 50px;
+  background-color: white;
+}
+
+.container div {
+  width: 20%;
+  display: flex;
+  justify-content: center;
 }
 
 .button {

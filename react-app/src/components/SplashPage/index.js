@@ -10,7 +10,7 @@ const SplashPage = () => {
           <h1>Weight loss for dogs</h1>
           <h4>Track the foods your dog loves</h4>
         </div>
-        <Link className={styles.link} to="/sign-up" exact>
+        <Link className={styles.link} to="/sign-up">
           <div className={styles.signup_button}>Sign Up</div>
         </Link>
       </div>

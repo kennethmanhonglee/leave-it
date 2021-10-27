@@ -2,6 +2,8 @@ from random import randint
 from datetime import datetime
 
 from app.models import db, Pet, PetWeight
+from app.forms.pet_form import ACCEPTED_GOALS
+
 PET_NAMES = [
     'Quinnie',
     'Yukon',
@@ -34,10 +36,9 @@ def seed_pets():
         new_pet = Pet(
             name=name,
             user_id=user_id,
-            age=randint(0, 130),
             current_weight=randint(0, 100),
             ideal_weight=randint(5, 100),
-            neutered=neutered
+            goal=ACCEPTED_GOALS[randint(0, 7)]
         )
         db.session.add(new_pet)
         db.session.commit()
