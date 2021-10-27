@@ -23,7 +23,6 @@ const FoodEntry = ({ food }) => {
   };
 
   const deleteFood = async () => {
-    console.log("hey heo");
     await dispatch(delete_food_thunk(food.id));
   };
 
