@@ -20,7 +20,8 @@ def password_matches(form, field):
     user = User.query.filter(User.email == login_param).first(
     ) or User.query.filter(User.username == login_param).first()
     if not user:
-        raise ValidationError('No such user exists.')
+        # raise ValidationError('No such user exists.')
+        return
     if not user.check_password(password):
         raise ValidationError('Password was incorrect.')
 

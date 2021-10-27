@@ -51,6 +51,7 @@ const LoginForm = () => {
             value={login_param}
             onChange={updateLoginParam}
             className={styles.input}
+            required
           />
         </div>
         <div>
@@ -61,6 +62,7 @@ const LoginForm = () => {
             value={password}
             onChange={updatePassword}
             className={styles.input}
+            required
           />
         </div>
         <div className={styles.button_div}>
