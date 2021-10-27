@@ -14,7 +14,10 @@ const SplashPage = () => {
           <div className={styles.signup_button}>Sign Up</div>
         </Link>
       </div>
-      <div className={styles.bio}>this is bio and stuff</div>
+      <div className={styles.bio}>
+        <div>linkedin</div>
+        <div>github</div>
+      </div>
     </div>
   );
 };

@@ -35,7 +35,6 @@ export const create_meal_thunk =
       body: JSON.stringify({ food_id, pet_id }),
     });
     const response = await res.json();
-    console.log(response);
     if (response.ok === false) {
       return response.errors;
     } else {
@@ -50,7 +49,6 @@ export const load_meals_thunk = () => async (dispatch) => {
 };
 
 export const delete_meal_thunk = (meal_id) => async (dispatch) => {
-  console.log(meal_id);
   const res = await fetch(`/api/meals/${meal_id}`, {
     method: "DELETE",
   });
@@ -79,8 +77,6 @@ const reducer = (state = initialState, action) => {
     case REMOVE_MEALS:
       return {};
     case DELETE_MEAL:
-      console.log("\n\n\n LEE LOO \n\n\n");
-      console.log(newState[action.payload]);
       delete newState[action.payload];
       return newState;
     default:
