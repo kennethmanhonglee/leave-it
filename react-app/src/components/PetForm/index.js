@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
 import { create_pet_thunk } from "../../store/pet";
+import styles from "./PetForm.module.css";
 
 const PetForm = () => {
   const dispatch = useDispatch();
@@ -52,40 +53,55 @@ const PetForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {errors && Object.values(errors).map((error) => <h1>{error}</h1>)}
-      <div>
-        <input type="text" placeholder="Name" onChange={updateName}></input>
-      </div>
-      <div>
-        <select value={goal} onChange={updateGoal}>
-          {ACCEPTED_GOALS.map((goal) => (
-            <option key={goal} value={goal}>
-              {goal}
-            </option>
+    <div className={styles.container}>
+      <h2 className={styles.header}>Create a pet</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        {errors &&
+          Object.values(errors).map((error, ind) => (
+            <div className={styles.errors} key={ind}>
+              {error}
+            </div>
           ))}
-        </select>
-      </div>
-      <div>
-        <input
-          type="number"
-          min="0"
-          placeholder="Current Weight in Kilograms"
-          onChange={updateCurrentWeight}
-        ></input>
-      </div>
-      <div>
-        <input
-          type="number"
-          min="0"
-          placeholder="Ideal Weight in Kilograms"
-          onChange={updateIdealWeight}
-        ></input>
-      </div>
-      <button disabled={isEmptyForm()} type="submit">
-        Add a pet
-      </button>
-    </form>
+        <div>
+          <input
+            type="text"
+            placeholder="Name"
+            onChange={updateName}
+            className={styles.input}
+          ></input>
+        </div>
+        <div>
+          <select value={goal} onChange={updateGoal} className={styles.select}>
+            {ACCEPTED_GOALS.map((goal) => (
+              <option key={goal} value={goal}>
+                {goal}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <input
+            type="number"
+            min="0"
+            placeholder="Current Weight in Kilograms"
+            onChange={updateCurrentWeight}
+            className={styles.input}
+          ></input>
+        </div>
+        <div>
+          <input
+            type="number"
+            min="0"
+            placeholder="Ideal Weight in Kilograms"
+            onChange={updateIdealWeight}
+            className={styles.input}
+          ></input>
+        </div>
+        <button disabled={isEmptyForm()} type="submit">
+          Add a pet
+        </button>
+      </form>
+    </div>
   );
 };
 

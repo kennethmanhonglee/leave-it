@@ -51,7 +51,9 @@ def create_pet():
         db.session.commit()
         return new_pet.to_dict()
     else:
-        return {'ok': False, 'errors': form.errors}
+        errors = validation_errors_to_error_messages(form.errors)
+        new_errors = [error.split(':')[1] for error in errors]
+        return {'ok': False, 'errors': new_errors}, 401
 
 
 @pet_routes.route('/<int:pet_id>', methods=['PUT'])
