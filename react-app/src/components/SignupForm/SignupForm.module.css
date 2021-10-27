@@ -29,12 +29,14 @@
   border-radius: 3px;
   line-height: 30px;
   padding: 10px;
+  font-size: 12px;
+  width: 200px;
 }
 
 .button_div {
   display: flex;
   justify-content: space-between;
-  width: 167px;
+  width: 200px;
 }
 
 .button_div div {
@@ -54,4 +56,12 @@
   transition: background-color 0.2s;
   background-color: #ffab35;
   cursor: pointer;
+}
+.names {
+  display: flex;
+  width: 200px;
+}
+
+.names div input {
+  width: 100%;
 }

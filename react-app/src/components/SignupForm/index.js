@@ -68,25 +68,27 @@ const SignUpForm = () => {
             <div key={ind}>{error}</div>
           </div>
         ))}
-        <div>
-          <input
-            placeholder="First Name"
-            type="text"
-            name="firstname"
-            onChange={updateFirstname}
-            value={firstname}
-            className={styles.input}
-          ></input>
-        </div>
-        <div>
-          <input
-            placeholder="Last Name"
-            type="text"
-            name="lastname"
-            onChange={updateLastname}
-            value={lastname}
-            className={styles.input}
-          ></input>
+        <div className={styles.names}>
+          <div>
+            <input
+              placeholder="First Name"
+              type="text"
+              name="firstname"
+              onChange={updateFirstname}
+              value={firstname}
+              className={styles.input}
+            ></input>
+          </div>
+          <div>
+            <input
+              placeholder="Last Name"
+              type="text"
+              name="lastname"
+              onChange={updateLastname}
+              value={lastname}
+              className={styles.input}
+            ></input>
+          </div>
         </div>
         <div>
           <input

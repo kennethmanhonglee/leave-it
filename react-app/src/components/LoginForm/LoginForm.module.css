@@ -29,12 +29,14 @@
   border-radius: 3px;
   line-height: 30px;
   padding: 10px;
+  width: 200px;
+  font-size: 12px;
 }
 
 .button_div {
   display: flex;
   justify-content: space-between;
-  width: 167px;
+  width: 200px;
 }
 
 .button_div div {
