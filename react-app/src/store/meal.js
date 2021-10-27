@@ -35,6 +35,7 @@ export const create_meal_thunk =
       body: JSON.stringify({ food_id, pet_id }),
     });
     const response = await res.json();
+    console.log(response);
     if (response.ok === false) {
       return response.errors;
     } else {

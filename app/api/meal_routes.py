@@ -31,7 +31,7 @@ def create_meal():
     food_id = request.get_json()['food_id']
     pet_id = request.get_json()['pet_id']
     food = Food.query.get(food_id)
-    pet = Pet.query.get(food_id)
+    pet = Pet.query.get(pet_id)
     if not food:
         return {'ok': False, 'errors': 'This food does not exist.'}
     if not pet:
