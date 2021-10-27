@@ -1,7 +1,16 @@
+.form {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
-  /* border: 1px solid black; */
-  height: 50vh;
-  overflow-y: scroll;
+  margin-top: 20px;
+  height: 70vh;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 7px;
+  width: 70vw;
 }
 
 .header_bar {
@@ -24,6 +33,11 @@
   padding: 5px 5px;
 }
 
+.button:hover {
+  background-color: #ffab35;
+}
+
 .food_entries {
-  overflow: scroll;
+  height: 41vh;
+  overflow-y: scroll;
 }

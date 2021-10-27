@@ -5,6 +5,7 @@ from datetime import datetime
 from app.forms import CreateFoodForm
 from app.forms.edit_food_form import EditFoodForm
 from app.models import db, Food
+from app.models.meal import Meal
 
 food_routes = Blueprint('foods', __name__)
 
@@ -85,6 +86,9 @@ def delete_food(food_id):
     food_to_delete = Food.query.get(food_id)
     if not food_to_delete:
         return {'ok': False, 'errors': 'This food does not exists.'}
+    meals_with_this_food = Meal.query.filter(Meal.food_id == food_id).all()
+    if meals_with_this_food:
+        return {'ok': False, 'errors': 'This food cannot be deleted as it is used in a meal.'}
     db.session.delete(food_to_delete)
     db.session.commit()
     return {'ok': True, 'food_id': food_id}

@@ -73,7 +73,6 @@ export const edit_food_thunk = (food_id, new_food) => async (dispatch) => {
 };
 
 export const delete_food_thunk = (food_id) => async (dispatch) => {
-  console.log("we are in the delete thunk");
   const res = await fetch(`/api/foods/${food_id}`, {
     method: "DELETE",
   });
