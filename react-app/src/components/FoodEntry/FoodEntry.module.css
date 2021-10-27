@@ -21,6 +21,8 @@
   justify-content: space-between;
 }
 .food_info div {
+  display: flex;
+  justify-content: center;
   width: 20%;
 }
 
