@@ -25,6 +25,8 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data);
       }
+    } else {
+      setErrors(["Password and Confirm Password must match."]);
     }
   };
 
@@ -64,8 +66,8 @@ const SignUpForm = () => {
       <div className={styles.logo_div}></div>
       <form onSubmit={onSignUp} className={styles.form}>
         {errors.map((error, ind) => (
-          <div>
-            <div key={ind}>{error}</div>
+          <div className={styles.errors} key={ind}>
+            {error}
           </div>
         ))}
         <div className={styles.names}>
@@ -77,6 +79,7 @@ const SignUpForm = () => {
               onChange={updateFirstname}
               value={firstname}
               className={styles.input}
+              required
             ></input>
           </div>
           <div>
@@ -87,6 +90,7 @@ const SignUpForm = () => {
               onChange={updateLastname}
               value={lastname}
               className={styles.input}
+              required
             ></input>
           </div>
         </div>
@@ -98,6 +102,7 @@ const SignUpForm = () => {
             onChange={updateUsername}
             value={username}
             className={styles.input}
+            required
           ></input>
         </div>
         <div>
@@ -108,6 +113,7 @@ const SignUpForm = () => {
             onChange={updateEmail}
             value={email}
             className={styles.input}
+            required
           ></input>
         </div>
         <div>
@@ -118,6 +124,7 @@ const SignUpForm = () => {
             onChange={updatePassword}
             value={password}
             className={styles.input}
+            required
           ></input>
         </div>
         <div>

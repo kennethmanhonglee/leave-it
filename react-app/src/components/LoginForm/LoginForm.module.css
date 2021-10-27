@@ -57,3 +57,8 @@
   background-color: #ffab35;
   cursor: pointer;
 }
+
+.errors {
+  color: red;
+  margin-bottom: 10px;
+}
