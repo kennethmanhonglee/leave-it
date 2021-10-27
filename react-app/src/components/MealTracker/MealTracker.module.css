@@ -45,6 +45,7 @@
 .editing_div:hover,
 .deleting_div:hover {
   text-decoration: none;
+  transition: background-color 0.2s;
   background-color: rgba(255, 148, 0, 0.5);
 }
 
