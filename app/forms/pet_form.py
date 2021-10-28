@@ -1,7 +1,9 @@
+from operator import is_
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, IntegerField
+from wtforms import StringField, FloatField
 from wtforms.validators import DataRequired, ValidationError
 
+from app.forms.signup_form import is_long
 
 ACCEPTED_GOALS = [
 
@@ -24,8 +26,17 @@ def goal_accepted(form, field):
         )
 
 
+def weight_accepted(form, field):
+    weight = field.data
+    if weight < 0 or weight > 150:
+        field_name = ' '.join(field.name.split('_'))
+        raise ValidationError(f'{field_name} must be realistic.')
+
+
 class PetForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
-    current_weight = FloatField('current_weight', validators=[DataRequired()])
-    ideal_weight = FloatField('ideal_weight', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired(), is_long])
+    current_weight = FloatField('current_weight', validators=[
+                                DataRequired(), weight_accepted])
+    ideal_weight = FloatField('ideal_weight', validators=[
+                              DataRequired(), weight_accepted])
     goal = StringField('goal', validators=[DataRequired(), goal_accepted])

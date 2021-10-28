@@ -3,7 +3,6 @@ from flask_login import login_required, current_user
 from datetime import datetime
 
 from app.forms import CreateFoodForm
-from app.forms.edit_food_form import EditFoodForm
 from app.models import db, Food
 from app.models.meal import Meal
 
@@ -61,7 +60,8 @@ def edit_food(food_id):
     if not food_to_edit:
         return {'ok': False, 'errors': 'This food does not exist.'}
 
-    form = EditFoodForm()
+    form = CreateFoodForm()
+    print('\n\n\n we are in the put food route \n\n\n')
     form['csrf_token'].data = request.cookies['csrf_token']
     if (form.validate_on_submit()):
         food_to_edit.food_name = form.data['food_name']
@@ -73,6 +73,7 @@ def edit_food(food_id):
         db.session.commit()
         return {'ok': True, 'food': food_to_edit.to_dict()}
     else:
+        print('\n\n\n', form.errors, '\n\n\n')
         return {'ok': False, 'errors': form.errors}
 
 

@@ -27,15 +27,23 @@ def is_email(form, field):
         raise ValidationError('Must use a valid email address.')
     if len(email.split('@')[1].split('.')) < 2:
         raise ValidationError('Must use a valid email address.')
+    if len(email) > 255:
+        raise ValidationError('The email is too long.')
+
+
+def is_long(form, field):
+    param = field.data
+    if len(param) > 40:
+        raise ValidationError(f'The input for {field.name} is too long.')
 
 
 class SignUpForm(FlaskForm):
     username = StringField(
-        'username', validators=[DataRequired(), username_exists])
+        'username', validators=[DataRequired(), username_exists, is_long])
     firstname = StringField(
-        'firstname', validators=[DataRequired()])
+        'firstname', validators=[DataRequired(), is_long])
     lastname = StringField(
-        'lastname', validators=[DataRequired()])
+        'lastname', validators=[DataRequired(), is_long])
     email = StringField('email', validators=[
                         DataRequired(), user_exists, is_email])
     password = StringField('password', validators=[DataRequired()])
