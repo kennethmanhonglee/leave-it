@@ -44,6 +44,15 @@ const MealTracker = ({ pet_id }) => {
     history.push(`/pets/${pet_id}/add_food`);
   };
 
+  let goal_calories, current_calories;
+  if (currentPet && currentPetMeals && foods) {
+    goal_calories = Math.floor(currentPet.goal_calories);
+    current_calories = currentPetMeals.reduce(
+      (sum, meal) => (sum += foods[meal.food_id]?.calories),
+      0
+    );
+  }
+
   if (!currentPet || !foods || !allMeals) return "loading...";
   else {
     return (
@@ -82,28 +91,13 @@ const MealTracker = ({ pet_id }) => {
           <WeightForm pet_id={currentPet.id} />
         </div>
         <div className={styles.goals}>
-          <div className={styles.goal}>
-            Goal: {currentPet && Math.floor(currentPet.goal_calories)}cal
-          </div>
+          <div className={styles.goal}>Goal: {goal_calories}cal</div>
           <div className={styles.actual}>
-            Actual:{" "}
-            {currentPetMeals && foods
-              ? currentPetMeals.reduce(
-                  (sum, meal) => (sum += foods[meal.food_id]?.calories),
-                  0
-                )
-              : 0}
+            Actual: {current_calories}
             cal
           </div>
           <div className={styles.budget}>
-            Budget:{" "}
-            {currentPet && currentPetMeals && foods
-              ? Math.floor(currentPet.goal_calories) -
-                currentPetMeals.reduce(
-                  (sum, meal) => (sum += foods[meal.food_id]?.calories),
-                  0
-                )
-              : Math.floor(currentPet.goal_calories)}
+            Budget: {goal_calories - current_calories}
           </div>
         </div>
       </div>

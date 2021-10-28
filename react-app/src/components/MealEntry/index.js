@@ -24,8 +24,8 @@ const MealEntry = ({ meal }) => {
     <div className={styles.container}>
       <div>{currentFood.food_type}</div>
       <div>{currentFood.food_name}</div>
-      <div>{currentFood.serving_size} g</div>
       <div>{currentFood.calories} calories</div>
+      <div>{currentFood.serving_size} g</div>
       <div className={styles.button_div}>
         <button onClick={deleteMeal} className={styles.button}>
           delete
