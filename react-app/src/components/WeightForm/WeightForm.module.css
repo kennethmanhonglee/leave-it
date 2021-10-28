@@ -1,7 +1,39 @@
+.form_div {
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.form_container {
+  margin-left: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .weight_input {
   border: 1px solid black;
 }
 
 .error {
   color: red;
+}
+
+.button {
+  background-color: #ff9400;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  /* width: 45%; */
+  padding: 5px 5px;
+  color: white;
+}
+
+.button:hover {
+  transition: background-color 0.2s;
+  background-color: #ffab35;
+  cursor: pointer;
 }

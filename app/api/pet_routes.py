@@ -81,7 +81,7 @@ def edit_pet(pet_id):
         )
         db.session.add(new_pet_weight)
         db.session.commit()
-        return existing_pet.to_dict()
+        return {'ok': True, 'new_pet': existing_pet.to_dict()}
     else:
         return {'ok': False, 'errors': form.errors}
 

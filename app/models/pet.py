@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from app.calories import get_calories
 from .db import db
 
