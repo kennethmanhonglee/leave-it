@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import styles from "./LoginForm.module.css";
 import { login } from "../../store/session";
+import logo from "../../assets/images/logo_figma.png";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -38,7 +39,12 @@ const LoginForm = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo_div}></div>
+      <div
+        className={styles.logo_div}
+        style={{
+          backgroundImage: `url(${logo})`,
+        }}
+      ></div>
       <form onSubmit={onLogin} className={styles.form}>
         {errors.map((error, ind) => (
           <div className={styles.errors} key={ind}>

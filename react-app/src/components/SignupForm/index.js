@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import styles from "./SignupForm.module.css";
 import { signUp, login } from "../../store/session";
+import logo from "../../assets/images/logo_figma.png";
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -63,7 +64,12 @@ const SignUpForm = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo_div}></div>
+      <div
+        className={styles.logo_div}
+        style={{
+          backgroundImage: `url(${logo})`,
+        }}
+      ></div>
       <form onSubmit={onSignUp} className={styles.form}>
         {errors.map((error, ind) => (
           <div className={styles.errors} key={ind}>
