@@ -4,6 +4,7 @@ from datetime import datetime
 
 from app.forms import PetForm
 from app.models import db, Pet, PetWeight
+from app.api.auth_routes import validation_errors_to_error_messages
 
 pet_routes = Blueprint('pets', __name__)
 
@@ -83,7 +84,9 @@ def edit_pet(pet_id):
         db.session.commit()
         return {'ok': True, 'new_pet': existing_pet.to_dict()}
     else:
-        return {'ok': False, 'errors': form.errors}
+        errors = validation_errors_to_error_messages(form.errors)
+        new_errors = [error.split(':')[1] for error in errors]
+        return {'ok': False, 'errors': new_errors}
 
 
 @pet_routes.route('/<int:pet_id>', methods=['DELETE'])

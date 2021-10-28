@@ -30,6 +30,8 @@ const WeightForm = ({ pet_id }) => {
     const errors = await dispatch(edit_pet_thunk(new_pet));
     if (errors) {
       setError(errors);
+    } else {
+      setError("");
     }
   };
 
