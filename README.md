@@ -15,11 +15,17 @@ https://leaveit.herokuapp.com/
 
 ## Screenshots
 
-### Home page
+### Splash Page
 
-### Home page
+![Screen Shot 2021-10-28 at 1 19 01 PM](https://user-images.githubusercontent.com/54250710/139329521-55eac78b-6128-4526-9975-77e22a78be2f.png)
 
-### Home page
+### Signup Page
+
+![Screen Shot 2021-10-28 at 1 20 58 PM](https://user-images.githubusercontent.com/54250710/139329702-eaa96e27-794f-4fea-8719-411859ceefeb.png)
+
+### Home Page
+
+![Screen Shot 2021-10-28 at 1 24 13 PM](https://user-images.githubusercontent.com/54250710/139330109-eddd0415-376f-4337-b1c8-041a93af6e73.png)
 
 ## Features
 
@@ -29,13 +35,14 @@ Users are able to create pets by inputing the appropriate goals and weights for 
 
 - Application Design
 
-  - As calorie tracking for dogs is not very popular, there are not too many similar websites that do similar functions. [Loseit!](https://leaveit.herokuapp.com/) has similar functions, but it is also slightly different since most calorie tracker apps out there only track the statistics for the logged in user. Leaveit! will have to be able to track and display multiple calorie trackers for each logged in users. Therefore, coming up with an elegant way to display the statistics was a little challenging, and it is also something that I am constantly still looking to improve. 
-  - Due to nature of calorie tracking for dogs, their needs are calculated differently from human calorie tracking. For dogs, their daily calorie requirements depend on their size, their breed, their activity level, their age, and whether they are fixed. I had originally planned to have the user input the age of their pets when creating them. That had proved to be difficult because we would have to account for their age, but also whether they are neutered, etc. 
+  - As calorie tracking for dogs is not very popular, there are not too many similar websites that do similar functions. [Loseit!](https://leaveit.herokuapp.com/) has similar functions, but it is also slightly different since most calorie tracker apps out there only track the statistics for the logged in user. Leaveit! will have to be able to track and display multiple calorie trackers for each logged in users. Therefore, coming up with an elegant way to display the statistics was a little challenging, and it is also something that I am constantly still looking to improve.
+  - Due to nature of calorie tracking for dogs, their needs are calculated differently from human calorie tracking. For dogs, their daily calorie requirements depend on their size, their breed, their activity level, their age, and whether they are fixed. I had originally planned to have the user input the age of their pets when creating them. That had proved to be difficult because we would have to account for their age, but also whether they are neutered, etc.
 
 - Working with Redux Store
-  - Leaveit! is the third project where I am using Redux, so I am getting a little more comfortable with the data flow and the reason why we use it. However, working with React/Redux always seems to be a little challenging due to the convoluted nature of the data flow. Also, the `useSelector` hook seems to run at random times, instead of consistently in the same order. Therefore, most of the times I work with the Redux store state from the frontend of the app, I needed to conditionally render elements on the screen to prevent the app from randomly crashing in case `useSelector` did not run to get the data I need before React attempts to render said data. 
+  - Leaveit! is the third project where I am using Redux, so I am getting a little more comfortable with the data flow and the reason why we use it. However, working with React/Redux always seems to be a little challenging due to the convoluted nature of the data flow. Also, the `useSelector` hook seems to run at random times, instead of consistently in the same order. Therefore, most of the times I work with the Redux store state from the frontend of the app, I needed to conditionally render elements on the screen to prevent the app from randomly crashing in case `useSelector` did not run to get the data I need before React attempts to render said data.
 - Displaying Calorie Counts
   - Displaying calorie counts was difficult since it was not stored in the database. I had to do some additional calculations in the frontend to get the actual calorie intake.
+
 ```JS
   let goal_calories, current_calories;
   if (currentPet && currentPetMeals && foods) {
