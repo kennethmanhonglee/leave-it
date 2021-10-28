@@ -100,7 +100,7 @@ const EditFoodForm = () => {
             className={styles.number}
           ></input>
           {errors && errors["serving_size"] && (
-            <h2>{errors["serving_size"]}</h2>
+            <div className={styles.errors}>{errors["serving_size"]}</div>
           )}
         </div>
         <div>
