@@ -8,9 +8,10 @@
 .container {
   margin-top: 20px;
   height: 70vh;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  /* border: 1px solid rgba(0, 0, 0, 0.2); */
   padding: 7px;
   width: 70vw;
+  height: 100%;
 }
 
 .header_bar {
@@ -39,6 +40,6 @@
 }
 
 .food_entries {
-  height: 41vh;
+  height: 92%;
   overflow-y: scroll;
 }

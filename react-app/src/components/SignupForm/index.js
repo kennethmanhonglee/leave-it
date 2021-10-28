@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import styles from "./SignupForm.module.css";
 import { signUp, login } from "../../store/session";
+import logo from "../../assets/images/logo_figma.png";
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -25,6 +26,8 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data);
       }
+    } else {
+      setErrors(["Password and Confirm Password must match."]);
     }
   };
 
@@ -61,32 +64,41 @@ const SignUpForm = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo_div}></div>
+      <div
+        className={styles.logo_div}
+        style={{
+          backgroundImage: `url(${logo})`,
+        }}
+      ></div>
       <form onSubmit={onSignUp} className={styles.form}>
         {errors.map((error, ind) => (
-          <div>
-            <div key={ind}>{error}</div>
+          <div className={styles.errors} key={ind}>
+            {error}
           </div>
         ))}
-        <div>
-          <input
-            placeholder="First Name"
-            type="text"
-            name="firstname"
-            onChange={updateFirstname}
-            value={firstname}
-            className={styles.input}
-          ></input>
-        </div>
-        <div>
-          <input
-            placeholder="Last Name"
-            type="text"
-            name="lastname"
-            onChange={updateLastname}
-            value={lastname}
-            className={styles.input}
-          ></input>
+        <div className={styles.names}>
+          <div>
+            <input
+              placeholder="First Name"
+              type="text"
+              name="firstname"
+              onChange={updateFirstname}
+              value={firstname}
+              className={styles.input}
+              required
+            ></input>
+          </div>
+          <div>
+            <input
+              placeholder="Last Name"
+              type="text"
+              name="lastname"
+              onChange={updateLastname}
+              value={lastname}
+              className={styles.input}
+              required
+            ></input>
+          </div>
         </div>
         <div>
           <input
@@ -96,6 +108,7 @@ const SignUpForm = () => {
             onChange={updateUsername}
             value={username}
             className={styles.input}
+            required
           ></input>
         </div>
         <div>
@@ -106,6 +119,7 @@ const SignUpForm = () => {
             onChange={updateEmail}
             value={email}
             className={styles.input}
+            required
           ></input>
         </div>
         <div>
@@ -116,6 +130,7 @@ const SignUpForm = () => {
             onChange={updatePassword}
             value={password}
             className={styles.input}
+            required
           ></input>
         </div>
         <div>
@@ -130,7 +145,6 @@ const SignUpForm = () => {
           ></input>
         </div>
         <div className={styles.button_div}>
-          {/* make demo into a link */}
           <div className={styles.button} onClick={demoUser}>
             Demo
           </div>

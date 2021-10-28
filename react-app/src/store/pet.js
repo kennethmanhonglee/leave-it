@@ -58,7 +58,7 @@ export const edit_pet_thunk = (pet) => async (dispatch) => {
     return response.errors;
   } else {
     // edit does the same thing as adding a pet in terms of redux store state
-    await dispatch(add_pet(response));
+    await dispatch(add_pet(response.new_pet));
   }
 };
 

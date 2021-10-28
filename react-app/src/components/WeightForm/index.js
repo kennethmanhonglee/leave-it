@@ -30,21 +30,25 @@ const WeightForm = ({ pet_id }) => {
     const errors = await dispatch(edit_pet_thunk(new_pet));
     if (errors) {
       setError(errors);
+    } else {
+      setError("");
     }
   };
 
   return (
     <div className={styles.form_div}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div>
-          <label htmlFor="weight">today's weight : </label>
-          <input
-            id="weight"
-            className={styles.weight_input}
-            type="number"
-            value={weight}
-            onChange={updateWeight}
-          ></input>
+        <div className={styles.form_container}>
+          <div>
+            <label htmlFor="weight">today's weight : </label>
+            <input
+              id="weight"
+              className={styles.weight_input}
+              type="number"
+              value={weight}
+              onChange={updateWeight}
+            ></input>
+          </div>
           {error && <h2 className={styles.error}>{error}</h2>}
           <button className={styles.button} type="submit">
             Record

@@ -43,7 +43,9 @@ def login():
             User.email == form.data['login_param']).first() or User.query.filter(User.username == form.data['login_param']).first()
         login_user(user)
         return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    errors = validation_errors_to_error_messages(form.errors)
+    new_errors = [error.split(':')[1] for error in errors]
+    return {'errors': new_errors}, 401
 
 
 @auth_routes.route('/logout')
@@ -74,7 +76,9 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    errors = validation_errors_to_error_messages(form.errors)
+    new_errors = [error.split(':')[1] for error in errors]
+    return {'errors': new_errors}, 401
 
 
 @auth_routes.route('/unauthorized')
