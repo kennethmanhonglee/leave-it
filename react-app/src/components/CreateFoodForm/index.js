@@ -42,8 +42,8 @@ const CreateFoodForm = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.header}>Create a food</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.header}>Create a food</h2>
         <div>
           <label htmlFor="food_name">Food Name</label>
           <input

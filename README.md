@@ -32,94 +32,17 @@ Users are able to create pets by inputing the appropriate goals and weights for 
   - As calorie tracking for dogs is not very popular, there are not too many similar websites that do similar functions. [Loseit!](https://leaveit.herokuapp.com/) has similar functions, but it is also slightly different since most calorie tracker apps out there only track the statistics for the logged in user. Leaveit! will have to be able to track and display multiple calorie trackers for each logged in users. Therefore, coming up with an elegant way to display the statistics was a little challenging, and it is also something that I am constantly still looking to improve. 
   - Due to nature of calorie tracking for dogs, their needs are calculated differently from human calorie tracking. For dogs, their daily calorie requirements depend on their size, their breed, their activity level, their age, and whether they are fixed. I had originally planned to have the user input the age of their pets when creating them. That had proved to be difficult because we would have to account for their age, but also whether they are neutered, etc. 
 
-- Displaying Caloric Intake
-  - Displaying the caloric intake of each pet was definitely one of the bigger challenges as it was not something that was stored in the database or the Redux store. It is 
-
+- Working with Redux Store
+  - Leaveit! is the third project where I am using Redux, so I am getting a little more comfortable with the data flow and the reason why we use it. However, working with React/Redux always seems to be a little challenging due to the convoluted nature of the data flow. Also, the `useSelector` hook seems to run at random times, instead of consistently in the same order. Therefore, most of the times I work with the Redux store state from the frontend of the app, I needed to conditionally render elements on the screen to prevent the app from randomly crashing in case `useSelector` did not run to get the data I need before React attempts to render said data. 
+- Displaying Calorie Counts
+  - Displaying calorie counts was difficult since it was not stored in the database. I had to do some additional calculations in the frontend to get the actual calorie intake.
 ```JS
-const SearchBar = () => {
-  const history = useHistory();
-  const [searchParamsString, setSearchParamsString] = useState("");
-  const [address, setAddress] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    return history.push(`/search/${searchParamsString}=${address}`);
-  };
-  return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.searchBar}>
-        <div className={styles.searchParams}>
-          <h2>Find</h2>
-        </div>
-        <input
-          className={styles.searchInput}
-          type="text"
-          placeholder="Find your next spot"
-          onChange={(e) => setSearchParamsString(e.target.value)}
-          value={searchParamsString}
-        />
-        <div className={styles.searchParams}>
-          <h2>Near</h2>
-        </div>
-        <input
-          className={`${styles.searchInput}`}
-          type="text"
-          placeholder="Address, neighborhood, city, state, or zip"
-          onChange={(e) => setAddress(e.target.value)}
-          value={address}
-        />
-        <button className={styles.searchButton} type="submit">
-          <FaSearch style={{ color: "white" }} />
-        </button>
-      </div>
-    </form>
-  );
-};
-```
-
-```JS
-const SearchPage = () => {
-  const { searchParamsString } = useParams();
-  const dispatch = useDispatch();
-  const searchState = useSelector((state) => state.search);
-  const paramsArray = searchParamsString.split("="); //[searchParamsString, address]
-  const businessList =
-    paramsArray[0] === ""
-      ? searchState[paramsArray[1]]
-      : searchState[paramsArray[0]];
-
-  useEffect(() => {
-    const params = {
-      searchParamsString: paramsArray[0],
-      address: paramsArray[1],
-    };
-    dispatch(searchBusinesses_thunk(params));
-  }, [dispatch]);
-
-  if (!searchState) {
-    return <h1>Loading...</h1>;
-  } else {
-    return (
-      <div className={styles.businessList}>
-        <div className={styles.headerDiv}>
-          <h2 className={styles.header}>All Results</h2>
-        </div>
-        {businessList?.map((business) => (
-          <div key={business.id} className={styles.business}>
-            <NavLink
-              className={styles.businessLink}
-              to={`/businesses/${business.id}`}
-            >
-              <h2 className={styles.title}>{business.title}</h2>
-              <p
-                className={styles.address}
-              >{`${business.city}, ${business.state}`}</p>
-              <p className={styles.description}>{business.description}</p>
-            </NavLink>
-          </div>
-        ))}
-      </div>
+  let goal_calories, current_calories;
+  if (currentPet && currentPetMeals && foods) {
+    goal_calories = Math.floor(currentPet.goal_calories);
+    current_calories = currentPetMeals.reduce(
+      (sum, meal) => (sum += foods[meal.food_id]?.calories),
+      0
     );
   }
-};
 ```

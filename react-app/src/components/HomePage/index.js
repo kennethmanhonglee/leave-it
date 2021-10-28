@@ -17,11 +17,19 @@ const HomePage = () => {
   }, [dispatch]);
 
   const date = new Date();
+  const date_options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
 
   return (
     <div className={styles.home_page}>
-      <h1>Welcome back, {currentUser.firstname}</h1>
-      <h1>{date.toDateString()}</h1>
+      <div className={styles.greetings}>
+        <h1>Welcome back, {currentUser.firstname}</h1>
+        <h1>{date.toLocaleDateString("en-US", date_options)}</h1>
+      </div>
       {Object.values(pets).length > 0 ? (
         <div className={styles.meal_trackers}>
           {Object.values(pets).map((pet) => (
