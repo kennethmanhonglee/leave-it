@@ -44,7 +44,8 @@ const MealTracker = ({ pet_id }) => {
     history.push(`/pets/${pet_id}/add_food`);
   };
 
-  let goal_calories, current_calories;
+  let goal_calories = 0;
+  let current_calories = 0;
   if (currentPet && currentPetMeals && foods) {
     goal_calories = Math.floor(currentPet.goal_calories);
     current_calories = currentPetMeals.reduce(
