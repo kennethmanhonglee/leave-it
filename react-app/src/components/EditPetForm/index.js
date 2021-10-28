@@ -66,8 +66,8 @@ const EditPetForm = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.header}>Edit {current_pet?.name}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.header}>Edit {current_pet?.name}</h2>
         {errors &&
           Object.values(errors).map((error, ind) => (
             <div className={styles.errors} key={ind}>

@@ -1,134 +1,48 @@
-# Flask React Project
+# Leaveit!
 
-This is the starter for the Flask React project.
+Leaveit! is a single-page calorie tracker app for dogs, inspired by [Loseit!](https://www.loseit.com/). It mimicks some of Loseit!'s functionalities, such as creating food, adding food to a a pet's daily calorie tracker, and logging their daily weight.
 
-## Getting started
+## Live site
 
-1. Clone this repository (only this branch)
+https://leaveit.herokuapp.com/
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
+## Technologies used
 
-2. Install dependencies
+- ### Frontend
+  - HTML, CSS, Javascript, React, Redux
+- ### Backend
+  - Flask, SQLAlchemy, Python, PostgreSQL
 
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
+## Screenshots
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+### Home page
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+### Home page
 
-   ```bash
-   pipenv shell
-   ```
+### Home page
 
-   ```bash
-   flask db upgrade
-   ```
+## Features
 
-   ```bash
-   flask seed all
-   ```
+Users are able to create pets by inputing the appropriate goals and weights for their pets, then add one of the created food items onto their daily meal tracker. If users are not able to find certain food items, they are also able to create it in our database then add to their daily meal tracker. The meal tracker refreshes daily, and will show the daily caloric requirement, actual caloric intake, and how many more calories are needed.
 
-   ```bash
-   flask run
-   ```
+## Challenges
 
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+- Application Design
 
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
+  - As calorie tracking for dogs is not very popular, there are not too many similar websites that do similar functions. [Loseit!](https://leaveit.herokuapp.com/) has similar functions, but it is also slightly different since most calorie tracker apps out there only track the statistics for the logged in user. Leaveit! will have to be able to track and display multiple calorie trackers for each logged in users. Therefore, coming up with an elegant way to display the statistics was a little challenging, and it is also something that I am constantly still looking to improve. 
+  - Due to nature of calorie tracking for dogs, their needs are calculated differently from human calorie tracking. For dogs, their daily calorie requirements depend on their size, their breed, their activity level, their age, and whether they are fixed. I had originally planned to have the user input the age of their pets when creating them. That had proved to be difficult because we would have to account for their age, but also whether they are neutered, etc. 
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
-
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
-
-## Deploy to Heroku
-
-1. Before you deploy, don't forget to run the following command in order to
-ensure that your production environment has all of your up-to-date
-dependencies. You only have to run this command when you have installed new
-Python packages since your last deployment, but if you aren't sure, it won't
-hurt to run it again.
-
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
-
-2. Create a new project on Heroku
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-4. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-5. Run
-
-   ```bash
-   heroku login
-   ```
-
-6. Login to the heroku container registry
-
-   ```bash
-   heroku container:login
-   ```
-
-7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-8. Push your docker container to heroku from the root directory of your project.
-   (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
-   This will build the Dockerfile and push the image to your heroku container registry.
-
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
-
-9. Release your docker container to heroku
-
-      ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
-      ```
-
-10. set up your database
-
-      ```bash
-      heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-      heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-      ```
-
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
-
-12. profit
-
-### For M1 Mac users
-
-(Replaces **Step 8**)
-
-1. Build image with linux platform for heroku servers. Replace
-{NAME_OF_HEROKU_APP} with your own tag:
-
-   ```bash=
-   docker buildx build --platform linux/amd64 -t {NAME_OF_HEROKU_APP} .
-   ```
-
-2. Tag your app with the url for your apps registry. Make sure to use the name
-of your Heroku app in the url and tag name:
-
-   ```bash=2
-   docker tag {NAME_OF_HEROKU_APP} registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
-
-3. Use docker to push the image to the Heroku container registry:
-
-   ```bash=3
-   docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
+- Working with Redux Store
+  - Leaveit! is the third project where I am using Redux, so I am getting a little more comfortable with the data flow and the reason why we use it. However, working with React/Redux always seems to be a little challenging due to the convoluted nature of the data flow. Also, the `useSelector` hook seems to run at random times, instead of consistently in the same order. Therefore, most of the times I work with the Redux store state from the frontend of the app, I needed to conditionally render elements on the screen to prevent the app from randomly crashing in case `useSelector` did not run to get the data I need before React attempts to render said data. 
+- Displaying Calorie Counts
+  - Displaying calorie counts was difficult since it was not stored in the database. I had to do some additional calculations in the frontend to get the actual calorie intake.
+```JS
+  let goal_calories, current_calories;
+  if (currentPet && currentPetMeals && foods) {
+    goal_calories = Math.floor(currentPet.goal_calories);
+    current_calories = currentPetMeals.reduce(
+      (sum, meal) => (sum += foods[meal.food_id]?.calories),
+      0
+    );
+  }
+```
