@@ -5,10 +5,13 @@
   align-items: center;
   background-color: rgb(255, 140, 29);
   color: white;
+  display: flex;
+  justify-content: center;
 }
 
 .nav ul {
-  width: 100vw;
+  min-width: 70%;
+  max-width: 100px;
   display: flex;
   list-style-type: none;
   justify-content: space-between;
