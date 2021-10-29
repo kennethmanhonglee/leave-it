@@ -75,3 +75,9 @@
   background-color: #ffab35;
   cursor: pointer;
 }
+
+.grey,
+.grey:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: default;
+}
