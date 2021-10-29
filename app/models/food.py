@@ -6,8 +6,8 @@ class Food(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    food_name = db.Column(db.String(100), nullable=False)
-    food_type = db.Column(db.String(100), nullable=False)
+    food_name = db.Column(db.String(40), nullable=False)
+    food_type = db.Column(db.String(20), nullable=False)
     serving_size = db.Column(db.Float, nullable=False)
     calories = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.Date, nullable=False)

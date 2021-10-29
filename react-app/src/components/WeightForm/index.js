@@ -29,6 +29,7 @@ const WeightForm = ({ pet_id }) => {
     // call thunk to create new weight
     const errors = await dispatch(edit_pet_thunk(new_pet));
     if (errors) {
+      console.log(errors);
       setError(errors);
     } else {
       setError("");
@@ -49,7 +50,7 @@ const WeightForm = ({ pet_id }) => {
               onChange={updateWeight}
             ></input>
           </div>
-          {error && <h2 className={styles.error}>{error}</h2>}
+          {error && <h2 className={styles.error}>{error["current_weight"]}</h2>}
           <button className={styles.button} type="submit">
             Record
           </button>
