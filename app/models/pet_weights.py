@@ -18,5 +18,5 @@ class PetWeight(db.Model):
             'id': self.id,
             'pet_id': self.pet_id,
             'weight': self.weight,
-            'created_at': self.created_at,
+            'created_at': str(self.created_at).split(' ')[0],
         }

@@ -36,6 +36,18 @@ const WeightForm = ({ pet_id }) => {
     }
   };
 
+  const is_recorded = () => {
+    const today = new Date();
+    const date_options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    };
+    console.log(today.toLocaleDateString("en-US", date_options));
+  };
+
+  is_recorded();
+
   return (
     <div className={styles.form_div}>
       <form onSubmit={handleSubmit} className={styles.form}>
