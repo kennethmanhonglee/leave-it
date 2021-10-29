@@ -38,6 +38,7 @@ export const create_meal_thunk =
     if (response.ok === false) {
       return response.errors;
     } else {
+      console.log(response);
       await dispatch(create_meal(response));
     }
   };
