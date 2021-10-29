@@ -3,7 +3,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField
 from wtforms.validators import DataRequired, ValidationError
 
-from app.forms.signup_form import is_long
 
 ACCEPTED_GOALS = [
 
@@ -31,6 +30,12 @@ def weight_accepted(form, field):
     if weight < 0 or weight > 150:
         field_name = ' '.join(field.name.split('_'))
         raise ValidationError('Weight must be realistic.')
+
+
+def is_long(form, field):
+    param = field.data
+    if len(param) > 20:
+        raise ValidationError(f'The input is too long.')
 
 
 class PetForm(FlaskForm):
