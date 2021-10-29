@@ -101,7 +101,7 @@ const PetForm = () => {
           )}
         </div>
         <button
-          className={styles.button}
+          className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
           disabled={isEmptyForm()}
           type="submit"
         >

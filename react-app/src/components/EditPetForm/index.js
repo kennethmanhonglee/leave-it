@@ -120,7 +120,7 @@ const EditPetForm = () => {
         <button
           disabled={isEmptyForm()}
           type="submit"
-          className={styles.button}
+          className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
         >
           Edit {current_pet.name}
         </button>
