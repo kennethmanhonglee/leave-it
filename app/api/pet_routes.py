@@ -52,9 +52,7 @@ def create_pet():
         db.session.commit()
         return new_pet.to_dict()
     else:
-        errors = validation_errors_to_error_messages(form.errors)
-        new_errors = [error.split(':')[1] for error in errors]
-        return {'ok': False, 'errors': new_errors}, 401
+        return {'ok': False, 'errors': form.errors}, 401
 
 
 @pet_routes.route('/<int:pet_id>', methods=['PUT'])
@@ -84,9 +82,7 @@ def edit_pet(pet_id):
         db.session.commit()
         return {'ok': True, 'new_pet': existing_pet.to_dict()}
     else:
-        errors = validation_errors_to_error_messages(form.errors)
-        new_errors = [error.split(':')[1] for error in errors]
-        return {'ok': False, 'errors': new_errors}
+        return {'ok': False, 'errors': form.errors}
 
 
 @pet_routes.route('/<int:pet_id>', methods=['DELETE'])

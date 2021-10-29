@@ -30,7 +30,7 @@ def weight_accepted(form, field):
     weight = field.data
     if weight < 0 or weight > 150:
         field_name = ' '.join(field.name.split('_'))
-        raise ValidationError(f'{field_name} must be realistic.')
+        raise ValidationError('Weight must be realistic.')
 
 
 class PetForm(FlaskForm):
