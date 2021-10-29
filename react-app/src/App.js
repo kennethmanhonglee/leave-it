@@ -56,7 +56,7 @@ function App() {
         <ProtectedRoute path="/home" exact={true}>
           <HomePage />
         </ProtectedRoute>
-        {/* for development: will make into a modal later */}
+        {/* will make into a modal later */}
         <ProtectedRoute path="/pets/:pet_id/add_food" exact={true}>
           <AddFoodForm />
         </ProtectedRoute>
