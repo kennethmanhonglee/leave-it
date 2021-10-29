@@ -29,24 +29,11 @@ const WeightForm = ({ pet_id }) => {
     // call thunk to create new weight
     const errors = await dispatch(edit_pet_thunk(new_pet));
     if (errors) {
-      console.log(errors);
       setError(errors);
     } else {
       setError("");
     }
   };
-
-  const is_recorded = () => {
-    const today = new Date();
-    const date_options = {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    };
-    console.log(today.toLocaleDateString("en-US", date_options));
-  };
-
-  is_recorded();
 
   return (
     <div className={styles.form_div}>
@@ -63,7 +50,17 @@ const WeightForm = ({ pet_id }) => {
             ></input>
           </div>
           {error && <h2 className={styles.error}>{error["current_weight"]}</h2>}
-          <button className={styles.button} type="submit">
+          <button
+            // the ternary is used to check the last item in the weights list
+            // if the last item in the weights list is recorded today,
+            // highlight button green
+            className={`${styles.button} ${
+              currentPet.weights[currentPet.weights.length - 1].recorded_today
+                ? styles.green
+                : null
+            }`}
+            type="submit"
+          >
             Record
           </button>
         </div>

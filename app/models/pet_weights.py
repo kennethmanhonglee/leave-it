@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from .db import db
 from app.calories import get_calories
 
@@ -14,9 +16,13 @@ class PetWeight(db.Model):
     pet = db.relationship('Pet', back_populates='weights', uselist=False)
 
     def to_dict(self):
+        today = datetime.today()
+        recorded_today = str(today).split(' ')[0] == str(self.created_at)
+
         return {
             'id': self.id,
             'pet_id': self.pet_id,
             'weight': self.weight,
-            'created_at': str(self.created_at).split(' ')[0],
+            'created_at': self.created_at,
+            'recorded_today': recorded_today
         }
