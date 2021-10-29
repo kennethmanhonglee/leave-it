@@ -41,6 +41,7 @@
   padding: 10px;
   font-size: 12px;
   width: 200px;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .select {
@@ -68,4 +69,10 @@
   transition: background-color 0.2s;
   background-color: #ffab35;
   cursor: pointer;
+}
+
+.grey,
+.grey:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: default;
 }

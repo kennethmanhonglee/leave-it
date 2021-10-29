@@ -40,6 +40,11 @@ const CreateFoodForm = () => {
     }
   };
 
+  const isEmptyForm = () => {
+    if (!food_name || !calories || !serving_size) return true;
+    return false;
+  };
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -111,7 +116,11 @@ const CreateFoodForm = () => {
             <div className={styles.errors}>{errors["calories"]}</div>
           )}
         </div>
-        <button type="submit" className={styles.button}>
+        <button
+          type="submit"
+          disabled={isEmptyForm()}
+          className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
+        >
           Submit
         </button>
       </form>

@@ -58,6 +58,7 @@ const EditPetForm = () => {
     };
     const data = await dispatch(edit_pet_thunk(newPet));
     if (data) {
+      console.log(data);
       setErrors(data);
     } else {
       return history.push("/home");
@@ -67,13 +68,9 @@ const EditPetForm = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h2 className={styles.header}>Edit {current_pet?.name}</h2>
-        {errors &&
-          Object.values(errors).map((error, ind) => (
-            <div className={styles.errors} key={ind}>
-              {error}
-            </div>
-          ))}
+        <div>
+          <h2 className={styles.header}>Edit {current_pet?.name}</h2>
+        </div>
         <div>
           <input
             type="text"
@@ -82,6 +79,7 @@ const EditPetForm = () => {
             value={name}
             className={styles.input}
           ></input>
+          {errors && <div className={styles.errors}>{errors["name"]}</div>}
         </div>
         <div>
           <select value={goal} onChange={updateGoal} className={styles.select}>
@@ -91,6 +89,7 @@ const EditPetForm = () => {
               </option>
             ))}
           </select>
+          {errors && <div className={styles.errors}>{errors["goal"]}</div>}
         </div>
         <div>
           <input
@@ -101,6 +100,9 @@ const EditPetForm = () => {
             value={current_weight}
             className={styles.number}
           ></input>
+          {errors && (
+            <div className={styles.errors}>{errors["current_weight"]}</div>
+          )}
         </div>
         <div>
           <input
@@ -111,11 +113,14 @@ const EditPetForm = () => {
             value={ideal_weight}
             className={styles.number}
           ></input>
+          {errors && (
+            <div className={styles.errors}>{errors["ideal_weight"]}</div>
+          )}
         </div>
         <button
           disabled={isEmptyForm()}
           type="submit"
-          className={styles.button}
+          className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
         >
           Edit {current_pet.name}
         </button>

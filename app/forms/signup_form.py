@@ -34,7 +34,7 @@ def is_email(form, field):
 def is_long(form, field):
     param = field.data
     if len(param) > 40:
-        raise ValidationError(f'The input for {field.name} is too long.')
+        raise ValidationError(f'The input is too long.')
 
 
 class SignUpForm(FlaskForm):

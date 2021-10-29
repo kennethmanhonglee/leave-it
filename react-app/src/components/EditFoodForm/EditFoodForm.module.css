@@ -10,6 +10,8 @@
 .header {
   margin-bottom: 30px;
   font-size: 2rem;
+  max-width: 200px;
+  overflow-wrap: break-word;
 }
 
 .form {
@@ -74,4 +76,10 @@
   transition: background-color 0.2s;
   background-color: #ffab35;
   cursor: pointer;
+}
+
+.grey,
+.grey:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: default;
 }

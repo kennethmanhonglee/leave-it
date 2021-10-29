@@ -14,23 +14,30 @@ const MealTracker = ({ pet_id }) => {
   const history = useHistory();
 
   const allMeals = useSelector((state) => state.meals);
-  let currentPetMeals;
-  if (Object.values(allMeals).length > 0) {
-    currentPetMeals = Object.values(allMeals).filter(
-      (meal) => meal.pet_id === +pet_id
-    );
-  }
-
-  const foods = useSelector((state) => state.foods);
-
-  useEffect(() => {
-    dispatch(load_food_thunk());
-  }, [dispatch]);
-
+  console.log(allMeals);
   let currentPet;
   if (Object.values(pets).length > 0) {
     currentPet = pets[pet_id];
   }
+  let goal_calories = Math.floor(currentPet?.goal_calories);
+  let current_calories;
+  let currentPetMeals;
+
+  currentPetMeals = Object.values(allMeals).filter(
+    (meal) => meal.pet_id === +pet_id
+  );
+  const foods = useSelector((state) => state.foods);
+  current_calories =
+    currentPetMeals.length != 0
+      ? currentPetMeals.reduce(
+          (sum, meal) => (sum += foods[meal.food_id]?.calories),
+          0
+        )
+      : "0";
+
+  useEffect(() => {
+    dispatch(load_food_thunk());
+  }, [dispatch]);
 
   const delete_pet = async () => {
     const result = await dispatch(delete_pet_thunk(pet_id));
@@ -43,16 +50,6 @@ const MealTracker = ({ pet_id }) => {
     // route params
     history.push(`/pets/${pet_id}/add_food`);
   };
-
-  let goal_calories = 0;
-  let current_calories = 0;
-  if (currentPet && currentPetMeals && foods) {
-    goal_calories = Math.floor(currentPet.goal_calories);
-    current_calories = currentPetMeals.reduce(
-      (sum, meal) => (sum += foods[meal.food_id]?.calories),
-      0
-    );
-  }
 
   if (!currentPet || !foods || !allMeals) return "loading...";
   else {

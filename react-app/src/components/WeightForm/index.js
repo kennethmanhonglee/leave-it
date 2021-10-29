@@ -49,8 +49,18 @@ const WeightForm = ({ pet_id }) => {
               onChange={updateWeight}
             ></input>
           </div>
-          {error && <h2 className={styles.error}>{error}</h2>}
-          <button className={styles.button} type="submit">
+          {error && <h2 className={styles.error}>{error["current_weight"]}</h2>}
+          <button
+            // the ternary is used to check the last item in the weights list
+            // if the last item in the weights list is recorded today,
+            // highlight button green
+            className={`${styles.button} ${
+              currentPet.weights[currentPet.weights.length - 1].recorded_today
+                ? styles.green
+                : null
+            }`}
+            type="submit"
+          >
             Record
           </button>
         </div>

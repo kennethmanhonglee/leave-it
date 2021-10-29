@@ -8,7 +8,7 @@ class Pet(db.Model):
     __tablename__ = 'pets'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40), nullable=False)
+    name = db.Column(db.String(20), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     current_weight = db.Column(db.Float, nullable=False)
     ideal_weight = db.Column(db.Float, nullable=False)
