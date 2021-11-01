@@ -3,8 +3,8 @@ import { useParams, useHistory } from "react-router-dom";
 
 import styles from "./FoodEntry.module.css";
 import { create_meal_thunk } from "../../store/meal";
-import { delete_food_thunk, load_food_thunk } from "../../store/food";
-import { useEffect, useState } from "react";
+import { delete_food_thunk } from "../../store/food";
+import { useState } from "react";
 
 // This component is for food entries in adding food into meals
 const FoodEntry = ({ food }) => {

@@ -46,7 +46,6 @@ const PetForm = () => {
     };
     const data = await dispatch(create_pet_thunk(newPet));
     if (data) {
-      console.log(data);
       setErrors(data);
     } else {
       return history.push("/home");

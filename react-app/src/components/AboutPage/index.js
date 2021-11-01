@@ -18,12 +18,17 @@ const AboutPage = () => {
                 <a
                   href="https://www.linkedin.com/in/kenneth-lee-75b870158/"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <i className="fab fa-linkedin"></i>
                 </a>
               </div>
               <div className={styles.bio_div}>
-                <a href="https://github.com/kennethmanhonglee" target="_blank">
+                <a
+                  href="https://github.com/kennethmanhonglee"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <i className="fab fa-github-square"></i>
                 </a>
               </div>
