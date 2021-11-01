@@ -27,7 +27,7 @@ const MealTracker = ({ pet_id }) => {
   );
   const foods = useSelector((state) => state.foods);
   current_calories =
-    currentPetMeals.length != 0
+    currentPetMeals.length !== 0
       ? currentPetMeals.reduce(
           (sum, meal) => (sum += foods[meal.food_id]?.calories),
           0
