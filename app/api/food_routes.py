@@ -61,7 +61,6 @@ def edit_food(food_id):
         return {'ok': False, 'errors': 'This food does not exist.'}
 
     form = CreateFoodForm()
-    print('\n\n\n we are in the put food route \n\n\n')
     form['csrf_token'].data = request.cookies['csrf_token']
     if (form.validate_on_submit()):
         food_to_edit.food_name = form.data['food_name']
@@ -73,7 +72,6 @@ def edit_food(food_id):
         db.session.commit()
         return {'ok': True, 'food': food_to_edit.to_dict()}
     else:
-        print('\n\n\n', form.errors, '\n\n\n')
         return {'ok': False, 'errors': form.errors}
 
 

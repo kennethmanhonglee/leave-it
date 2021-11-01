@@ -40,7 +40,6 @@ export const create_pet_thunk = (pet) => async (dispatch) => {
   });
   const response = await res.json();
   if (!response.ok) {
-    console.log(response.errors);
     return response.errors;
   } else {
     await dispatch(add_pet(response));

@@ -14,7 +14,6 @@ const MealTracker = ({ pet_id }) => {
   const history = useHistory();
 
   const allMeals = useSelector((state) => state.meals);
-  console.log(allMeals);
   let currentPet;
   if (Object.values(pets).length > 0) {
     currentPet = pets[pet_id];
