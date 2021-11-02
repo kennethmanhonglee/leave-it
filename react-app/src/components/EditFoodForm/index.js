@@ -10,9 +10,12 @@ const EditFoodForm = () => {
   const history = useHistory();
   const { food_id } = useParams();
   const foods = useSelector((state) => state.foods);
+  const currentUser = useSelector((state) => state.session.user);
+
   let currentFood;
   if (foods) {
     currentFood = foods[food_id];
+    if (currentFood?.user_id !== currentUser?.id) history.push("/home");
   }
 
   const [food_name, setFood_name] = useState(currentFood?.food_name);
@@ -51,6 +54,7 @@ const EditFoodForm = () => {
     return false;
   };
 
+  if (!currentFood) return null;
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
