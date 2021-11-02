@@ -29,5 +29,6 @@ class Pet(db.Model):
             'ideal_weight': self.ideal_weight,
             'weights': [weight.to_dict() for weight in self.weights],
             'goal': self.goal,
-            'goal_calories': get_calories(self)
+            'goal_calories': get_calories(self),
+            'user_id': self.user_id
         }
