@@ -20,6 +20,9 @@ const EditPetForm = () => {
     }
   }
 
+  // thinking of a way to check and see if the pets object is empty but state is loaded
+  if (currentUser && !pets) history.push("/home");
+
   const ACCEPTED_GOALS = [
     "Neutered Adult",
     "Intact Adult",
