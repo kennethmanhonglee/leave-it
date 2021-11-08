@@ -16,7 +16,24 @@
 }
 
 .weight_input {
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  width: 30px;
+  text-align: center;
+  padding: 2px 5px;
+}
+
+/* to get rid of the number arrows */
+.weight_input::-webkit-inner-spin-button,
+.weight_input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.weight_unit {
+  margin-left: 5px;
 }
 
 .error {
