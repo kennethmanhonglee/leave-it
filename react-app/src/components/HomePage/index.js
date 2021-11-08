@@ -5,6 +5,7 @@ import styles from "./HomePage.module.css";
 import { get_pets_thunk } from "../../store/pet";
 import MealTracker from "../MealTracker";
 import { load_meals_thunk } from "../../store/meal";
+import PetCards from "../PetCards";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const HomePage = () => {
       {Object.values(pets).length > 0 ? (
         <div className={styles.meal_trackers}>
           {Object.values(pets).map((pet) => (
-            <MealTracker key={pet.id} pet_id={pet.id} />
+            <PetCards key={pet.id} pet_id={pet.id} />
           ))}
         </div>
       ) : (
