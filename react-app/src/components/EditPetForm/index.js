@@ -10,12 +10,17 @@ const EditPetForm = () => {
   const history = useHistory();
   const { pet_id } = useParams();
   const pets = useSelector((state) => state.pets);
+  const currentUser = useSelector((state) => state.session.user);
   let current_pet;
-  if (Object.values(pets).length > 0) {
+  if (Object.values(pets).length > 0 && currentUser) {
     if (pets[pet_id]) {
       current_pet = pets[pet_id];
+    } else {
+      history.push("/home");
     }
   }
+
+  if (currentUser && Object.values(pets).length === 0) history.push("/home");
 
   const ACCEPTED_GOALS = [
     "Neutered Adult",
@@ -63,69 +68,75 @@ const EditPetForm = () => {
       return history.push("/home");
     }
   };
-
-  return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div>
-          <h2 className={styles.header}>Edit {current_pet?.name}</h2>
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Name"
-            onChange={updateName}
-            value={name}
-            className={styles.input}
-          ></input>
-          {errors && <div className={styles.errors}>{errors["name"]}</div>}
-        </div>
-        <div>
-          <select value={goal} onChange={updateGoal} className={styles.select}>
-            {ACCEPTED_GOALS.map((goal) => (
-              <option key={goal} value={goal}>
-                {goal}
-              </option>
-            ))}
-          </select>
-          {errors && <div className={styles.errors}>{errors["goal"]}</div>}
-        </div>
-        <div>
-          <input
-            type="number"
-            min="0"
-            placeholder="Current Weight in Kilograms"
-            onChange={updateCurrentWeight}
-            value={current_weight}
-            className={styles.number}
-          ></input>
-          {errors && (
-            <div className={styles.errors}>{errors["current_weight"]}</div>
-          )}
-        </div>
-        <div>
-          <input
-            type="number"
-            min="0"
-            placeholder="Ideal Weight in Kilograms"
-            onChange={updateIdealWeight}
-            value={ideal_weight}
-            className={styles.number}
-          ></input>
-          {errors && (
-            <div className={styles.errors}>{errors["ideal_weight"]}</div>
-          )}
-        </div>
-        <button
-          disabled={isEmptyForm()}
-          type="submit"
-          className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
-        >
-          Edit {current_pet.name}
-        </button>
-      </form>
-    </div>
-  );
+  if (!current_pet) return null;
+  else {
+    return (
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div>
+            <h2 className={styles.header}>Edit {current_pet?.name}</h2>
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Name"
+              onChange={updateName}
+              value={name}
+              className={styles.input}
+            ></input>
+            {errors && <div className={styles.errors}>{errors["name"]}</div>}
+          </div>
+          <div>
+            <select
+              value={goal}
+              onChange={updateGoal}
+              className={styles.select}
+            >
+              {ACCEPTED_GOALS.map((goal) => (
+                <option key={goal} value={goal}>
+                  {goal}
+                </option>
+              ))}
+            </select>
+            {errors && <div className={styles.errors}>{errors["goal"]}</div>}
+          </div>
+          <div>
+            <input
+              type="number"
+              min="0"
+              placeholder="Current Weight in Kilograms"
+              onChange={updateCurrentWeight}
+              value={current_weight}
+              className={styles.number}
+            ></input>
+            {errors && (
+              <div className={styles.errors}>{errors["current_weight"]}</div>
+            )}
+          </div>
+          <div>
+            <input
+              type="number"
+              min="0"
+              placeholder="Ideal Weight in Kilograms"
+              onChange={updateIdealWeight}
+              value={ideal_weight}
+              className={styles.number}
+            ></input>
+            {errors && (
+              <div className={styles.errors}>{errors["ideal_weight"]}</div>
+            )}
+          </div>
+          <button
+            disabled={isEmptyForm()}
+            type="submit"
+            className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
+          >
+            Edit {current_pet.name}
+          </button>
+        </form>
+      </div>
+    );
+  }
 };
 
 export default EditPetForm;
