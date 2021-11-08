@@ -1,17 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Modal from "react-modal";
 
 import { load_food_thunk } from "../../store/food";
 import { delete_pet_thunk } from "../../store/pet";
 import MealEntry from "../MealEntry";
 import WeightForm from "../WeightForm";
 import styles from "./MealTracker.module.css";
+import AddFoodForm from "../AddFoodForm";
 
 const MealTracker = ({ pet_id }) => {
   const pets = useSelector((state) => state.pets);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [addFoodModalOpen, setAddFoodModalOpen] = useState(false);
 
   const allMeals = useSelector((state) => state.meals);
   let currentPet;
