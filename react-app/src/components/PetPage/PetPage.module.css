@@ -1,0 +1,24 @@
+.pet_page {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.header {
+  height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.pet_image {
+  margin-top: 30px;
+  background-image: url(https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg);
+  height: 200px;
+  width: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
