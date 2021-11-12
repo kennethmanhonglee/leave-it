@@ -65,7 +65,7 @@ const EditPetForm = () => {
     if (data) {
       setErrors(data);
     } else {
-      return history.push("/home");
+      return history.goBack();
     }
   };
   if (!current_pet) return null;
