@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 // import Modal from "react-modal";
 
 import { load_food_thunk } from "../../store/food";
+import { load_meals_thunk } from "../../store/meal";
 import { delete_pet_thunk } from "../../store/pet";
 import MealEntry from "../MealEntry";
 import WeightForm from "../WeightForm";
@@ -40,6 +41,7 @@ const MealTracker = ({ pet_id }) => {
 
   useEffect(() => {
     dispatch(load_food_thunk());
+    dispatch(load_meals_thunk());
   }, [dispatch]);
 
   const delete_pet = async () => {

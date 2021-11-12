@@ -13,9 +13,11 @@ const PetPage = () => {
   if (!current_pet) return null;
   return (
     <div className={styles.pet_page}>
-      <div className={styles.pet_image}></div>
-      <div className={styles.header}>
-        <h1>{current_pet.name}</h1>
+      <div className={styles.pet_info}>
+        <div className={styles.pet_image}></div>
+        <div className={styles.header}>
+          <h1>{current_pet.name}</h1>
+        </div>
       </div>
       <MealTracker pet_id={pet_id} />
     </div>

@@ -7,9 +7,9 @@
 }
 
 .header {
-  height: 200px;
   display: flex;
   align-items: center;
+  height: 200px;
 }
 
 .pet_image {
@@ -21,4 +21,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50%;
+}
+
+.pet_info {
+  display: flex;
+  width: 70%;
+  height: 300px;
 }
