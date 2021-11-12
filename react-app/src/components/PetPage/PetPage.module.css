@@ -6,14 +6,14 @@
   height: 100vh;
 }
 
-.header {
+.pet_info {
   display: flex;
+  width: 70%;
+  height: 300px;
   align-items: center;
-  height: 200px;
 }
 
 .pet_image {
-  margin-top: 30px;
   background-image: url(https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg);
   height: 200px;
   width: 200px;
@@ -23,8 +23,24 @@
   border-radius: 50%;
 }
 
-.pet_info {
+.header {
   display: flex;
-  width: 70%;
-  height: 300px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 200px;
+  margin-left: 40px;
+}
+
+.pet_name {
+  margin-bottom: 10px;
+}
+
+.stats {
+  color: rgba(0, 0, 0, 0.7);
+  height: 22px;
+}
+
+.stats span {
+  margin-left: 10px;
 }

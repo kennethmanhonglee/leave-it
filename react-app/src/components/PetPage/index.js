@@ -16,7 +16,16 @@ const PetPage = () => {
       <div className={styles.pet_info}>
         <div className={styles.pet_image}></div>
         <div className={styles.header}>
-          <h1>{current_pet.name}</h1>
+          <h1 className={styles.pet_name}>{current_pet.name}</h1>
+          <h2 className={styles.stats}>
+            Goal: <span>{current_pet.goal} </span>
+          </h2>
+          <h2 className={styles.stats}>
+            Current Weight: <span>{current_pet.current_weight}kg </span>
+          </h2>
+          <h2 className={styles.stats}>
+            Ideal Weight: <span>{current_pet.ideal_weight}kg </span>
+          </h2>
         </div>
       </div>
       <MealTracker pet_id={pet_id} />
