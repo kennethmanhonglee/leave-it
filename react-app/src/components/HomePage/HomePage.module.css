@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .greetings {
@@ -15,4 +16,12 @@
 
 .greetings h1 {
   margin-bottom: 10px;
+}
+
+.pet_cards {
+  width: 50%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

@@ -1,0 +1,32 @@
+.pet_card {
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 40%;
+  height: 400px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.pet_image {
+  background-image: url(https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg);
+  height: 200px;
+  width: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.pet_info {
+  width: 80%;
+  text-align: center;
+}
+
+.name {
+  font-size: 40px;
+  width: 100%;
+  overflow: hidden;
+}

@@ -5,7 +5,7 @@ import styles from "./HomePage.module.css";
 import { get_pets_thunk } from "../../store/pet";
 import MealTracker from "../MealTracker";
 import { load_meals_thunk } from "../../store/meal";
-import PetCards from "../PetCards";
+import PetCard from "../PetCard";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -32,9 +32,9 @@ const HomePage = () => {
         <h1>{date.toLocaleDateString("en-US", date_options)}</h1>
       </div>
       {Object.values(pets).length > 0 ? (
-        <div className={styles.meal_trackers}>
+        <div className={styles.pet_cards}>
           {Object.values(pets).map((pet) => (
-            <PetCards key={pet.id} pet_id={pet.id} />
+            <PetCard key={pet.id} pet_id={pet.id} />
           ))}
         </div>
       ) : (
