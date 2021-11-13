@@ -43,22 +43,21 @@ export const create_pet_thunk = (pet) => async (dispatch) => {
     await dispatch(add_pet(response));
   }
 };
-export const edit_pet_thunk = (pet) => async (dispatch) => {
-  const res = await fetch(`/api/pets/${pet.pet_id}`, {
-    method: "PUT",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(pet),
-  });
-  const response = await res.json();
-  if (!response.ok) {
-    return response.errors;
-  } else {
-    // edit does the same thing as adding a pet in terms of redux store state
-    await dispatch(add_pet(response.new_pet));
-  }
-};
+export const edit_pet_thunk =
+  ({ pet_id, newPetData }) =>
+  async (dispatch) => {
+    const res = await fetch(`/api/pets/${pet_id}`, {
+      method: "PUT",
+      body: newPetData,
+    });
+    const response = await res.json();
+    if (!response.ok) {
+      return response.errors;
+    } else {
+      // edit does the same thing as adding a pet in terms of redux store state
+      await dispatch(add_pet(response.new_pet));
+    }
+  };
 
 export const delete_pet_thunk = (pet_id) => async (dispatch) => {
   const res = await fetch(`/api/pets/${pet_id}`, {

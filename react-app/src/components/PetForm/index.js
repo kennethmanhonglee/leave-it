@@ -17,8 +17,6 @@ const PetForm = () => {
   const [file_name, setFile_Name] = useState();
   const [imageLoading, setImageLoading] = useState(false);
 
-  const form = useRef(null);
-
   const ACCEPTED_GOALS = [
     "Neutered Adult",
     "Intact Adult",
@@ -49,16 +47,9 @@ const PetForm = () => {
     newPet.append("ideal_weight", ideal_weight);
     newPet.append("goal", goal);
     newPet.append("image", image);
-    // {
-    //   name,
-    //   current_weight,
-    //   ideal_weight,
-    //   goal,
-    // };
     setImageLoading(true);
     const data = await dispatch(create_pet_thunk(newPet));
     if (data) {
-      console.log(data);
       setErrors(data);
     } else {
       return history.push("/home");
@@ -77,7 +68,7 @@ const PetForm = () => {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit} ref={form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h2 className={styles.header}>Create a pet</h2>
         <div className={styles.pic_upload}>
           <label className={styles.upload_label} htmlFor="pet_image_upload">

@@ -79,6 +79,21 @@ def edit_pet(pet_id):
     user_id = current_user.get_id()
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    if 'image' in request.files:
+        image = request.files['image']
+        if not allowed_file(image.filename):
+            return {'errors': {
+                'image': 'File type is not supported. Please upload a file of one of these file types: PDF, PNG, JPG, JPEG, GIF'
+            }}
+
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        if 'url' not in upload:
+            return upload, 400
+    else:
+        upload = None
     if form.validate_on_submit():
         existing_pet = Pet.query.get(pet_id)
         if not existing_pet:
@@ -89,6 +104,7 @@ def edit_pet(pet_id):
         existing_pet.goal = form.data['goal']
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
+        existing_pet.image_url = upload['url'] if upload is not None else None
         db.session.commit()
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,
