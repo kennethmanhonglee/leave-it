@@ -38,7 +38,8 @@ def seed_pets():
             user_id=user_id,
             current_weight=randint(4, 50),
             ideal_weight=randint(4, 50),
-            goal=ACCEPTED_GOALS[randint(0, 7)]
+            goal=ACCEPTED_GOALS[randint(0, 7)],
+            image_url='https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'
         )
         db.session.add(new_pet)
         db.session.commit()

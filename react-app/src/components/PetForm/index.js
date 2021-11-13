@@ -15,6 +15,7 @@ const PetForm = () => {
   const [errors, setErrors] = useState();
   const [image, setImage] = useState();
   const [file_name, setFile_Name] = useState();
+  const [imageLoading, setImageLoading] = useState(false);
 
   const form = useRef(null);
 
@@ -54,8 +55,10 @@ const PetForm = () => {
     //   ideal_weight,
     //   goal,
     // };
+    setImageLoading(true);
     const data = await dispatch(create_pet_thunk(newPet));
     if (data) {
+      console.log(data);
       setErrors(data);
     } else {
       return history.push("/home");
@@ -138,6 +141,7 @@ const PetForm = () => {
         >
           Add a pet
         </button>
+        {imageLoading && <p className={styles.loading}>Loading...</p>}
       </form>
     </div>
   );

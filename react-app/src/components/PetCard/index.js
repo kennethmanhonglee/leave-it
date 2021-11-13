@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import styles from "./PetCard.module.css";
+import default_pic from "../../assets/images/default_dog.png";
 
 const PetCard = ({ pet_id }) => {
   const history = useHistory();
@@ -14,11 +15,18 @@ const PetCard = ({ pet_id }) => {
   const redirectToPetPage = () => {
     history.push(`/pets/${pet_id}`);
   };
-
+  if (!currentPet) return null;
   return (
     <div className={styles.pet_card} onClick={redirectToPetPage}>
       <div className={styles.pet_image_div}>
-        <div className={styles.pet_image}></div>
+        <div
+          className={styles.pet_image}
+          style={{
+            backgroundImage: `url(${
+              currentPet.image_url ? currentPet.image_url : default_pic
+            })`,
+          }}
+        ></div>
       </div>
       <div className={styles.pet_info}>
         <div className={styles.name_div}>
