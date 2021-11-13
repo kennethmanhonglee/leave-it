@@ -5,7 +5,7 @@ from datetime import datetime
 from app.forms import PetForm
 from app.models import db, Pet, PetWeight
 from app.api.auth_routes import validation_errors_to_error_messages
-from app.aws import allowed_file, get_unique_filename, upload_file_to_s3
+from app.aws import allowed_file, get_unique_filename, upload_file_to_s3, delete_from_s3
 
 pet_routes = Blueprint('pets', __name__)
 
@@ -124,6 +124,8 @@ def delete_pet(pet_id):
     existing_pet = Pet.query.get(pet_id)
     if not existing_pet:
         return {'ok': False, 'errors': ['Pet does not exist.']}
+    image_url = existing_pet.image_url
+    delete_from_s3(image_url)
     db.session.delete(existing_pet)
     db.session.commit()
 
