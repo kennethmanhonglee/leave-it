@@ -13,19 +13,13 @@
 }
 
 .util_div,
-.food_div,
-.pet_name_div {
+.food_div{
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 20%;
   margin-right: 20px;
   margin-left: 20px;
-}
-
-.pet_name_div {
-  display: flex;
-  justify-content: center;
 }
 
 .editing_div,
@@ -66,3 +60,24 @@
 .red {
   color: red;
 }
+
+/* These are for later modal uses */
+/* 
+.add_food_modal {
+  background-color: red;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 500px;
+  width: 500px;
+}
+
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+} */

@@ -18,16 +18,6 @@ def seed_users():
     db.session.add(marnie)
     db.session.add(bobbie)
 
-    for _i in range(0, 5):
-        new_user = User(
-            username=fake.user_name(),
-            firstname=fake.first_name(),
-            lastname=fake.last_name(),
-            email=fake.free_email(),
-            password='password'
-        )
-        db.session.add(new_user)
-
     db.session.commit()
 
 

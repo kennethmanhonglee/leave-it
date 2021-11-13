@@ -40,6 +40,9 @@ const EditPetForm = () => {
   const [ideal_weight, setIdealWeight] = useState(current_pet?.ideal_weight);
   const [goal, setGoal] = useState(current_pet?.goal);
   const [errors, setErrors] = useState();
+  const [image, setImage] = useState();
+  const [file_name, setFile_Name] = useState();
+  const [imageLoading, setImageLoading] = useState(false);
 
   const updateName = (e) => setName(e.target.value);
   const updateGoal = (e) => setGoal(e.target.value);
@@ -54,20 +57,31 @@ const EditPetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // call thunk and make request
-    const newPet = {
-      pet_id: +pet_id,
-      name,
-      current_weight,
-      ideal_weight,
-      goal,
-    };
-    const data = await dispatch(edit_pet_thunk(newPet));
+    const newPetData = new FormData();
+    newPetData.append("name", name);
+    newPetData.append("current_weight", current_weight);
+    newPetData.append("ideal_weight", ideal_weight);
+    newPetData.append("goal", goal);
+    newPetData.append("image", image);
+    setImageLoading(true);
+    const data = await dispatch(edit_pet_thunk({ pet_id, newPetData }));
     if (data) {
       setErrors(data);
     } else {
-      return history.push("/home");
+      return history.goBack();
     }
   };
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    // e.target.value is path to file - C:\fakepath\some file name.jpeg
+    // split to get the last part - actual file name
+    const path = e.target.value.split("\\");
+    const fileName = path[path.length - 1];
+    setFile_Name("Current Image: " + fileName);
+  };
+
   if (!current_pet) return null;
   else {
     return (
@@ -76,6 +90,18 @@ const EditPetForm = () => {
           <div>
             <h2 className={styles.header}>Edit {current_pet?.name}</h2>
           </div>
+          <div className={styles.pic_upload}>
+            <label className={styles.upload_label} htmlFor="pet_image_upload">
+              <i className={`fas fa-upload ${styles.upload_icon}`}></i>
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              id="pet_image_upload"
+              onChange={updateImage}
+            ></input>
+          </div>
+          {file_name && <h2 className={styles.file_name}>{file_name}</h2>}
           <div>
             <input
               type="text"
@@ -133,6 +159,7 @@ const EditPetForm = () => {
           >
             Edit {current_pet.name}
           </button>
+          {imageLoading && <p className={styles.loading}>Loading...</p>}
         </form>
       </div>
     );

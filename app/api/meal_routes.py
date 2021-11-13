@@ -12,10 +12,11 @@ meal_routes = Blueprint('meals', __name__)
 # @login_required
 def get_meals():
     '''
-    get all meals made by this user on ALL days
+    get all meals made by this user on ALL days, DEBUG! might not need
     '''
     user_id = current_user.get_id()
     all_user_meals = Meal.query.filter(Meal.user_id == user_id).all()
+    print('\n\n\n', all_user_meals, '\n\n\n')
 
     return 'testing user_meals right now'
 

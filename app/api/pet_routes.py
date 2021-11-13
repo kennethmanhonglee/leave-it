@@ -5,6 +5,7 @@ from datetime import datetime
 from app.forms import PetForm
 from app.models import db, Pet, PetWeight
 from app.api.auth_routes import validation_errors_to_error_messages
+from app.aws import allowed_file, get_unique_filename, upload_file_to_s3, delete_from_s3
 
 pet_routes = Blueprint('pets', __name__)
 
@@ -28,10 +29,25 @@ def create_pet():
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        existing_pet = Pet.query.filter(
-            Pet.name == form.data['name'], Pet.user_id == user_id).first()
-        if existing_pet:
-            return {'ok': False, 'errors': ['Pet already exists.']}
+        if 'image' in request.files:
+            image = request.files['image']
+            if not allowed_file(image.filename):
+                return {'errors': {
+                    'image': 'File type is not supported. Please upload a file of one of these file types: PDF, PNG, JPG, JPEG, GIF'
+                }}
+
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+            if 'url' not in upload:
+                return upload, 400
+
+            existing_pet = Pet.query.filter(
+                Pet.name == form.data['name'], Pet.user_id == user_id).first()
+            if existing_pet:
+                return {'ok': False, 'errors': {'name': ['Pet already exists.']}}
+        else:
+            upload = None
 
         # create a pet with given data
         new_pet = Pet(
@@ -40,6 +56,7 @@ def create_pet():
             goal=form.data['goal'],
             current_weight=form.data['current_weight'],
             ideal_weight=form.data['ideal_weight'],
+            image_url=upload['url'] if upload is not None else None
         )
         db.session.add(new_pet)
         db.session.commit()
@@ -55,13 +72,28 @@ def create_pet():
         return {'ok': False, 'errors': form.errors}, 401
 
 
-@pet_routes.route('/<int:pet_id>', methods=['PUT'])
-@login_required
+@ pet_routes.route('/<int:pet_id>', methods=['PUT'])
+@ login_required
 def edit_pet(pet_id):
     # take in form data
     user_id = current_user.get_id()
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    if 'image' in request.files:
+        image = request.files['image']
+        if not allowed_file(image.filename):
+            return {'errors': {
+                'image': 'File type is not supported. Please upload a file of one of these file types: PDF, PNG, JPG, JPEG, GIF'
+            }}
+
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        if 'url' not in upload:
+            return upload, 400
+    else:
+        upload = None
     if form.validate_on_submit():
         existing_pet = Pet.query.get(pet_id)
         if not existing_pet:
@@ -72,6 +104,7 @@ def edit_pet(pet_id):
         existing_pet.goal = form.data['goal']
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
+        existing_pet.image_url = upload['url'] if upload is not None else None
         db.session.commit()
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,
@@ -85,12 +118,14 @@ def edit_pet(pet_id):
         return {'ok': False, 'errors': form.errors}
 
 
-@pet_routes.route('/<int:pet_id>', methods=['DELETE'])
-@login_required
+@ pet_routes.route('/<int:pet_id>', methods=['DELETE'])
+@ login_required
 def delete_pet(pet_id):
     existing_pet = Pet.query.get(pet_id)
     if not existing_pet:
         return {'ok': False, 'errors': ['Pet does not exist.']}
+    image_url = existing_pet.image_url
+    delete_from_s3(image_url)
     db.session.delete(existing_pet)
     db.session.commit()
 

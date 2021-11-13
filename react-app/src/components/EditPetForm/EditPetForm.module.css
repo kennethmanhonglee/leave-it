@@ -30,6 +30,7 @@
   margin-bottom: 10px;
 }
 
+.pic_upload,
 .input,
 .select,
 .number {
@@ -42,6 +43,34 @@
   font-size: 12px;
   width: 200px;
   color: rgba(0, 0, 0, 0.6);
+}
+
+.pic_upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 150px;
+  padding: 30px;
+}
+
+.upload_label {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.upload_icon {
+  font-size: 30px;
+}
+
+input[type="file"] {
+  display: none;
+  background-color: red;
+}
+
+.file_name {
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 
 .select {

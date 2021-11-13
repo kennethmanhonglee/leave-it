@@ -1,17 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+// import Modal from "react-modal";
 
 import { load_food_thunk } from "../../store/food";
+import { load_meals_thunk } from "../../store/meal";
 import { delete_pet_thunk } from "../../store/pet";
 import MealEntry from "../MealEntry";
 import WeightForm from "../WeightForm";
 import styles from "./MealTracker.module.css";
+// import AddFoodForm from "../AddFoodForm";
 
 const MealTracker = ({ pet_id }) => {
   const pets = useSelector((state) => state.pets);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  // const [addFoodModalOpen, setAddFoodModalOpen] = useState(false);
 
   const allMeals = useSelector((state) => state.meals);
   let currentPet;
@@ -36,6 +41,7 @@ const MealTracker = ({ pet_id }) => {
 
   useEffect(() => {
     dispatch(load_food_thunk());
+    dispatch(load_meals_thunk());
   }, [dispatch]);
 
   const delete_pet = async () => {
@@ -58,11 +64,6 @@ const MealTracker = ({ pet_id }) => {
           <div className={styles.food_div}>
             <div className={styles.add_button_div}>
               <button onClick={addFood}>Add a meal</button>
-            </div>
-          </div>
-          <div className={styles.pet_name_div}>
-            <div className={styles.pet_name}>
-              {currentPet && currentPet.name}
             </div>
           </div>
           <div className={styles.util_div}>

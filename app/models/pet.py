@@ -13,6 +13,7 @@ class Pet(db.Model):
     current_weight = db.Column(db.Float, nullable=False)
     ideal_weight = db.Column(db.Float, nullable=False)
     goal = db.Column(db.String, nullable=False)
+    image_url = db.Column(db.String(255), nullable=True)
 
     # relationships
     user = db.relationship('User', back_populates='pets', uselist=False)
@@ -30,5 +31,6 @@ class Pet(db.Model):
             'weights': [weight.to_dict() for weight in self.weights],
             'goal': self.goal,
             'goal_calories': get_calories(self),
-            'user_id': self.user_id
+            'user_id': self.user_id,
+            'image_url': self.image_url
         }

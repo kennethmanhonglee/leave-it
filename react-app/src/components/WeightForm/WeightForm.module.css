@@ -16,7 +16,30 @@
 }
 
 .weight_input {
-  border: 1px solid black;
+  background-color: inherit;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  width: 40px;
+  text-align: center;
+  padding: 2px 5px;
+  border-bottom: 1px solid black;
+  transition: border-bottom;
+}
+
+.weight_input:focus {
+  outline: none;
+  border-bottom: 1px solid red;
+}
+
+/* to get rid of the number arrows */
+.weight_input::-webkit-inner-spin-button,
+.weight_input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.weight_unit {
+  margin-left: 5px;
 }
 
 .error {

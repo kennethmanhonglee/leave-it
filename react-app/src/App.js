@@ -17,6 +17,7 @@ import { load_food_thunk } from "./store/food";
 import CreateFoodForm from "./components/CreateFoodForm";
 import AddFoodForm from "./components/AddFoodForm";
 import EditFoodForm from "./components/EditFoodForm";
+import PetPage from "./components/PetPage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -59,6 +60,9 @@ function App() {
         {/* will make into a modal later */}
         <ProtectedRoute path="/pets/:pet_id/add_food" exact={true}>
           <AddFoodForm />
+        </ProtectedRoute>
+        <ProtectedRoute path="/pets/:pet_id" exact={true}>
+          <PetPage />
         </ProtectedRoute>
         <ProtectedRoute path="/create_food" exact={true}>
           <CreateFoodForm />

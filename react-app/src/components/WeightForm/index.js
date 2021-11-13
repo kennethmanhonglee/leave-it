@@ -48,6 +48,7 @@ const WeightForm = ({ pet_id }) => {
               value={weight}
               onChange={updateWeight}
             ></input>
+            <span className={styles.weight_unit}>kg</span>
           </div>
           {error && <h2 className={styles.error}>{error["current_weight"]}</h2>}
           <button
