@@ -28,23 +28,18 @@ def create_pet():
     user_id = current_user.get_id()
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('\n\n\n\n\n\n', request.files.get('image'), '\n\n\n\n\n\n')
     if form.validate_on_submit():
         if 'image' not in request.files:
-            print('oh no')
             return {'errors': 'Please upload an image.'}, 400
 
         image = request.files['image']
         if not allowed_file(image.filename):
-            print('oh no but file type bad')
             return {'errors': 'File type is not supported. Please upload a file of one of these file types: PDF, PNG, JPG, JPEG, GIF'}
 
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
 
         if 'url' not in upload:
-            print('oh no but no url')
-            print(upload)
             return upload, 400
 
         existing_pet = Pet.query.filter(
@@ -59,6 +54,7 @@ def create_pet():
             goal=form.data['goal'],
             current_weight=form.data['current_weight'],
             ideal_weight=form.data['ideal_weight'],
+            image_url=upload['url']
         )
         db.session.add(new_pet)
         db.session.commit()

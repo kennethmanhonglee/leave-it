@@ -32,7 +32,7 @@ PET_NAMES = [
 def seed_pets():
     for i, name in enumerate(PET_NAMES):
         neutered = str(randint(1, 2) % 2 == 1)
-        user_id = randint(1, 8)
+        user_id = randint(1, 3)
         new_pet = Pet(
             name=name,
             user_id=user_id,

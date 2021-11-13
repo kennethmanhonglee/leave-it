@@ -6,7 +6,7 @@ from app.models import db, Food
 
 def seed_foods():
     kibbles_a = Food(
-        user_id=randint(1, 8),
+        user_id=randint(1, 3),
         food_name='Very Tasty Kibbles',
         food_type='Kibbles',
         serving_size=100,
@@ -15,7 +15,7 @@ def seed_foods():
     )
     db.session.add(kibbles_a)
     kibbles_b = Food(
-        user_id=randint(1, 8),
+        user_id=randint(1, 3),
         food_name='Dribble Kibbles',
         food_type='Kibbles',
         serving_size=150,
@@ -24,7 +24,7 @@ def seed_foods():
     )
     db.session.add(kibbles_b)
     steak = Food(
-        user_id=randint(1, 8),
+        user_id=randint(1, 3),
         food_name='Ribeye Steak',
         food_type='Raw Meat',
         serving_size=100,
@@ -33,7 +33,7 @@ def seed_foods():
     )
     db.session.add(steak)
     nutrimix = Food(
-        user_id=randint(1, 8),
+        user_id=randint(1, 3),
         food_name='Nutrimix Fresh Food',
         food_type='Fresh Food',
         serving_size=200,
@@ -42,7 +42,7 @@ def seed_foods():
     )
     db.session.add(nutrimix)
     milkbone = Food(
-        user_id=randint(1, 8),
+        user_id=randint(1, 3),
         food_name='Milk Bone',
         food_type='Others',
         serving_size=200,
