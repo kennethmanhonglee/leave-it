@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -15,6 +15,8 @@ const PetForm = () => {
   const [errors, setErrors] = useState();
   const [image, setImage] = useState();
   const [file_name, setFile_Name] = useState();
+
+  const form = useRef(null);
 
   const ACCEPTED_GOALS = [
     "Neutered Adult",
@@ -40,12 +42,18 @@ const PetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // call thunk and make request
-    const newPet = {
-      name,
-      current_weight,
-      ideal_weight,
-      goal,
-    };
+    const newPet = new FormData();
+    newPet.append("name", name);
+    newPet.append("current_weight", current_weight);
+    newPet.append("ideal_weight", ideal_weight);
+    newPet.append("goal", goal);
+    newPet.append("image", image);
+    // {
+    //   name,
+    //   current_weight,
+    //   ideal_weight,
+    //   goal,
+    // };
     const data = await dispatch(create_pet_thunk(newPet));
     if (data) {
       setErrors(data);
@@ -66,7 +74,7 @@ const PetForm = () => {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit} ref={form}>
         <h2 className={styles.header}>Create a pet</h2>
         <div className={styles.pic_upload}>
           <label className={styles.upload_label} htmlFor="pet_image_upload">

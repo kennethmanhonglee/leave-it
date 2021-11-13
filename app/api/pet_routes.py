@@ -5,6 +5,7 @@ from datetime import datetime
 from app.forms import PetForm
 from app.models import db, Pet, PetWeight
 from app.api.auth_routes import validation_errors_to_error_messages
+from app.aws import allowed_file, get_unique_filename, upload_file_to_s3
 
 pet_routes = Blueprint('pets', __name__)
 
@@ -27,7 +28,25 @@ def create_pet():
     user_id = current_user.get_id()
     form = PetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print('\n\n\n\n\n\n', request.files.get('image'), '\n\n\n\n\n\n')
     if form.validate_on_submit():
+        if 'image' not in request.files:
+            print('oh no')
+            return {'errors': 'Please upload an image.'}, 400
+
+        image = request.files['image']
+        if not allowed_file(image.filename):
+            print('oh no but file type bad')
+            return {'errors': 'File type is not supported. Please upload a file of one of these file types: PDF, PNG, JPG, JPEG, GIF'}
+
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        if 'url' not in upload:
+            print('oh no but no url')
+            print(upload)
+            return upload, 400
+
         existing_pet = Pet.query.filter(
             Pet.name == form.data['name'], Pet.user_id == user_id).first()
         if existing_pet:

@@ -33,13 +33,14 @@ export const get_pets_thunk = () => async (dispatch) => {
 export const create_pet_thunk = (pet) => async (dispatch) => {
   const res = await fetch(`/api/pets`, {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(pet),
+    // headers: {
+    //   "content-type": "multipart/form-data",
+    // },
+    body: pet,
   });
   const response = await res.json();
   if (!response.ok) {
+    console.log(response.errors);
     return response.errors;
   } else {
     await dispatch(add_pet(response));
