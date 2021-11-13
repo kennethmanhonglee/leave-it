@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+
 import MealTracker from "../MealTracker";
 import styles from "./PetPage.module.css";
+import default_dog from "../../assets/images/default_dog.png";
 
 const PetPage = () => {
   const { pet_id } = useParams();
@@ -14,7 +16,14 @@ const PetPage = () => {
   return (
     <div className={styles.pet_page}>
       <div className={styles.pet_info}>
-        <div className={styles.pet_image}></div>
+        <div
+          className={styles.pet_image}
+          style={{
+            backgroundImage: `url(${
+              current_pet.image_url ? current_pet.image_url : default_dog
+            })`,
+          }}
+        ></div>
         <div className={styles.header}>
           <h1 className={styles.pet_name}>{current_pet.name}</h1>
           <h2 className={styles.stats}>
