@@ -76,6 +76,9 @@ function App() {
         <Route path="/" exact>
           <SplashPage />
         </Route>
+        <Route path="/">
+          
+        </Route>
       </Switch>
     </BrowserRouter>
   );

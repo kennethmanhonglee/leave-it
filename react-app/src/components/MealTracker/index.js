@@ -100,7 +100,7 @@ const MealTracker = ({ pet_id }) => {
                 goal_calories - current_calories > 0 ? styles.green : styles.red
               }
             >
-              Budget: {goal_calories - current_calories}
+              Budget: {goal_calories - current_calories}cal
             </span>
           </div>
         </div>
