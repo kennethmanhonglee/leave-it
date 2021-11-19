@@ -16,7 +16,7 @@ const SplashPage = () => {
         <div className={styles.bio_and_link}>
           <div className={styles.slogan_container}>
             <div className={styles.slogan}>
-              <h1>Leaveit! Calorie Tracker for Dogs</h1>
+              <h1>Leaveit! The Calorie Tracker for Dogs</h1>
               <h4>Track the foods your dog loves</h4>
             </div>
             <Link className={styles.link} to="/sign-up">
