@@ -13,9 +13,27 @@ const PetForm = () => {
   const [ideal_weight, setIdealWeight] = useState();
   const [goal, setGoal] = useState("Neutered Adult");
   const [errors, setErrors] = useState();
-  const [image, setImage] = useState();
+
+  // for picture upload
+  const [image, setImage] = useState(null);
   const [file_name, setFile_Name] = useState();
   const [imageLoading, setImageLoading] = useState(false);
+  const picture_label = useRef();
+
+  const clickedUpload = (e) => {
+    e.preventDefault();
+    picture_label.current.click();
+  };
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    // e.target.value is path to file - C:\fakepath\some file name.jpeg
+    // split to get the last part - actual file name
+    const path = e.target.value.split("\\");
+    const fileName = path[path.length - 1];
+    setFile_Name("Current Image: " + fileName);
+  };
 
   const ACCEPTED_GOALS = [
     "Neutered Adult",
@@ -56,24 +74,21 @@ const PetForm = () => {
     }
   };
 
-  const updateImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    // e.target.value is path to file - C:\fakepath\some file name.jpeg
-    // split to get the last part - actual file name
-    const path = e.target.value.split("\\");
-    const fileName = path[path.length - 1];
-    setFile_Name("Current Image: " + fileName);
-  };
-
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h2 className={styles.header}>Create a pet</h2>
         <div className={styles.pic_upload}>
-          <label className={styles.upload_label} htmlFor="pet_image_upload">
+          <label
+            className={styles.upload_label}
+            htmlFor="pet_image_upload"
+            ref={picture_label}
+          >
             <i className={`fas fa-upload ${styles.upload_icon}`}></i>
           </label>
+          <div className={styles.upload_button} onClick={clickedUpload}>
+            <h2>Add a picture</h2>
+          </div>
           <input
             type="file"
             accept="image/*"
@@ -82,6 +97,7 @@ const PetForm = () => {
           ></input>
         </div>
         {file_name && <h2 className={styles.file_name}>{file_name}</h2>}
+        {image && <img src={image.name}></img>}
         <div>
           <input
             type="text"
