@@ -114,7 +114,7 @@ const PetForm = () => {
                 <div className={styles.image_foreground}></div>
               </div>
               <div className={styles.remove_picture} onClick={removePicture}>
-                Remove Picture
+                Remove
               </div>
             </>
           ) : (

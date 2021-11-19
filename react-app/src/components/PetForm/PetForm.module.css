@@ -50,6 +50,7 @@
   justify-content: space-evenly;
   align-items: center;
   height: 200px;
+  margin-bottom: 20px;
 }
 
 .upload_label {
@@ -111,9 +112,21 @@
   font-size: 1.2rem;
 }
 
+.remove_picture {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  transition: background-color 200ms;
+}
+
+.remove_picture:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
 input[type="file"] {
   display: none;
-  background-color: red;
 }
 
 .file_name {
