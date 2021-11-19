@@ -24,6 +24,11 @@
   justify-content: space-around;
   align-items: center;
   border-radius: 8px;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.name {
+  font-size: 2rem;
 }
 
 .ken {
@@ -47,10 +52,10 @@
 .bio_div a i {
   font-size: 50px;
   color: rgba(0, 0, 0, 0.5);
+  transition: color 200ms;
 }
 
 .bio_div a i:hover {
-  transition: color 0.2s;
   color: rgba(0, 0, 0, 0.8);
 }
 
