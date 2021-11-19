@@ -93,6 +93,7 @@ const PetForm = () => {
         <div className={styles.pic_upload}>
           <label
             className={styles.upload_label}
+            className={styles.labels}
             htmlFor="pet_image_upload"
             ref={picture_label}
           ></label>
@@ -119,16 +120,28 @@ const PetForm = () => {
           ></input>
         </div>
         <div>
+          <label className={styles.labels} htmlFor="name">
+            Name
+          </label>
           <input
             type="text"
             placeholder="Name"
             onChange={updateName}
             className={styles.input}
+            id="name"
           ></input>
           {errors && <div className={styles.errors}>{errors["name"]}</div>}
         </div>
         <div>
-          <select value={goal} onChange={updateGoal} className={styles.select}>
+          <label className={styles.labels} htmlFor="goal">
+            Goal
+          </label>
+          <select
+            value={goal}
+            onChange={updateGoal}
+            className={styles.select}
+            id="goal"
+          >
             {ACCEPTED_GOALS.map((goal) => (
               <option key={goal} value={goal}>
                 {goal}
@@ -138,24 +151,32 @@ const PetForm = () => {
           {errors && <div className={styles.errors}>{errors["goal"]}</div>}
         </div>
         <div>
+          <label className={styles.labels} htmlFor="curr_weight">
+            Current Weight
+          </label>
           <input
             type="number"
             min="0"
             placeholder="Current Weight in Kilograms"
             onChange={updateCurrentWeight}
             className={styles.number}
+            id="curr_weight"
           ></input>
           {errors && (
             <div className={styles.errors}>{errors["current_weight"]}</div>
           )}
         </div>
         <div>
+          <label className={styles.labels} htmlFor="ideal_weight">
+            Ideal Weight
+          </label>
           <input
             type="number"
             min="0"
             placeholder="Ideal Weight in Kilograms"
             onChange={updateIdealWeight}
             className={styles.number}
+            id="ideal_weight"
           ></input>
           {errors && (
             <div className={styles.errors}>{errors["ideal_weight"]}</div>
