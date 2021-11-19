@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField
+from wtforms.fields.core import BooleanField
 from wtforms.validators import DataRequired, ValidationError
 
 
@@ -37,10 +38,11 @@ def is_long(form, field):
         raise ValidationError(f'The input is too long.')
 
 
-class PetForm(FlaskForm):
+class EditPetForm(FlaskForm):
     name = StringField('name', validators=[DataRequired(), is_long])
     current_weight = FloatField('current_weight', validators=[
                                 DataRequired(), weight_accepted])
     ideal_weight = FloatField('ideal_weight', validators=[
                               DataRequired(), weight_accepted])
     goal = StringField('goal', validators=[DataRequired(), goal_accepted])
+    hasPic = BooleanField('hasPic')

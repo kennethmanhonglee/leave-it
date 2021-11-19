@@ -44,6 +44,7 @@ const EditPetForm = () => {
   const [image, setImage] = useState();
   const [imagePreview, setImagePreview] = useState(current_pet?.image_url);
   const [imageLoading, setImageLoading] = useState(false);
+  const [hasPic, setHasPic] = useState(current_pet?.image_url ? true : false);
   const upload_label = useRef();
 
   const updateImage = (e) => {
@@ -95,6 +96,7 @@ const EditPetForm = () => {
     newPetData.append("ideal_weight", ideal_weight);
     newPetData.append("goal", goal);
     newPetData.append("image", image);
+    newPetData.append("hasPic", hasPic);
     setImageLoading(true);
     const data = await dispatch(edit_pet_thunk({ pet_id, newPetData }));
     if (data) {
@@ -124,22 +126,21 @@ const EditPetForm = () => {
               id="pet_image_upload"
               onChange={updateImage}
             ></input>
-            <div
-              className={styles.upload_button}
-              style={
-                imagePreview
-                  ? {
-                      backgroundImage: `url(${imagePreview})`,
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                    }
-                  : null
-              }
-              onClick={clickedUpload}
-            >
-              {!imagePreview && <h2>Add an image</h2>}
-            </div>
+            {imagePreview ? (
+              <div
+                className={styles.upload_button}
+                style={{
+                  backgroundImage: `url(${imagePreview})`,
+                }}
+                onClick={clickedUpload}
+              >
+                <div className={styles.image_foreground}></div>
+              </div>
+            ) : (
+              <div className={styles.upload_button} onClick={clickedUpload}>
+                <h2>Add an image</h2>
+              </div>
+            )}
             {imagePreview && (
               <div onClick={removePicture} className={styles.remove_picture}>
                 Remove Picture

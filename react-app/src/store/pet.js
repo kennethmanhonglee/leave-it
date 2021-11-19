@@ -37,7 +37,6 @@ export const create_pet_thunk = (pet) => async (dispatch) => {
   });
   const response = await res.json();
   if (!response.ok) {
-    console.log(response.errors);
     return response.errors;
   } else {
     await dispatch(add_pet(response));
@@ -47,7 +46,7 @@ export const edit_pet_thunk =
   ({ pet_id, newPetData }) =>
   async (dispatch) => {
     const res = await fetch(`/api/pets/${pet_id}`, {
-      method: "PUT",
+      method: "PATCH",
       body: newPetData,
     });
     const response = await res.json();
