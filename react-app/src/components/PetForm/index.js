@@ -98,8 +98,7 @@ const PetForm = () => {
         <h2 className={styles.header}>Create a pet</h2>
         <div className={styles.pic_upload}>
           <label
-            className={styles.upload_label}
-            className={styles.labels}
+            className={`${styles.upload_label} ${styles.labels}`}
             htmlFor="pet_image_upload"
             ref={picture_label}
           ></label>

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./HomePage.module.css";
 import { get_pets_thunk } from "../../store/pet";
-import MealTracker from "../MealTracker";
 import { load_meals_thunk } from "../../store/meal";
 import PetCard from "../PetCard";
 

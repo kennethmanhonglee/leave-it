@@ -67,14 +67,15 @@ const MealTracker = ({ pet_id }) => {
             </div>
           </div>
           <div className={styles.util_div}>
-            <div className={styles.editing_div}>
-              <button onClick={() => history.push(`/edit_pet/${pet_id}`)}>
-                Edit
-              </button>
+            <div
+              className={styles.editing_div}
+              onClick={() => history.push(`/edit_pet/${pet_id}`)}
+            >
+              <button>Edit</button>
             </div>
-            <div className={styles.deleting_div}>
+            <div className={styles.deleting_div} onClick={delete_pet}>
               {/* show modal later on */}
-              <button onClick={delete_pet}>Delete</button>
+              <button>Delete</button>
             </div>
           </div>
         </div>
