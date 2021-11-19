@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -40,9 +40,44 @@ const EditPetForm = () => {
   const [ideal_weight, setIdealWeight] = useState(current_pet?.ideal_weight);
   const [goal, setGoal] = useState(current_pet?.goal);
   const [errors, setErrors] = useState();
+  // for editing image
   const [image, setImage] = useState();
-  const [file_name, setFile_Name] = useState();
+  const [imagePreview, setImagePreview] = useState(current_pet?.image_url);
   const [imageLoading, setImageLoading] = useState(false);
+  const [hasPic, setHasPic] = useState(current_pet?.image_url ? true : false);
+  const upload_label = useRef();
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setHasPic(true);
+  };
+
+  const clickedUpload = () => {
+    upload_label.current.click();
+  };
+
+  const removePicture = () => {
+    setImagePreview(null);
+    setImage(null);
+    setHasPic(false);
+  };
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+      // setting the event listener that runs after reading is done
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      // reading the image file as a data url, to render later
+      reader.readAsDataURL(image);
+    } else if (imagePreview) {
+      setImagePreview(imagePreview);
+    } else {
+      setImagePreview(null);
+    }
+  }, [image]);
 
   const updateName = (e) => setName(e.target.value);
   const updateGoal = (e) => setGoal(e.target.value);
@@ -63,7 +98,9 @@ const EditPetForm = () => {
     newPetData.append("ideal_weight", ideal_weight);
     newPetData.append("goal", goal);
     newPetData.append("image", image);
+    newPetData.append("hasPic", hasPic);
     setImageLoading(true);
+    console.log(newPetData);
     const data = await dispatch(edit_pet_thunk({ pet_id, newPetData }));
     if (data) {
       setErrors(data);
@@ -72,14 +109,9 @@ const EditPetForm = () => {
     }
   };
 
-  const updateImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    // e.target.value is path to file - C:\fakepath\some file name.jpeg
-    // split to get the last part - actual file name
-    const path = e.target.value.split("\\");
-    const fileName = path[path.length - 1];
-    setFile_Name("Current Image: " + fileName);
+  const clickedCancel = (e) => {
+    e.preventDefault();
+    return history.goBack();
   };
 
   if (!current_pet) return null;
@@ -91,19 +123,44 @@ const EditPetForm = () => {
             <h2 className={styles.header}>Edit {current_pet?.name}</h2>
           </div>
           <div className={styles.pic_upload}>
-            <label className={styles.upload_label} htmlFor="pet_image_upload">
-              <i className={`fas fa-upload ${styles.upload_icon}`}></i>
-            </label>
+            <label
+              className={styles.upload_label}
+              htmlFor="pet_image_upload"
+              ref={upload_label}
+            ></label>
             <input
               type="file"
               accept="image/*"
               id="pet_image_upload"
               onChange={updateImage}
             ></input>
+            {imagePreview ? (
+              <div
+                className={styles.upload_button}
+                style={{
+                  backgroundImage: `url(${imagePreview})`,
+                }}
+                onClick={clickedUpload}
+              >
+                <div className={styles.image_foreground}></div>
+              </div>
+            ) : (
+              <div className={styles.upload_button} onClick={clickedUpload}>
+                <h2>Add an image</h2>
+              </div>
+            )}
+            {imagePreview && (
+              <div onClick={removePicture} className={styles.remove_picture}>
+                Remove Picture
+              </div>
+            )}
           </div>
-          {file_name && <h2 className={styles.file_name}>{file_name}</h2>}
           <div>
+            <label className={styles.labels} htmlFor="name">
+              Name
+            </label>
             <input
+              id="name"
               type="text"
               placeholder="Name"
               onChange={updateName}
@@ -113,7 +170,11 @@ const EditPetForm = () => {
             {errors && <div className={styles.errors}>{errors["name"]}</div>}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="goal">
+              Goal
+            </label>
             <select
+              id="goal"
               value={goal}
               onChange={updateGoal}
               className={styles.select}
@@ -127,7 +188,11 @@ const EditPetForm = () => {
             {errors && <div className={styles.errors}>{errors["goal"]}</div>}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="curr_weight">
+              Current Weight in Kilograms (kg)
+            </label>
             <input
+              id="curr_weight"
               type="number"
               min="0"
               placeholder="Current Weight in Kilograms"
@@ -140,7 +205,11 @@ const EditPetForm = () => {
             )}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="ideal_weight">
+              Ideal Weight in Kilograms (kg)
+            </label>
             <input
+              id="ideal_weight"
               type="number"
               min="0"
               placeholder="Ideal Weight in Kilograms"
@@ -158,6 +227,12 @@ const EditPetForm = () => {
             className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
           >
             Edit {current_pet.name}
+          </button>
+          <button
+            className={`${styles.button} ${styles.cancel_button}`}
+            onClick={clickedCancel}
+          >
+            Cancel
           </button>
           {imageLoading && <p className={styles.loading}>Loading...</p>}
         </form>

@@ -13,7 +13,7 @@
 }
 
 .util_div,
-.food_div{
+.food_div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,6 +41,7 @@
   text-decoration: none;
   transition: background-color 0.2s;
   background-color: rgba(255, 148, 0, 0.5);
+  cursor: pointer;
 }
 
 .weight_logging {

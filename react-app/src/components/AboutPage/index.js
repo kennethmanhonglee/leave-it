@@ -13,6 +13,7 @@ const AboutPage = () => {
               }}
               className={styles.ken}
             ></div>
+            <h2 className={styles.name}>Kenneth Lee</h2>
             <div className={styles.bio_icons}>
               <div className={styles.bio_div}>
                 <a

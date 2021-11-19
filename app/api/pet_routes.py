@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from datetime import datetime
 
-from app.forms import PetForm
+from app.forms import PetForm, EditPetForm
 from app.models import db, Pet, PetWeight
 from app.api.auth_routes import validation_errors_to_error_messages
 from app.aws import allowed_file, get_unique_filename, upload_file_to_s3, delete_from_s3
@@ -72,12 +72,12 @@ def create_pet():
         return {'ok': False, 'errors': form.errors}, 401
 
 
-@ pet_routes.route('/<int:pet_id>', methods=['PUT'])
+@ pet_routes.route('/<int:pet_id>', methods=['PATCH'])
 @ login_required
 def edit_pet(pet_id):
     # take in form data
     user_id = current_user.get_id()
-    form = PetForm()
+    form = EditPetForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if 'image' in request.files:
@@ -99,12 +99,25 @@ def edit_pet(pet_id):
         if not existing_pet:
             return {'ok': False, 'errors': ['Pet does not exist.']}
 
+        # checking whether we have a picture
+        new_image_url = existing_pet.image_url
+        # if user uploaded, use user pic
+        if upload is not None:
+            new_image_url = upload['url']
+        # if user had no picture, and didnt upload - none
+        if existing_pet.image_url is None and upload is None:
+            new_image_url = None
+        # if user had picture, and didnt upload
+        elif existing_pet.image_url and upload is None:
+            # check hasPic to see if user wants to keep picture
+            new_image_url = existing_pet.image_url if form.data['hasPic'] is True else None
+
         # create a pet with given data
         existing_pet.name = form.data['name']
         existing_pet.goal = form.data['goal']
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
-        existing_pet.image_url = upload['url'] if upload is not None else None
+        existing_pet.image_url = new_image_url
         db.session.commit()
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,

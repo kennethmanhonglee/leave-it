@@ -8,7 +8,7 @@
 }
 
 .header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 2rem;
 }
 
@@ -16,7 +16,7 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   background-color: white;
-  height: 600px;
+  height: 700px;
   width: 500px;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,6 @@
   margin-bottom: 10px;
 }
 
-.pic_upload,
 .input,
 .select,
 .number {
@@ -49,18 +48,77 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 150px;
-  padding: 30px;
+  align-items: center;
+  height: 250px;
+  margin-bottom: 20px;
 }
 
 .upload_label {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+  display: none;
 }
 
-.upload_icon {
-  font-size: 30px;
+.upload_button {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 140, 29);
+  color: white;
+  transition: background-color 200ms;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+}
+
+.upload_button h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.upload_button:hover {
+  cursor: pointer;
+  background-color: rgb(192, 104, 22);
+}
+
+.image_foreground,
+.image_preview,
+.image_foreground:after {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.image_foreground:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.image_foreground {
+  transition: background-color 200ms;
+}
+
+.image_foreground:hover:after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "Add a different picture";
+  color: white;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.remove_picture {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.remove_picture:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.5);
 }
 
 input[type="file"] {
@@ -68,9 +126,13 @@ input[type="file"] {
   background-color: red;
 }
 
-.file_name {
-  font-size: 15px;
-  margin-bottom: 10px;
+.form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.labels {
+  font-size: 0.8rem;
 }
 
 .select {
@@ -92,12 +154,21 @@ input[type="file"] {
   width: 45%;
   padding: 5px 5px;
   color: white;
+  margin-bottom: 5px;
 }
 
 .button:hover {
   transition: background-color 0.2s;
   background-color: #ffab35;
   cursor: pointer;
+}
+
+.cancel_button {
+  background-color: rgba(255, 0, 0, 0.7);
+  transition: background-color 200ms;
+}
+.cancel_button:hover {
+  background-color: rgba(255, 0, 0, 0.5);
 }
 
 .grey,
