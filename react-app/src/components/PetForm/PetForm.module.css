@@ -81,12 +81,36 @@
 }
 
 .image_preview {
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.image_foreground,
+.image_preview,
+.image_foreground:after {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.image_foreground:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.image_foreground {
+  transition: background-color 200ms;
+}
+
+.image_foreground:hover:after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "Add a different picture";
+  color: white;
+  font-weight: 500;
+  font-size: 1.2rem;
 }
 
 input[type="file"] {

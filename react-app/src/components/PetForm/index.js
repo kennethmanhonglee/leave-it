@@ -99,10 +99,13 @@ const PetForm = () => {
           {imagePreview ? (
             <div
               className={styles.image_preview}
+              onClick={clickedUpload}
               style={{
                 backgroundImage: `url(${imagePreview})`,
               }}
-            ></div>
+            >
+              <div className={styles.image_foreground}></div>
+            </div>
           ) : (
             <div className={styles.upload_button} onClick={clickedUpload}>
               <h2>Add a picture</h2>
