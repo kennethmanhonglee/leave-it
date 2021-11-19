@@ -100,15 +100,24 @@ def edit_pet(pet_id):
             return {'ok': False, 'errors': ['Pet does not exist.']}
 
         # checking whether we have a picture
+        new_image_url = existing_pet.image_url
+        # if user uploaded, use user pic
+        if upload is not None:
+            new_image_url = upload['url']
         # if user had no picture, and didnt upload - none
-        # if user had picture, and didnt upload - check if they deleted picture
+        if existing_pet.image_url is None and upload is None:
+            new_image_url = None
+        # if user had picture, and didnt upload
+        elif existing_pet.image_url and upload is None:
+            # check hasPic
+            new_image_url = existing_pet.image_url if form.data['hasPic'] is True else None
 
         # create a pet with given data
         existing_pet.name = form.data['name']
         existing_pet.goal = form.data['goal']
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
-        existing_pet.image_url = upload['url']
+        existing_pet.image_url = new_image_url
         db.session.commit()
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,

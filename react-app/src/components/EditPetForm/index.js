@@ -50,6 +50,7 @@ const EditPetForm = () => {
   const updateImage = (e) => {
     const file = e.target.files[0];
     setImage(file);
+    setHasPic(true);
   };
 
   const clickedUpload = () => {
@@ -59,6 +60,7 @@ const EditPetForm = () => {
   const removePicture = () => {
     setImagePreview(null);
     setImage(null);
+    setHasPic(false);
   };
 
   useEffect(() => {
@@ -98,6 +100,7 @@ const EditPetForm = () => {
     newPetData.append("image", image);
     newPetData.append("hasPic", hasPic);
     setImageLoading(true);
+    console.log(newPetData);
     const data = await dispatch(edit_pet_thunk({ pet_id, newPetData }));
     if (data) {
       setErrors(data);
