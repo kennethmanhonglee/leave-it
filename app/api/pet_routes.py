@@ -109,7 +109,7 @@ def edit_pet(pet_id):
             new_image_url = None
         # if user had picture, and didnt upload
         elif existing_pet.image_url and upload is None:
-            # check hasPic
+            # check hasPic to see if user wants to keep picture
             new_image_url = existing_pet.image_url if form.data['hasPic'] is True else None
 
         # create a pet with given data
