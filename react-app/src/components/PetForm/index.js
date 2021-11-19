@@ -31,6 +31,11 @@ const PetForm = () => {
     setImage(file);
   };
 
+  const removePicture = () => {
+    setImagePreview(null);
+    setImage(null);
+  };
+
   useEffect(() => {
     if (image) {
       const reader = new FileReader();
@@ -98,15 +103,20 @@ const PetForm = () => {
             ref={picture_label}
           ></label>
           {imagePreview ? (
-            <div
-              className={styles.image_preview}
-              onClick={clickedUpload}
-              style={{
-                backgroundImage: `url(${imagePreview})`,
-              }}
-            >
-              <div className={styles.image_foreground}></div>
-            </div>
+            <>
+              <div
+                className={styles.image_preview}
+                onClick={clickedUpload}
+                style={{
+                  backgroundImage: `url(${imagePreview})`,
+                }}
+              >
+                <div className={styles.image_foreground}></div>
+              </div>
+              <div className={styles.remove_picture} onClick={removePicture}>
+                Remove Picture
+              </div>
+            </>
           ) : (
             <div className={styles.upload_button} onClick={clickedUpload}>
               <h2>Add a picture</h2>
