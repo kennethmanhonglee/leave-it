@@ -56,33 +56,38 @@
 
 .upload_label {
   display: none;
-  /* cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 150px;*/
 }
 
 .upload_button {
   height: 200px;
   width: 200px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(255, 140, 29);
+  color: white;
+  transition: background-color 200ms;
 }
 
-/* .upload_icon {
-  font-size: 30px;
-  height: 38px;
-  padding: 80px 65px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+.upload_button h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.upload_button:hover {
+  cursor: pointer;
+  background-color: rgb(192, 104, 22);
+}
+
+.image_preview {
+  height: 200px;
+  width: 200px;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 input[type="file"] {
   display: none;

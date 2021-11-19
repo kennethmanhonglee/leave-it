@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -6,7 +6,7 @@ import { create_pet_thunk } from "../../store/pet";
 import styles from "./PetForm.module.css";
 
 const PetForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(null);
   const history = useHistory();
   const [name, setName] = useState();
   const [current_weight, setCurrentWeight] = useState();
@@ -15,9 +15,10 @@ const PetForm = () => {
   const [errors, setErrors] = useState();
 
   // for picture upload
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState();
   const [file_name, setFile_Name] = useState();
   const [imageLoading, setImageLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
   const picture_label = useRef();
 
   const clickedUpload = (e) => {
@@ -28,12 +29,23 @@ const PetForm = () => {
   const updateImage = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    // e.target.value is path to file - C:\fakepath\some file name.jpeg
-    // split to get the last part - actual file name
-    const path = e.target.value.split("\\");
-    const fileName = path[path.length - 1];
-    setFile_Name("Current Image: " + fileName);
   };
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+      // setting the event listener that runs after reading is done
+      reader.onload = () => {
+        console.log(image);
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(image);
+    } else {
+      setImagePreview(null);
+    }
+
+    // reading the image file as a data url, to render later
+  }, [image]);
 
   const ACCEPTED_GOALS = [
     "Neutered Adult",
@@ -83,12 +95,19 @@ const PetForm = () => {
             className={styles.upload_label}
             htmlFor="pet_image_upload"
             ref={picture_label}
-          >
-            <i className={`fas fa-upload ${styles.upload_icon}`}></i>
-          </label>
-          <div className={styles.upload_button} onClick={clickedUpload}>
-            <h2>Add a picture</h2>
-          </div>
+          ></label>
+          {imagePreview ? (
+            <div
+              className={styles.image_preview}
+              style={{
+                backgroundImage: `url(${imagePreview})`,
+              }}
+            ></div>
+          ) : (
+            <div className={styles.upload_button} onClick={clickedUpload}>
+              <h2>Add a picture</h2>
+            </div>
+          )}
           <input
             type="file"
             accept="image/*"
@@ -96,8 +115,6 @@ const PetForm = () => {
             onChange={updateImage}
           ></input>
         </div>
-        {file_name && <h2 className={styles.file_name}>{file_name}</h2>}
-        {image && <img src={image.name}></img>}
         <div>
           <input
             type="text"
