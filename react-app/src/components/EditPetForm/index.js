@@ -109,6 +109,11 @@ const EditPetForm = () => {
     }
   };
 
+  const clickedCancel = (e) => {
+    e.preventDefault();
+    return history.goBack();
+  };
+
   if (!current_pet) return null;
   else {
     return (
@@ -222,6 +227,12 @@ const EditPetForm = () => {
             className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
           >
             Edit {current_pet.name}
+          </button>
+          <button
+            className={`${styles.button} ${styles.cancel_button}`}
+            onClick={clickedCancel}
+          >
+            Cancel
           </button>
           {imageLoading && <p className={styles.loading}>Loading...</p>}
         </form>

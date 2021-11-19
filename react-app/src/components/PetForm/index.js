@@ -87,6 +87,11 @@ const PetForm = () => {
     }
   };
 
+  const clickedCancel = (e) => {
+    e.preventDefault();
+    return history.goBack();
+  };
+
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -194,6 +199,12 @@ const PetForm = () => {
           type="submit"
         >
           Add a pet
+        </button>
+        <button
+          className={`${styles.button} ${styles.cancel_button}`}
+          onClick={clickedCancel}
+        >
+          Cancel
         </button>
         {imageLoading && <p className={styles.loading}>Loading...</p>}
       </form>

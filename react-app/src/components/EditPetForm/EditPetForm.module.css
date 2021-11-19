@@ -154,12 +154,21 @@ input[type="file"] {
   width: 45%;
   padding: 5px 5px;
   color: white;
+  margin-bottom: 5px;
 }
 
 .button:hover {
   transition: background-color 0.2s;
   background-color: #ffab35;
   cursor: pointer;
+}
+
+.cancel_button {
+  background-color: rgba(255, 0, 0, 0.7);
+  transition: background-color 200ms;
+}
+.cancel_button:hover {
+  background-color: rgba(255, 0, 0, 0.5);
 }
 
 .grey,
