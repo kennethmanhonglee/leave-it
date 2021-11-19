@@ -151,7 +151,11 @@ const EditPetForm = () => {
             )}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="name">
+              Name
+            </label>
             <input
+              id="name"
               type="text"
               placeholder="Name"
               onChange={updateName}
@@ -161,7 +165,11 @@ const EditPetForm = () => {
             {errors && <div className={styles.errors}>{errors["name"]}</div>}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="goal">
+              Goal
+            </label>
             <select
+              id="goal"
               value={goal}
               onChange={updateGoal}
               className={styles.select}
@@ -175,7 +183,11 @@ const EditPetForm = () => {
             {errors && <div className={styles.errors}>{errors["goal"]}</div>}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="curr_weight">
+              Current Weight in Kilograms (kg)
+            </label>
             <input
+              id="curr_weight"
               type="number"
               min="0"
               placeholder="Current Weight in Kilograms"
@@ -188,7 +200,11 @@ const EditPetForm = () => {
             )}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="ideal_weight">
+              Ideal Weight in Kilograms (kg)
+            </label>
             <input
+              id="ideal_weight"
               type="number"
               min="0"
               placeholder="Ideal Weight in Kilograms"

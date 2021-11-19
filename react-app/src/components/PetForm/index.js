@@ -158,7 +158,7 @@ const PetForm = () => {
         </div>
         <div>
           <label className={styles.labels} htmlFor="curr_weight">
-            Current Weight
+            Current Weight in Kilograms (kg)
           </label>
           <input
             type="number"
@@ -174,7 +174,7 @@ const PetForm = () => {
         </div>
         <div>
           <label className={styles.labels} htmlFor="ideal_weight">
-            Ideal Weight
+            Ideal Weight in Kilograms (kg)
           </label>
           <input
             type="number"

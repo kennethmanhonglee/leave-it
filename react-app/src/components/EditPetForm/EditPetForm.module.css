@@ -126,9 +126,13 @@ input[type="file"] {
   background-color: red;
 }
 
-.file_name {
-  font-size: 15px;
-  margin-bottom: 10px;
+.form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.labels {
+  font-size: 0.8rem;
 }
 
 .select {
