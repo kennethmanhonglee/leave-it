@@ -8,7 +8,7 @@
 }
 
 .header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 2rem;
 }
 
@@ -30,7 +30,6 @@
   margin-bottom: 10px;
 }
 
-.pic_upload,
 .input,
 .select,
 .number {
@@ -49,18 +48,47 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 150px;
-  padding: 30px;
+  align-items: center;
+  height: 250px;
+  margin-bottom: 20px;
 }
 
 .upload_label {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+  display: none;
 }
 
-.upload_icon {
-  font-size: 30px;
+.upload_button {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 140, 29);
+  color: white;
+  transition: background-color 200ms;
+}
+
+.upload_button h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.upload_button:hover {
+  cursor: pointer;
+  background-color: rgb(192, 104, 22);
+}
+
+.remove_picture {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 20px;
+}
+
+.remove_picture:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.5);
 }
 
 input[type="file"] {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -40,9 +40,41 @@ const EditPetForm = () => {
   const [ideal_weight, setIdealWeight] = useState(current_pet?.ideal_weight);
   const [goal, setGoal] = useState(current_pet?.goal);
   const [errors, setErrors] = useState();
+  // for editing image
   const [image, setImage] = useState();
-  const [file_name, setFile_Name] = useState();
+  const [imagePreview, setImagePreview] = useState(current_pet?.image_url);
   const [imageLoading, setImageLoading] = useState(false);
+  const upload_label = useRef();
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
+  const clickedUpload = () => {
+    upload_label.current.click();
+  };
+
+  const removePicture = () => {
+    setImagePreview(null);
+    setImage(null);
+  };
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+      // setting the event listener that runs after reading is done
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      // reading the image file as a data url, to render later
+      reader.readAsDataURL(image);
+    } else if (imagePreview) {
+      setImagePreview(imagePreview);
+    } else {
+      setImagePreview(null);
+    }
+  }, [image]);
 
   const updateName = (e) => setName(e.target.value);
   const updateGoal = (e) => setGoal(e.target.value);
@@ -72,16 +104,6 @@ const EditPetForm = () => {
     }
   };
 
-  const updateImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    // e.target.value is path to file - C:\fakepath\some file name.jpeg
-    // split to get the last part - actual file name
-    const path = e.target.value.split("\\");
-    const fileName = path[path.length - 1];
-    setFile_Name("Current Image: " + fileName);
-  };
-
   if (!current_pet) return null;
   else {
     return (
@@ -91,17 +113,39 @@ const EditPetForm = () => {
             <h2 className={styles.header}>Edit {current_pet?.name}</h2>
           </div>
           <div className={styles.pic_upload}>
-            <label className={styles.upload_label} htmlFor="pet_image_upload">
-              <i className={`fas fa-upload ${styles.upload_icon}`}></i>
-            </label>
+            <label
+              className={styles.upload_label}
+              htmlFor="pet_image_upload"
+              ref={upload_label}
+            ></label>
             <input
               type="file"
               accept="image/*"
               id="pet_image_upload"
               onChange={updateImage}
             ></input>
+            <div
+              className={styles.upload_button}
+              style={
+                imagePreview
+                  ? {
+                      backgroundImage: `url(${imagePreview})`,
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                    }
+                  : null
+              }
+              onClick={clickedUpload}
+            >
+              {!imagePreview && <h2>Add an image</h2>}
+            </div>
+            {imagePreview && (
+              <div onClick={removePicture} className={styles.remove_picture}>
+                Remove Picture
+              </div>
+            )}
           </div>
-          {file_name && <h2 className={styles.file_name}>{file_name}</h2>}
           <div>
             <input
               type="text"

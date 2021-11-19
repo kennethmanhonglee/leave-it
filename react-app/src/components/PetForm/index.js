@@ -16,13 +16,11 @@ const PetForm = () => {
 
   // for picture upload
   const [image, setImage] = useState();
-  const [file_name, setFile_Name] = useState();
   const [imageLoading, setImageLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const picture_label = useRef();
 
-  const clickedUpload = (e) => {
-    e.preventDefault();
+  const clickedUpload = () => {
     picture_label.current.click();
   };
 
@@ -41,15 +39,13 @@ const PetForm = () => {
       const reader = new FileReader();
       // setting the event listener that runs after reading is done
       reader.onload = () => {
-        console.log(image);
         setImagePreview(reader.result);
       };
+      // reading the image file as a data url, to render later
       reader.readAsDataURL(image);
     } else {
       setImagePreview(null);
     }
-
-    // reading the image file as a data url, to render later
   }, [image]);
 
   const ACCEPTED_GOALS = [
