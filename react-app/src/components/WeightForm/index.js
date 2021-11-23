@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { edit_pet_thunk } from "../../store/pet";
+import { new_weight_thunk } from "../../store/pet";
 import styles from "./WeightForm.module.css";
 
 const WeightForm = ({ pet_id }) => {
@@ -20,14 +20,9 @@ const WeightForm = ({ pet_id }) => {
     e.preventDefault();
     const new_pet = {
       pet_id,
-      name: currentPet.name,
-      user_id: currentPet.user_id,
-      goal: currentPet.goal,
       current_weight: weight,
-      ideal_weight: currentPet.ideal_weight,
     };
-    // call thunk to create new weight
-    const errors = await dispatch(edit_pet_thunk(new_pet));
+    const errors = await dispatch(new_weight_thunk(new_pet));
     if (errors) {
       setError(errors);
     } else {

@@ -3,6 +3,7 @@ const LOAD_PETS = "pets/LOAD_PETS";
 const CREATE_PET = "pets/CREATE_PET";
 const REMOVE_PETS = "pets/REMOVE_PETS";
 const DELETE_PET = "pets/DELETE_PET";
+const NEW_WEIGHT = "pets/NEW_WEIGHT";
 
 // actions
 const load_pets = (pets) => ({
@@ -56,6 +57,18 @@ export const edit_pet_thunk =
       // edit does the same thing as adding a pet in terms of redux store state
       await dispatch(add_pet(response.new_pet));
     }
+  };
+
+export const new_weight_thunk =
+  ({ pet_id, current_weight }) =>
+  async (dispatch) => {
+    const res = await fetch(`/api/pets/${pet_id}/new_weight`, {
+      method: "POST",
+      body: +current_weight,
+    });
+
+    const response = await res.json();
+    console.log(response);
   };
 
 export const delete_pet_thunk = (pet_id) => async (dispatch) => {
