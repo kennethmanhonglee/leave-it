@@ -2,9 +2,8 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from datetime import datetime
 
-from app.forms import PetForm, EditPetForm
+from app.forms import PetForm, EditPetForm, PetWeightForm
 from app.models import db, Pet, PetWeight
-from app.api.auth_routes import validation_errors_to_error_messages
 from app.aws import allowed_file, get_unique_filename, upload_file_to_s3, delete_from_s3
 
 pet_routes = Blueprint('pets', __name__)
@@ -143,3 +142,31 @@ def delete_pet(pet_id):
     db.session.commit()
 
     return {'deleted': True}
+
+
+@pet_routes.route('/<int:pet_id>/new_weight', methods=['POST'])
+@login_required
+def new_weight(pet_id):
+    '''
+    Log new weight for the pet
+    '''
+    existing_pet = Pet.query.get(pet_id)
+    if not existing_pet:
+        return {'ok': False, 'errors': ['Pet does not exist.']}
+    form = PetWeightForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_pet_weight = PetWeight(
+            pet_id=existing_pet.id,
+            weight=form.data['current_weight'],
+            created_at=datetime.today()
+        )
+
+        existing_pet.current_weight = form.data['current_weight']
+
+        db.session.add(new_pet_weight)
+        db.session.add(existing_pet)
+        db.session.commit()
+
+        return {'ok': True, 'new_pet': existing_pet.to_dict()}
+    return {'ok': False, 'errors': form.errors}

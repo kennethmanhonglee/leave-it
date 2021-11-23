@@ -3,7 +3,6 @@ const LOAD_PETS = "pets/LOAD_PETS";
 const CREATE_PET = "pets/CREATE_PET";
 const REMOVE_PETS = "pets/REMOVE_PETS";
 const DELETE_PET = "pets/DELETE_PET";
-const NEW_WEIGHT = "pets/NEW_WEIGHT";
 
 // actions
 const load_pets = (pets) => ({
@@ -64,11 +63,19 @@ export const new_weight_thunk =
   async (dispatch) => {
     const res = await fetch(`/api/pets/${pet_id}/new_weight`, {
       method: "POST",
-      body: +current_weight,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ pet_id, current_weight }),
     });
 
     const response = await res.json();
-    console.log(response);
+    if (!response.ok) {
+      return response.errors;
+    } else {
+      // dispatch action to create pet - same as editing pet
+      await dispatch(add_pet(response.new_pet));
+    }
   };
 
 export const delete_pet_thunk = (pet_id) => async (dispatch) => {
