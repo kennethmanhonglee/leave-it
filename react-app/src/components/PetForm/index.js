@@ -181,7 +181,7 @@ const PetForm = () => {
               </option>
             ))}
           </select>
-          {errors && <div className={styles.errors}>{errors["goal"]}</div>}
+          {errors && <div className={styles.errors}>{errors["unit"]}</div>}
         </div>
         <div>
           <label className={styles.labels} htmlFor="curr_weight">

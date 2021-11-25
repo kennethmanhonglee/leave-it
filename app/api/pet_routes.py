@@ -114,18 +114,19 @@ def edit_pet(pet_id):
 
         # create a pet with given data
         existing_pet.name = form.data['name']
+        existing_pet.unit = form.data['unit']
         existing_pet.goal = form.data['goal']
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
         existing_pet.image_url = new_image_url
         db.session.commit()
-        new_pet_weight = PetWeight(
-            pet_id=existing_pet.id,
-            weight=existing_pet.current_weight,
-            created_at=datetime.today()
-        )
-        db.session.add(new_pet_weight)
-        db.session.commit()
+        pet_weights = PetWeight.query.filter(PetWeight.pet_id == pet_id)
+        weight_dates = map(lambda pet: pet.created_at, pet_weights)
+        print('\n\n\n\n\n\n\n\n\n\n', list(
+            weight_dates), '\n\n\n\n\n\n\n\n\n\n')
+
+        # db.session.add(new_pet_weight)
+        # db.session.commit()
         return {'ok': True, 'new_pet': existing_pet.to_dict()}
     else:
         return {'ok': False, 'errors': form.errors}
@@ -161,6 +162,7 @@ def new_weight(pet_id):
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,
             weight=form.data['current_weight'],
+            unit=existing_pet.unit,
             created_at=datetime.today()
         )
 

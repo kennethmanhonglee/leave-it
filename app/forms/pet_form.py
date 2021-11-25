@@ -36,9 +36,13 @@ def unit_accepted(form, field):
 
 def weight_accepted(form, field):
     weight = field.data
-    if weight < 0 or weight > 150:
-        field_name = ' '.join(field.name.split('_'))
-        raise ValidationError('Weight must be realistic.')
+    unit = form.data['unit']
+    if unit == 'kg':
+        if weight < 0 or weight > 150:
+            raise ValidationError('Weight must be realistic.')
+    if unit == 'lb':
+        if weight < 0 or weight > 350:
+            raise ValidationError('Weight must be realistic.')
 
 
 def is_long(form, field):
