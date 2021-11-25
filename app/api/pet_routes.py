@@ -47,7 +47,6 @@ def create_pet():
                 return {'ok': False, 'errors': {'name': ['Pet already exists.']}}
         else:
             upload = None
-
         # create a pet with given data
         new_pet = Pet(
             name=form.data['name'],

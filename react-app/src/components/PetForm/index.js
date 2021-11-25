@@ -87,6 +87,7 @@ const PetForm = () => {
     const data = await dispatch(create_pet_thunk(newPet));
     if (data) {
       setErrors(data);
+      setImageLoading(false);
     } else {
       return history.push("/home");
     }
@@ -166,7 +167,7 @@ const PetForm = () => {
         </div>
         <div>
           <label className={styles.labels} htmlFor="goal">
-            Goal
+            Preferred Units
           </label>
           <select
             value={unit}

@@ -15,12 +15,22 @@ ACCEPTED_GOALS = [
     'Puppy 4 months to adult',
 ]
 
+ACCEPTED_UNITS = ["kg", "lb"]
+
 
 def goal_accepted(form, field):
     goal = field.data
     if goal not in ACCEPTED_GOALS:
         raise ValidationError(
             'Goal must be chosen from the list.'
+        )
+
+
+def unit_accepted(form, field):
+    unit = field.data
+    if unit not in ACCEPTED_UNITS:
+        raise ValidationError(
+            'Unit must be chosen from the list.'
         )
 
 
@@ -44,3 +54,4 @@ class PetForm(FlaskForm):
     ideal_weight = FloatField('ideal_weight', validators=[
                               DataRequired(), weight_accepted])
     goal = StringField('goal', validators=[DataRequired(), goal_accepted])
+    unit = StringField('unit', validators=[DataRequired(), unit_accepted])
