@@ -92,7 +92,8 @@ def seed_pets():
             current_weight=randint(4, 50),
             ideal_weight=randint(4, 50),
             goal=ACCEPTED_GOALS[randint(0, 7)],
-            image_url=DOG_PICS[randint(0, 49)]
+            image_url=DOG_PICS[randint(0, 49)],
+            unit='kg' if randint(1, 2) % 2 == 0 else 'lb'
         )
         db.session.add(new_pet)
         db.session.commit()

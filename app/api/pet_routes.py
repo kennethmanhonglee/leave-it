@@ -52,6 +52,7 @@ def create_pet():
             name=form.data['name'],
             user_id=user_id,
             goal=form.data['goal'],
+            unit=form.data['unit'],
             current_weight=form.data['current_weight'],
             ideal_weight=form.data['ideal_weight'],
             image_url=upload['url'] if upload is not None else None
