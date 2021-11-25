@@ -137,7 +137,8 @@ def delete_pet(pet_id):
     if not existing_pet:
         return {'ok': False, 'errors': ['Pet does not exist.']}
     image_url = existing_pet.image_url
-    delete_from_s3(image_url)
+    if image_url is not None:
+        delete_from_s3(image_url)
     db.session.delete(existing_pet)
     db.session.commit()
 
