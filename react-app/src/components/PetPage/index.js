@@ -30,10 +30,18 @@ const PetPage = () => {
             Goal: <span>{current_pet.goal} </span>
           </h2>
           <h2 className={styles.stats}>
-            Current Weight: <span>{current_pet.current_weight}kg </span>
+            Current Weight:{" "}
+            <span>
+              {current_pet.current_weight}
+              {current_pet.unit}{" "}
+            </span>
           </h2>
           <h2 className={styles.stats}>
-            Ideal Weight: <span>{current_pet.ideal_weight}kg </span>
+            Ideal Weight:{" "}
+            <span>
+              {current_pet.ideal_weight}
+              {current_pet.unit}{" "}
+            </span>
           </h2>
         </div>
       </div>

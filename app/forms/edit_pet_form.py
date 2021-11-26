@@ -3,6 +3,8 @@ from wtforms import StringField, FloatField
 from wtforms.fields.core import BooleanField
 from wtforms.validators import DataRequired, ValidationError
 
+from app.forms.pet_form import ACCEPTED_UNITS
+
 
 ACCEPTED_GOALS = [
 
@@ -25,11 +27,23 @@ def goal_accepted(form, field):
         )
 
 
+def unit_accepted(form, field):
+    unit = field.data
+    if unit not in ACCEPTED_UNITS:
+        raise ValidationError(
+            'Unit must be chosen from the list.'
+        )
+
+
 def weight_accepted(form, field):
     weight = field.data
-    if weight < 0 or weight > 150:
-        field_name = ' '.join(field.name.split('_'))
-        raise ValidationError('Weight must be realistic.')
+    unit = form.data['unit']
+    if unit == 'kg':
+        if weight < 0 or weight > 150:
+            raise ValidationError('Weight must be realistic.')
+    if unit == 'lb':
+        if weight < 0 or weight > 350:
+            raise ValidationError('Weight must be realistic.')
 
 
 def is_long(form, field):
@@ -45,4 +59,5 @@ class EditPetForm(FlaskForm):
     ideal_weight = FloatField('ideal_weight', validators=[
                               DataRequired(), weight_accepted])
     goal = StringField('goal', validators=[DataRequired(), goal_accepted])
+    unit = StringField('unit', validators=[DataRequired(), unit_accepted])
     hasPic = BooleanField('hasPic')

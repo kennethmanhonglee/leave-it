@@ -2,9 +2,8 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from datetime import datetime
 
-from app.forms import PetForm, EditPetForm
+from app.forms import PetForm, EditPetForm, PetWeightForm
 from app.models import db, Pet, PetWeight
-from app.api.auth_routes import validation_errors_to_error_messages
 from app.aws import allowed_file, get_unique_filename, upload_file_to_s3, delete_from_s3
 
 pet_routes = Blueprint('pets', __name__)
@@ -48,12 +47,12 @@ def create_pet():
                 return {'ok': False, 'errors': {'name': ['Pet already exists.']}}
         else:
             upload = None
-
         # create a pet with given data
         new_pet = Pet(
             name=form.data['name'],
             user_id=user_id,
             goal=form.data['goal'],
+            unit=form.data['unit'],
             current_weight=form.data['current_weight'],
             ideal_weight=form.data['ideal_weight'],
             image_url=upload['url'] if upload is not None else None
@@ -63,6 +62,7 @@ def create_pet():
         new_pet_weight = PetWeight(
             pet_id=new_pet.id,
             weight=new_pet.current_weight,
+            unit=new_pet.unit,
             created_at=datetime.today()
         )
         db.session.add(new_pet_weight)
@@ -114,17 +114,19 @@ def edit_pet(pet_id):
 
         # create a pet with given data
         existing_pet.name = form.data['name']
+        existing_pet.unit = form.data['unit']
         existing_pet.goal = form.data['goal']
         existing_pet.current_weight = form.data['current_weight']
         existing_pet.ideal_weight = form.data['ideal_weight']
         existing_pet.image_url = new_image_url
         db.session.commit()
-        new_pet_weight = PetWeight(
-            pet_id=existing_pet.id,
-            weight=existing_pet.current_weight,
-            created_at=datetime.today()
-        )
-        db.session.add(new_pet_weight)
+        pet_weights = PetWeight.query.filter(PetWeight.pet_id == pet_id).all()
+        # this is the most recently made pet weight
+        weight_to_change = pet_weights[-1]
+        weight_to_change.unit = form.data['unit']
+        weight_to_change.weight = form.data['current_weight']
+        weight_to_change.created_at = datetime.today()
+        db.session.add(weight_to_change)
         db.session.commit()
         return {'ok': True, 'new_pet': existing_pet.to_dict()}
     else:
@@ -138,8 +140,38 @@ def delete_pet(pet_id):
     if not existing_pet:
         return {'ok': False, 'errors': ['Pet does not exist.']}
     image_url = existing_pet.image_url
-    delete_from_s3(image_url)
+    if image_url is not None:
+        delete_from_s3(image_url)
     db.session.delete(existing_pet)
     db.session.commit()
 
     return {'deleted': True}
+
+
+@ pet_routes.route('/<int:pet_id>/new_weight', methods=['POST'])
+@ login_required
+def new_weight(pet_id):
+    '''
+    Log new weight for the pet
+    '''
+    existing_pet = Pet.query.get(pet_id)
+    if not existing_pet:
+        return {'ok': False, 'errors': ['Pet does not exist.']}
+    form = PetWeightForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_pet_weight = PetWeight(
+            pet_id=existing_pet.id,
+            weight=form.data['current_weight'],
+            unit=existing_pet.unit,
+            created_at=datetime.today()
+        )
+
+        existing_pet.current_weight = form.data['current_weight']
+
+        db.session.add(new_pet_weight)
+        db.session.add(existing_pet)
+        db.session.commit()
+
+        return {'ok': True, 'new_pet': existing_pet.to_dict()}
+    return {'ok': False, 'errors': form.errors}

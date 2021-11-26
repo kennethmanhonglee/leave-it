@@ -58,6 +58,26 @@ export const edit_pet_thunk =
     }
   };
 
+export const new_weight_thunk =
+  ({ pet_id, current_weight }) =>
+  async (dispatch) => {
+    const res = await fetch(`/api/pets/${pet_id}/new_weight`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ pet_id, current_weight }),
+    });
+
+    const response = await res.json();
+    if (!response.ok) {
+      return response.errors;
+    } else {
+      // dispatch action to create pet - same as editing pet
+      await dispatch(add_pet(response.new_pet));
+    }
+  };
+
 export const delete_pet_thunk = (pet_id) => async (dispatch) => {
   const res = await fetch(`/api/pets/${pet_id}`, {
     method: "DELETE",

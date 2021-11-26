@@ -9,6 +9,7 @@ const PetForm = () => {
   const dispatch = useDispatch(null);
   const history = useHistory();
   const [name, setName] = useState();
+  const [unit, setUnit] = useState("kg");
   const [current_weight, setCurrentWeight] = useState();
   const [ideal_weight, setIdealWeight] = useState();
   const [goal, setGoal] = useState("Neutered Adult");
@@ -59,13 +60,16 @@ const PetForm = () => {
     "Puppy 4 months to adult",
   ];
 
+  const ACCEPTED_UNITS = ["kg", "lb"];
+
   const updateName = (e) => setName(e.target.value);
+  const updateUnit = (e) => setUnit(e.target.value);
   const updateCurrentWeight = (e) => setCurrentWeight(e.target.value);
   const updateIdealWeight = (e) => setIdealWeight(e.target.value);
   const updateGoal = (e) => setGoal(e.target.value);
 
   const isEmptyForm = () => {
-    if (!name || !current_weight || !ideal_weight) return true;
+    if (!name || !current_weight || !ideal_weight || !unit) return true;
     return false;
   };
 
@@ -74,6 +78,7 @@ const PetForm = () => {
     // call thunk and make request
     const newPet = new FormData();
     newPet.append("name", name);
+    newPet.append("unit", unit);
     newPet.append("current_weight", current_weight);
     newPet.append("ideal_weight", ideal_weight);
     newPet.append("goal", goal);
@@ -82,6 +87,7 @@ const PetForm = () => {
     const data = await dispatch(create_pet_thunk(newPet));
     if (data) {
       setErrors(data);
+      setImageLoading(false);
     } else {
       return history.push("/home");
     }
@@ -94,7 +100,7 @@ const PetForm = () => {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
         <h2 className={styles.header}>Create a pet</h2>
         <div className={styles.pic_upload}>
           <label
@@ -135,7 +141,6 @@ const PetForm = () => {
           </label>
           <input
             type="text"
-            placeholder="Name"
             onChange={updateName}
             className={styles.input}
             id="name"
@@ -161,13 +166,30 @@ const PetForm = () => {
           {errors && <div className={styles.errors}>{errors["goal"]}</div>}
         </div>
         <div>
+          <label className={styles.labels} htmlFor="goal">
+            Preferred Units
+          </label>
+          <select
+            value={unit}
+            onChange={updateUnit}
+            className={styles.select}
+            id="unit"
+          >
+            {ACCEPTED_UNITS.map((unit) => (
+              <option key={unit} value={unit}>
+                {unit}
+              </option>
+            ))}
+          </select>
+          {errors && <div className={styles.errors}>{errors["unit"]}</div>}
+        </div>
+        <div>
           <label className={styles.labels} htmlFor="curr_weight">
-            Current Weight in Kilograms (kg)
+            Current Weight in {unit}
           </label>
           <input
             type="number"
             min="0"
-            placeholder="Current Weight in Kilograms"
             onChange={updateCurrentWeight}
             className={styles.number}
             id="curr_weight"
@@ -178,12 +200,11 @@ const PetForm = () => {
         </div>
         <div>
           <label className={styles.labels} htmlFor="ideal_weight">
-            Ideal Weight in Kilograms (kg)
+            Ideal Weight in {unit}
           </label>
           <input
             type="number"
             min="0"
-            placeholder="Ideal Weight in Kilograms"
             onChange={updateIdealWeight}
             className={styles.number}
             id="ideal_weight"

@@ -36,7 +36,10 @@ const PetCard = ({ pet_id }) => {
           <p>Goal: {currentPet.goal}</p>
         </div>
         <div className={styles.weight}>
-          <p>{currentPet.current_weight}kg</p>
+          <p>
+            {currentPet.current_weight}
+            {currentPet.unit}
+          </p>
         </div>
       </div>
     </div>

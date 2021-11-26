@@ -33,7 +33,10 @@ const EditPetForm = () => {
     "Puppy 4 months to adult",
   ];
 
+  const ACCEPTED_UNITS = ["kg", "lb"];
+
   const [name, setName] = useState(current_pet?.name);
+  const [unit, setUnit] = useState(current_pet?.unit);
   const [current_weight, setCurrentWeight] = useState(
     current_pet?.current_weight
   );
@@ -80,12 +83,14 @@ const EditPetForm = () => {
   }, [image]);
 
   const updateName = (e) => setName(e.target.value);
+  const updateUnit = (e) => setUnit(e.target.value);
   const updateGoal = (e) => setGoal(e.target.value);
   const updateCurrentWeight = (e) => setCurrentWeight(e.target.value);
   const updateIdealWeight = (e) => setIdealWeight(e.target.value);
 
   const isEmptyForm = () => {
-    if (!name || !goal || !current_weight || !ideal_weight) return true;
+    if (!name || !goal || !current_weight || !ideal_weight || !unit)
+      return true;
     return false;
   };
 
@@ -94,13 +99,13 @@ const EditPetForm = () => {
     // call thunk and make request
     const newPetData = new FormData();
     newPetData.append("name", name);
+    newPetData.append("unit", unit);
     newPetData.append("current_weight", current_weight);
     newPetData.append("ideal_weight", ideal_weight);
     newPetData.append("goal", goal);
     newPetData.append("image", image);
     newPetData.append("hasPic", hasPic);
     setImageLoading(true);
-    console.log(newPetData);
     const data = await dispatch(edit_pet_thunk({ pet_id, newPetData }));
     if (data) {
       setErrors(data);
@@ -162,7 +167,6 @@ const EditPetForm = () => {
             <input
               id="name"
               type="text"
-              placeholder="Name"
               onChange={updateName}
               value={name}
               className={styles.input}
@@ -188,14 +192,31 @@ const EditPetForm = () => {
             {errors && <div className={styles.errors}>{errors["goal"]}</div>}
           </div>
           <div>
+            <label className={styles.labels} htmlFor="unit">
+              Preferred Unit
+            </label>
+            <select
+              id="unit"
+              value={unit}
+              onChange={updateUnit}
+              className={styles.select}
+            >
+              {ACCEPTED_UNITS.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
+                </option>
+              ))}
+            </select>
+            {errors && <div className={styles.errors}>{errors["unit"]}</div>}
+          </div>
+          <div>
             <label className={styles.labels} htmlFor="curr_weight">
-              Current Weight in Kilograms (kg)
+              Current Weight in {unit}
             </label>
             <input
               id="curr_weight"
               type="number"
               min="0"
-              placeholder="Current Weight in Kilograms"
               onChange={updateCurrentWeight}
               value={current_weight}
               className={styles.number}
@@ -206,13 +227,12 @@ const EditPetForm = () => {
           </div>
           <div>
             <label className={styles.labels} htmlFor="ideal_weight">
-              Ideal Weight in Kilograms (kg)
+              Ideal Weight in {unit}
             </label>
             <input
               id="ideal_weight"
               type="number"
               min="0"
-              placeholder="Ideal Weight in Kilograms"
               onChange={updateIdealWeight}
               value={ideal_weight}
               className={styles.number}

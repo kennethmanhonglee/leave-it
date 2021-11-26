@@ -7,10 +7,13 @@ RER is then multiplied by
 '''
 
 
-def get_rer(weight):
+def get_rer(weight, unit):
     '''
     first take the dog's weight, and find the RER
     '''
+    if unit == 'lb':
+        # convert lb to kg
+        weight = weight / 2.20462
     return (weight**0.75) * 70
 
 
@@ -19,8 +22,8 @@ def get_calories(pet):
     take current and ideal weight, and goal, and return corresponding RER for the goal
     source: https://vet.osu.edu/vmc/companion/our-services/nutrition-support-service/basic-calorie-calculator
     '''
-    current_rer = get_rer(pet.current_weight)
-    ideal_rer = get_rer(pet.ideal_weight)
+    current_rer = get_rer(pet.current_weight, pet.unit)
+    ideal_rer = get_rer(pet.ideal_weight, pet.unit)
     if pet.goal == 'Neutered Adult':
         return 1.6 * current_rer
     if pet.goal == 'Intact Adult':

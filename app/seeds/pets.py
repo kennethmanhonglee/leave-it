@@ -84,21 +84,22 @@ DOG_PICS = [
 
 def seed_pets():
     for i, name in enumerate(PET_NAMES):
-        neutered = str(randint(1, 2) % 2 == 1)
         user_id = randint(1, 3)
+        unit = 'kg' if randint(1, 2) % 2 == 0 else 'lb'
         new_pet = Pet(
             name=name,
             user_id=user_id,
             current_weight=randint(4, 50),
             ideal_weight=randint(4, 50),
             goal=ACCEPTED_GOALS[randint(0, 7)],
-            image_url=DOG_PICS[randint(0, 49)]
-        )
+            image_url=DOG_PICS[randint(0, 49)],
+            unit=unit)
         db.session.add(new_pet)
         db.session.commit()
         new_weight = PetWeight(
             pet_id=new_pet.id,
             weight=new_pet.current_weight,
+            unit=unit,
             created_at=datetime.today()
         )
         db.session.add(new_weight)
