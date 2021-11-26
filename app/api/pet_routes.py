@@ -120,13 +120,14 @@ def edit_pet(pet_id):
         existing_pet.ideal_weight = form.data['ideal_weight']
         existing_pet.image_url = new_image_url
         db.session.commit()
-        pet_weights = PetWeight.query.filter(PetWeight.pet_id == pet_id)
-        weight_dates = map(lambda pet: pet.created_at, pet_weights)
-        print('\n\n\n\n\n\n\n\n\n\n', list(
-            weight_dates), '\n\n\n\n\n\n\n\n\n\n')
-
-        # db.session.add(new_pet_weight)
-        # db.session.commit()
+        pet_weights = PetWeight.query.filter(PetWeight.pet_id == pet_id).all()
+        # this is the most recently made pet weight
+        weight_to_change = pet_weights[-1]
+        weight_to_change.unit = form.data['unit']
+        weight_to_change.weight = form.data['current_weight']
+        weight_to_change.created_at = datetime.today()
+        db.session.add(weight_to_change)
+        db.session.commit()
         return {'ok': True, 'new_pet': existing_pet.to_dict()}
     else:
         return {'ok': False, 'errors': form.errors}
@@ -147,8 +148,8 @@ def delete_pet(pet_id):
     return {'deleted': True}
 
 
-@pet_routes.route('/<int:pet_id>/new_weight', methods=['POST'])
-@login_required
+@ pet_routes.route('/<int:pet_id>/new_weight', methods=['POST'])
+@ login_required
 def new_weight(pet_id):
     '''
     Log new weight for the pet
