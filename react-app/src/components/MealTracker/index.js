@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 
 import { load_food_thunk } from "../../store/food";
 import { load_meals_thunk } from "../../store/meal";
-import { delete_pet_thunk } from "../../store/pet";
 import MealEntry from "../MealEntry";
 import WeightForm from "../WeightForm";
 import styles from "./MealTracker.module.css";
@@ -44,11 +43,6 @@ const MealTracker = ({ pet_id }) => {
     dispatch(load_meals_thunk());
   }, [dispatch]);
 
-  const delete_pet = async () => {
-    const result = await dispatch(delete_pet_thunk(pet_id));
-    if (result) return history.push("/home");
-  };
-
   const addFood = () => {
     // later change to modal
     // redirect to add food, but need to keep track of for which pet as well
@@ -64,18 +58,6 @@ const MealTracker = ({ pet_id }) => {
           <div className={styles.food_div}>
             <div className={styles.add_button_div}>
               <button onClick={addFood}>Add a meal</button>
-            </div>
-          </div>
-          <div className={styles.util_div}>
-            <div
-              className={styles.editing_div}
-              onClick={() => history.push(`/edit_pet/${pet_id}`)}
-            >
-              <button>Edit</button>
-            </div>
-            <div className={styles.deleting_div} onClick={delete_pet}>
-              {/* show modal later on */}
-              <button>Delete</button>
             </div>
           </div>
         </div>
