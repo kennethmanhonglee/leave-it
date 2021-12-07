@@ -25,26 +25,29 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .slogan_container {
-  height: 80%;
+  height: 60%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .slogan {
   color: #455555;
+  width: 600px;
 }
 
 .slogan h1 {
-  font-size: 35px;
+  font-size: 45px;
   margin-bottom: 10px;
+  font-weight: 700;
 }
+
 .slogan h4 {
   font-size: 20px;
   text-indent: 5px;
@@ -68,10 +71,8 @@
 
 .bio {
   display: flex;
-}
-
-.bio_div {
-  margin: 50px 20px;
+  justify-content: space-between;
+  width: 150px;
 }
 
 .bio_div a i {
