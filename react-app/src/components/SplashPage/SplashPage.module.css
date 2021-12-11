@@ -1,5 +1,6 @@
 .splash_page {
   margin-top: 70px;
+  margin-bottom: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -85,4 +86,27 @@
 .bio_div a i:hover {
   transition: color 0.2s;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.three_features {
+  height: 200px;
+  width: 100vw;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.features_container {
+  height: 200px;
+  width: 75%;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+}
+
+.feature_card {
+  width: 250px;
 }

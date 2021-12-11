@@ -49,7 +49,29 @@ const SplashPage = () => {
       </div>
       <div className={styles.bottom_container}>
         <div className={styles.three_features}>
-          placeholder for 3 horizontal features
+          <h1>Keep your pets healthy</h1>
+          <div className={styles.features_container}>
+            <div className={styles.feature_card}>
+              <h2>Multiple Pets</h2>
+              <div>some graphic</div>
+              <p>Keep track of many pets under one user</p>
+            </div>
+            <div className={styles.feature_card}>
+              <h2>Track Your Food</h2>
+              <div>some graphic</div>
+              <p>
+                Know about the foods your dogs are eating and keep their
+                calories under budget
+              </p>
+            </div>
+            <div className={styles.feature_card}>
+              <h2>Stay Healthy</h2>
+              <div>some graphic</div>
+              <p>
+                Keep track of the weight of your pets, and see their progress
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
