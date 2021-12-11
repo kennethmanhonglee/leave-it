@@ -6,7 +6,7 @@ import logo from "../../assets/images/leaveit.png";
 const SplashPage = () => {
   return (
     <div className={styles.splash_page}>
-      <div className={styles.container}>
+      <div className={styles.top_container}>
         <div
           style={{
             backgroundImage: `url(${logo})`,
@@ -45,6 +45,11 @@ const SplashPage = () => {
               </a>
             </div>
           </div>
+        </div>
+      </div>
+      <div className={styles.bottom_container}>
+        <div className={styles.three_features}>
+          placeholder for 3 horizontal features
         </div>
       </div>
     </div>
