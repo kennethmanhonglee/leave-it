@@ -5,10 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 200px;
+  gap: 100px;
 }
 
-.top_container {
+.heading {
   margin-top: 70px;
   width: 100%;
   display: flex;
@@ -95,6 +95,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  background-color: #f1f1f1;
 }
 
 .three_features h1 {
