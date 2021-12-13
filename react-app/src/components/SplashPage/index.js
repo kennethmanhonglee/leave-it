@@ -70,6 +70,7 @@ const SplashPage = () => {
             </div>
           </div>
         </div>
+        <div className={styles.instructions}>instructions go here</div>
       </div>
     </div>
   );

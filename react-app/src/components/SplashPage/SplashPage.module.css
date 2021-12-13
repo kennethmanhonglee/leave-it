@@ -88,6 +88,12 @@
   color: rgba(0, 0, 0, 0.5);
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
 .three_features {
   height: 400px;
   width: 100vw;
