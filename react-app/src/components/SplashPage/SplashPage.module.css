@@ -95,6 +95,7 @@
 }
 
 .three_features {
+  padding-top: 20px;
   height: 400px;
   width: 100vw;
   display: flex;
@@ -111,19 +112,25 @@
 }
 
 .features_container {
-  width: 75%;
-  display: flex;
-  justify-content: center;
+  /* use grid */
+  max-width: 850px;
+  min-width: 250px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  grid-template-rows: 1fr;
   gap: 50px;
-  align-items: center;
+  border: 1px solid red;
 }
 
 .feature_card {
+  /* use grid */
   width: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  border: 1px solid black;
 }
 
 .feature_card div {
