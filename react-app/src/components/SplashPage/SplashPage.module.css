@@ -1,14 +1,16 @@
 .splash_page {
-  margin-top: 70px;
-  margin-bottom: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 650px 400px auto;
+  grid-template-areas:
+    "header header"
+    "three_features three_features"
+    "instructions instructions";
+  gap: 50px 0;
 }
 
 .heading {
+  grid-area: header;
   margin-top: 70px;
   width: 100%;
   display: flex;
@@ -95,6 +97,7 @@
 }
 
 .three_features {
+  grid-area: three_features;
   padding-top: 20px;
   height: 400px;
   width: 100vw;
@@ -148,4 +151,8 @@
 .feature_card p {
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.instructions {
+  grid-area: instructions;
 }
