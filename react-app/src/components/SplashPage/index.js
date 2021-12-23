@@ -67,7 +67,29 @@ const SplashPage = () => {
           </div>
         </div>
       </div>
-      <div className={styles.instructions}>instructions go here</div>
+      <div className={styles.instructions}>
+        <div className={styles.step}>
+          <div>
+            <h1>Step 1: Create your pet</h1>
+            <p>explain this step</p>
+          </div>
+          <div>picture placeholder</div>
+        </div>
+        <div className={styles.step}>
+          <div>picture placeholder</div>
+          <div>
+            <h1>Step 2: Create food items</h1>
+            <p>explain this step</p>
+          </div>
+        </div>
+        <div className={styles.step}>
+          <div>
+            <h1>Step 3: Log food/weights daily</h1>
+            <p>explain this step</p>
+          </div>
+          <div>picture placeholder</div>
+        </div>
+      </div>
     </div>
   );
 };

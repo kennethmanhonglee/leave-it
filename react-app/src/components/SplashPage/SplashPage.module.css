@@ -116,14 +116,11 @@
 
 .features_container {
   /* use grid */
-  max-width: 850px;
-  min-width: 250px;
-  height: 400px;
+  width: 850px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-template-rows: 1fr;
-  gap: 50px;
-  border: 1px solid red;
+  justify-items: center;
 }
 
 .feature_card {
@@ -133,7 +130,6 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  border: 1px solid black;
 }
 
 .feature_card div {
@@ -155,4 +151,15 @@
 
 .instructions {
   grid-area: instructions;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.step {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+  text-align: center;
 }
