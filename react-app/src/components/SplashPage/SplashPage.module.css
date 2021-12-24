@@ -7,6 +7,7 @@
     "three_features three_features"
     "instructions instructions";
   gap: 50px 0;
+  margin-bottom: 50px;
 }
 
 .heading {
@@ -44,14 +45,18 @@
 }
 
 .slogan {
-  color: #455555;
+  color: #6f8888;
   width: 600px;
 }
 
-.slogan h1 {
+.slogan h1,
+.slogan span {
   font-size: 45px;
   margin-bottom: 10px;
   font-weight: 700;
+}
+.slogan span {
+  color: #183962;
 }
 
 .slogan h4 {
@@ -108,10 +113,13 @@
   background-color: #f1f1f1;
 }
 
-.three_features h1 {
+.three_features > h1,
+.instructions > h1 {
   font-weight: 700;
   font-size: 1.5rem;
   color: #183962;
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
 .features_container {
@@ -153,13 +161,49 @@
   grid-area: instructions;
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 50px;
+  align-items: center;
 }
 
 .step {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 200px;
-  text-align: center;
+  width: 1000px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 20px 30px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.step div {
+  min-height: 200px;
+}
+
+.step p {
+  color: rgba(0, 0, 0, 0.7);
+  width: 400px;
+}
+.step h1 {
+  color: rgb(255, 140, 29);
+  font-size: 1.5rem;
+}
+
+.picture {
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 240px;
+  height: 334px;
+}
+.picture_1 {
+  background-image: url(https://media2.giphy.com/media/2aysJ0TTebdTjpZVDb/giphy.gif?cid=790b7611048ed6be842de643ad204377265374c64f04624f&rid=giphy.gif&ct=g);
+}
+.picture_2 {
+  background-image: url(https://media2.giphy.com/media/pzeK9Ahj4lhujbHhBT/giphy.gif?cid=790b7611f21be1a84914c4242f18559eb112569d90ce9a73&rid=giphy.gif&ct=g);
+}
+.picture_3 {
+  background-image: url(https://media2.giphy.com/media/slZge6RBZXIsDSiK1a/giphy.gif?cid=790b761145cf0c03710baf1bbfda9b542d2e7881f34df90d&rid=giphy.gif&ct=g);
+  width: 1000px;
+  /* height: ; */
 }

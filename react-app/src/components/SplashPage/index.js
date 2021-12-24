@@ -17,7 +17,8 @@ const SplashPage = () => {
           <div className={styles.slogan_container}>
             <div className={styles.slogan}>
               <h1>
-                Leaveit! <br></br>The Calorie Tracker for Dogs
+                <span className={styles.app_name}>Leaveit!</span> <br></br>The
+                Calorie Tracker for Dogs
               </h1>
               <h4>Track the foods your dog loves</h4>
             </div>
@@ -68,26 +69,36 @@ const SplashPage = () => {
         </div>
       </div>
       <div className={styles.instructions}>
+        <h1>How to use Leaveit!</h1>
         <div className={styles.step}>
           <div>
             <h1>Step 1: Create your pet</h1>
-            <p>explain this step</p>
+            <p>
+              Upload a picture, type in the name of your pet, their current
+              weight, and goal weight.
+            </p>
           </div>
-          <div>picture placeholder</div>
+          <div className={`${styles.picture} ${styles.picture_1}`}></div>
         </div>
-        <div className={styles.step}>
-          <div>picture placeholder</div>
+        <div className={`${styles.step} ${styles.dark_background}`}>
+          <div className={`${styles.picture} ${styles.picture_2}`}></div>
           <div>
             <h1>Step 2: Create food items</h1>
-            <p>explain this step</p>
+            <p>
+              Create your dog's food items in our database, or choose one of our
+              pre-built items from the list.
+            </p>
           </div>
         </div>
         <div className={styles.step}>
           <div>
             <h1>Step 3: Log food/weights daily</h1>
-            <p>explain this step</p>
+            <p>
+              Track what your dog is eating daily, along with their daily
+              weight.
+            </p>
           </div>
-          <div>picture placeholder</div>
+          <div className={`${styles.picture} ${styles.picture_3}`}></div>
         </div>
       </div>
     </div>
