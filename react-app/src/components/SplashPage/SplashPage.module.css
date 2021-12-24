@@ -1,50 +1,64 @@
 .splash_page {
-  height: 60vh;
-  margin-top: 70px;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 650px 400px auto;
+  grid-template-areas:
+    "header header"
+    "three_features three_features"
+    "instructions instructions";
+  gap: 50px 0;
+  margin-bottom: 50px;
 }
 
-.container {
-  flex: 0 0 70vw;
+.heading {
+  grid-area: header;
+  margin-top: 70px;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  gap: 100px;
 }
 
 .logo {
-  height: 300px;
-  width: 300px;
+  height: 400px;
+  width: 400px;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .bio_and_link {
-  height: 80%;
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .slogan_container {
-  height: 80%;
+  height: 60%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .slogan {
-  color: #455555;
+  color: #6f8888;
+  width: 600px;
 }
 
-.slogan h1 {
-  font-size: 35px;
+.slogan h1,
+.slogan span {
+  font-size: 45px;
   margin-bottom: 10px;
+  font-weight: 700;
 }
+.slogan span {
+  color: #183962;
+}
+
 .slogan h4 {
   font-size: 20px;
   text-indent: 5px;
@@ -68,10 +82,8 @@
 
 .bio {
   display: flex;
-}
-
-.bio_div {
-  margin: 50px 20px;
+  justify-content: space-between;
+  width: 150px;
 }
 
 .bio_div a i {
@@ -81,4 +93,117 @@
 .bio_div a i:hover {
   transition: color 0.2s;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.three_features {
+  grid-area: three_features;
+  padding-top: 20px;
+  height: 400px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #f1f1f1;
+}
+
+.three_features > h1,
+.instructions > h1 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #183962;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.features_container {
+  /* use grid */
+  width: 850px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: 1fr;
+  justify-items: center;
+}
+
+.feature_card {
+  /* use grid */
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.feature_card div {
+  /* emojis in feature cards */
+  font-size: 150px;
+  text-align: center;
+}
+
+.feature_card h2 {
+  text-align: center;
+  color: rgb(255, 140, 29);
+  font-size: 1.3rem;
+}
+
+.feature_card p {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.instructions {
+  grid-area: instructions;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+
+.step {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 1000px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 20px 30px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.step div {
+  min-height: 200px;
+}
+
+.step p {
+  color: rgba(0, 0, 0, 0.7);
+  width: 400px;
+}
+.step h1 {
+  color: rgb(255, 140, 29);
+  font-size: 1.5rem;
+}
+
+.picture {
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 240px;
+  height: 334px;
+}
+.picture_1 {
+  background-image: url(https://media2.giphy.com/media/2aysJ0TTebdTjpZVDb/giphy.gif?cid=790b7611048ed6be842de643ad204377265374c64f04624f&rid=giphy.gif&ct=g);
+}
+.picture_2 {
+  background-image: url(https://media2.giphy.com/media/pzeK9Ahj4lhujbHhBT/giphy.gif?cid=790b7611f21be1a84914c4242f18559eb112569d90ce9a73&rid=giphy.gif&ct=g);
+}
+.picture_3 {
+  background-image: url(https://media2.giphy.com/media/slZge6RBZXIsDSiK1a/giphy.gif?cid=790b761145cf0c03710baf1bbfda9b542d2e7881f34df90d&rid=giphy.gif&ct=g);
+  width: 1000px;
+  /* height: ; */
 }
