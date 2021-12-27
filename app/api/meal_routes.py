@@ -16,7 +16,6 @@ def get_meals():
     '''
     user_id = current_user.get_id()
     all_user_meals = Meal.query.filter(Meal.user_id == user_id).all()
-    print('\n\n\n', all_user_meals, '\n\n\n')
 
     return 'testing user_meals right now'
 
@@ -31,6 +30,8 @@ def create_meal():
     user_id = current_user.get_id()
     food_id = request.get_json()['food_id']
     pet_id = request.get_json()['pet_id']
+    serving_size = request.get_json()['serving_size']
+    calories = request.get_json()['calories']
     food = Food.query.get(food_id)
     pet = Pet.query.get(pet_id)
     if not food:
@@ -42,6 +43,8 @@ def create_meal():
         user_id=user_id,
         pet_id=pet_id,
         food_id=food_id,
+        serving_size=serving_size,
+        calories=calories,
         created_at=datetime.today()
     )
     db.session.add(new_meal)

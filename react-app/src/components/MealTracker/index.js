@@ -23,20 +23,15 @@ const MealTracker = ({ pet_id }) => {
     currentPet = pets[pet_id];
   }
   let goal_calories = Math.floor(currentPet?.goal_calories);
-  let current_calories;
   let currentPetMeals;
 
   currentPetMeals = Object.values(allMeals).filter(
     (meal) => meal.pet_id === +pet_id
   );
-  const foods = useSelector((state) => state.foods);
-  current_calories =
-    currentPetMeals.length !== 0
-      ? currentPetMeals.reduce(
-          (sum, meal) => (sum += foods[meal.food_id]?.calories),
-          0
-        )
-      : "0";
+  const currentCalories = currentPetMeals.reduce(
+    (sum, meal) => sum + meal.calories,
+    0
+  );
 
   useEffect(() => {
     dispatch(load_food_thunk());
@@ -50,15 +45,15 @@ const MealTracker = ({ pet_id }) => {
     history.push(`/pets/${pet_id}/add_food`);
   };
 
-  if (!currentPet || !foods || !allMeals) return "loading...";
+  if (!currentPet || !allMeals) return "loading...";
   else {
     return (
       <div className={styles.meal_tracker}>
         <div className={styles.util_bar}>
           <div className={styles.food_div}>
-            <div className={styles.add_button_div}>
-              <button onClick={addFood}>Add a meal</button>
-            </div>
+            <button className={styles.add_button_div} onClick={addFood}>
+              Add a meal
+            </button>
           </div>
         </div>
         {/* map through and show all meals created by this user, and later all that are used by this user */}
@@ -74,16 +69,16 @@ const MealTracker = ({ pet_id }) => {
         <div className={styles.goals}>
           <div className={styles.goal}>Goal: {goal_calories}cal</div>
           <div className={styles.actual}>
-            Actual: {current_calories}
+            Actual: {currentCalories}
             cal
           </div>
           <div className={styles.budget}>
             <span
               className={
-                goal_calories - current_calories > 0 ? styles.green : styles.red
+                goal_calories - currentCalories > 0 ? styles.green : styles.red
               }
             >
-              Budget: {goal_calories - current_calories}cal
+              Budget: {goal_calories - currentCalories}cal
             </span>
           </div>
         </div>

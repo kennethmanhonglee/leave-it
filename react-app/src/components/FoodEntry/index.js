@@ -12,12 +12,20 @@ const FoodEntry = ({ food }) => {
   const { pet_id } = useParams();
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
+  const [serving_size, setServing_size] = useState(food.serving_size);
   const [error, setError] = useState("");
+
+  const proportion = food.calories / food.serving_size;
+  let calories = (proportion * serving_size).toFixed(2);
+
+  const changeServingSize = (e) => setServing_size(e.target.value);
 
   const addFood = async () => {
     const newMeal = {
       food_id: food.id,
       pet_id,
+      serving_size,
+      calories,
     };
     await dispatch(create_meal_thunk(newMeal));
     history.goBack();
@@ -42,10 +50,17 @@ const FoodEntry = ({ food }) => {
             <h2>{food.food_type}</h2>
           </div>
           <div>
-            <h2>{food.calories} cal</h2>
+            {/* should re-render depending on serving_size, calories per serving is proportion * new serving size */}
+            <h2>{calories} cal</h2>
           </div>
           <div>
-            <h2>{food.serving_size} g</h2>
+            {/* change to input */}
+            <input
+              type="number"
+              value={serving_size}
+              onChange={changeServingSize}
+            ></input>
+            <h2>g</h2>
           </div>
         </div>
         <div className={styles.add_button_div}>
