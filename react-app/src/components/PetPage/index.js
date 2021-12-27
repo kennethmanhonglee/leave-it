@@ -14,6 +14,9 @@ const PetPage = () => {
   let current_pet;
   if (Object.values(pets).length > 0) {
     current_pet = pets[+pet_id];
+    if (!current_pet) {
+      history.push("/errors");
+    }
   }
 
   const delete_pet = async () => {

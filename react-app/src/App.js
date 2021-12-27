@@ -18,6 +18,7 @@ import CreateFoodForm from "./components/CreateFoodForm";
 import AddFoodForm from "./components/AddFoodForm";
 import EditFoodForm from "./components/EditFoodForm";
 import PetPage from "./components/PetPage";
+import ErrorPage from "./components/ErrorsPage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -77,7 +78,7 @@ function App() {
           <SplashPage />
         </Route>
         <Route path="/">
-          
+          <ErrorPage />
         </Route>
       </Switch>
     </BrowserRouter>
