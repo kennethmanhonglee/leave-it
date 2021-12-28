@@ -26,6 +26,23 @@
   width: 20%;
 }
 
+.food_entry_serving_input {
+  background-color: inherit;
+  padding: 5px 10px;
+  border-bottom: 1px solid black;
+}
+
+.food_entry_serving_input::-webkit-inner-spin-button,
+.food_entry_serving_input::-webkit-outer-spin-button {
+  /* hides number input arrow buttons */
+  appearance: none;
+}
+
+.food_entry_serving_input:focus {
+  outline: none;
+  border-bottom: 1px solid red;
+}
+
 .add_button_div {
   margin-right: 20px;
   height: 50px;

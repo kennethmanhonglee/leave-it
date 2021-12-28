@@ -62,17 +62,16 @@ const FoodEntry = ({ food }) => {
             <h2>{food.food_type}</h2>
           </div>
           <div>
-            {/* should re-render depending on serving_size, calories per serving is proportion * new serving size */}
             <h2>{calories} cal</h2>
           </div>
           <div>
-            {/* change to input */}
             <input
               type="number"
               value={serving_size}
               onChange={changeServingSize}
               max="500"
               min="0"
+              className={styles.food_entry_serving_input}
             ></input>
             <h2>g</h2>
           </div>
