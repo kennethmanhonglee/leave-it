@@ -38,6 +38,8 @@ def create_meal():
         return {'ok': False, 'errors': 'This food does not exist.'}
     if not pet:
         return {'ok': False, 'errors': 'This pet does not exist.'}
+    if int(serving_size) > 500 or int(serving_size) < 0:
+        return {'ok': False, 'errors': f'Serving size for {food.food_name} must be less than 500g.'}
 
     new_meal = Meal(
         user_id=user_id,

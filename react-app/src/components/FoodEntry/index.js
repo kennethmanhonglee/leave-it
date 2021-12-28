@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import styles from "./FoodEntry.module.css";
 import { create_meal_thunk } from "../../store/meal";
 import { delete_food_thunk } from "../../store/food";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // This component is for food entries in adding food into meals
 const FoodEntry = ({ food }) => {
@@ -20,6 +20,14 @@ const FoodEntry = ({ food }) => {
 
   const changeServingSize = (e) => setServing_size(e.target.value);
 
+  useEffect(() => {
+    if (serving_size > 500 || serving_size < 0) {
+      setError(`Serving size for ${food.food_name} must be less than 500g.`);
+    } else {
+      setError("");
+    }
+  }, [serving_size]);
+
   const addFood = async () => {
     const newMeal = {
       food_id: food.id,
@@ -27,8 +35,12 @@ const FoodEntry = ({ food }) => {
       serving_size,
       calories,
     };
-    await dispatch(create_meal_thunk(newMeal));
-    history.goBack();
+    const errors = await dispatch(create_meal_thunk(newMeal));
+    if (errors) {
+      setError(errors);
+    } else {
+      history.goBack();
+    }
   };
 
   const deleteFood = async () => {
@@ -59,6 +71,8 @@ const FoodEntry = ({ food }) => {
               type="number"
               value={serving_size}
               onChange={changeServingSize}
+              max="500"
+              min="0"
             ></input>
             <h2>g</h2>
           </div>

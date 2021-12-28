@@ -33,7 +33,9 @@ export const create_meal_thunk = (newMeal) => async (dispatch) => {
     body: JSON.stringify(newMeal),
   });
   const response = await res.json();
+  console.log(response);
   if (response.ok === false) {
+    console.log("this is response.errors", response.errors);
     return response.errors;
   } else {
     await dispatch(create_meal(response));
