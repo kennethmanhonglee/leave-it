@@ -1,12 +1,22 @@
 .nav {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  height: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   background-color: rgb(255, 140, 29);
   color: white;
   display: flex;
   justify-content: center;
+}
+
+.nav a {
+  font-size: 1.5rem;
+  color: #183962;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.nav a:hover {
+  color: #275b9b;
 }
 
 .nav ul {
@@ -20,9 +30,10 @@
 
 .home_links,
 .logged_in_buttons {
-  width: 130px;
+  width: 250px;
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .login_buttons {

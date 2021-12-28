@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import styles from "./SplashPage.module.css";
 import logo from "../../assets/images/leaveit.png";
+import { login } from "../../store/session";
 
 const SplashPage = () => {
+  const dispatch = useDispatch();
+  const demoUser = async (e) => {
+    e.preventDefault();
+    await dispatch(login("demo", "password"));
+  };
   return (
     <div className={styles.splash_page}>
       <div className={styles.heading}>
@@ -22,9 +29,14 @@ const SplashPage = () => {
               </h1>
               <h4>Track the foods your dog loves</h4>
             </div>
-            <Link className={styles.link} to="/sign-up">
-              <div className={styles.signup_button}>Sign Up</div>
-            </Link>
+            <div className={styles.buttons}>
+              <Link className={styles.link} to="/sign-up">
+                <div className={styles.button}>Sign Up</div>
+              </Link>
+              <button className={styles.button} onClick={demoUser}>
+                Demo
+              </button>
+            </div>
           </div>
           <div className={styles.bio}>
             <div className={styles.bio_div}>

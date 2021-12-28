@@ -68,14 +68,19 @@
   text-decoration: none;
 }
 
-.signup_button {
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.button {
   background-color: #183962;
   color: white;
   padding: 15px 30px;
   border-radius: 3px;
 }
 
-.signup_button:hover {
+.button:hover {
   transition: background-color 0.2s;
   background-color: #224a7a;
 }
