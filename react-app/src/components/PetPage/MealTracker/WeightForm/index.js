@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { new_weight_thunk } from "../../store/pet";
+import { new_weight_thunk } from "../../../../store/pet";
 import styles from "./WeightForm.module.css";
 
 const WeightForm = ({ pet_id }) => {

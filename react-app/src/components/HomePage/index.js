@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styles from "./HomePage.module.css";
 import { get_pets_thunk } from "../../store/pet";
 import { load_meals_thunk } from "../../store/meal";
-import PetCard from "../PetCard";
+import PetCard from "./PetCard";
 
 const HomePage = () => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import styles from "./PetCard.module.css";
-import default_pic from "../../assets/images/default_dog.png";
+import default_pic from "../../../assets/images/default_dog.png";
 
 const PetCard = ({ pet_id }) => {
   const history = useHistory();

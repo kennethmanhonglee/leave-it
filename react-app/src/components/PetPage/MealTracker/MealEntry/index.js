@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { delete_meal_thunk } from "../../store/meal";
+import { delete_meal_thunk } from "../../../../store/meal";
 
 import styles from "./MealEntry.module.css";
 
