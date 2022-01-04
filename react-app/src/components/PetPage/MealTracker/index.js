@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom";
 
 import { load_food_thunk } from "../../../store/food";
 import { load_meals_thunk } from "../../../store/meal";
-import MealEntry from "../../MealEntry";
-import WeightForm from "../../WeightForm";
+import MealEntry from "./MealEntry";
+import WeightForm from "./WeightForm";
 import styles from "./MealTracker.module.css";
 // import AddFoodForm from "../AddFoodForm";
 

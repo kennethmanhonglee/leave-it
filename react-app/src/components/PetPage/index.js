@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 
-import MealTracker from "../MealTracker";
+import MealTracker from "./MealTracker";
 import styles from "./PetPage.module.css";
 import default_dog from "../../assets/images/default_dog.png";
 import { delete_pet_thunk } from "../../store/pet";
