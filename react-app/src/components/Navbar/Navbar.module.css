@@ -25,15 +25,14 @@
   display: flex;
   list-style-type: none;
   justify-content: space-between;
-  margin: 0 40px;
 }
 
 .home_links,
 .logged_in_buttons {
   width: 250px;
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  /* justify-content: space-between; */
+  gap: 20px;
 }
 
 .login_buttons {
