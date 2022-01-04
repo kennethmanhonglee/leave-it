@@ -10,6 +10,7 @@ body {
 a {
   color: #00b7ff;
   text-decoration: none;
+  transition: text-decoration 0.2s;
 }
 
 a:hover {

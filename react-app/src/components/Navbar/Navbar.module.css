@@ -1,9 +1,7 @@
 .nav {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   height: 70px;
   display: flex;
   align-items: center;
-  background-color: rgb(255, 140, 29);
   color: white;
   display: flex;
   justify-content: center;
@@ -11,12 +9,13 @@
 
 .nav a {
   font-size: 1.5rem;
-  color: #183962;
+  color: #275b9b;
   font-weight: 900;
   letter-spacing: 1px;
+  transition: color 0.2s;
 }
 .nav a:hover {
-  color: #275b9b;
+  color: #183962;
 }
 
 .nav ul {
