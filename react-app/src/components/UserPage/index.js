@@ -20,6 +20,10 @@ const UserPage = () => {
   const changePassword = (e) => setPassword(e.target.value);
   const changeConfirmPassword = (e) => setConfirmPassword(e.target.value);
 
+  const checkPassword = () => {
+    
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(
