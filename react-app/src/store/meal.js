@@ -33,9 +33,7 @@ export const create_meal_thunk = (newMeal) => async (dispatch) => {
     body: JSON.stringify(newMeal),
   });
   const response = await res.json();
-  console.log(response);
   if (response.ok === false) {
-    console.log("this is response.errors", response.errors);
     return response.errors;
   } else {
     await dispatch(create_meal(response));
@@ -45,7 +43,6 @@ export const create_meal_thunk = (newMeal) => async (dispatch) => {
 export const load_meals_thunk = () => async (dispatch) => {
   const res = await fetch(`/api/meals/today`);
   const response = await res.json();
-  console.log(response);
   await dispatch(load_meals(response));
 };
 

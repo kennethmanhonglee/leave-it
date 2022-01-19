@@ -19,7 +19,6 @@ const FoodEntry = ({ food }) => {
   let calories = (proportion * serving_size).toFixed(2);
 
   const changeServingSize = (e) => {
-    console.log(typeof e.target.value);
     setServing_size(e.target.value);
   };
 
