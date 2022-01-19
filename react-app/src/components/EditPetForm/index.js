@@ -16,7 +16,7 @@ const EditPetForm = () => {
     if (pets[pet_id]) {
       current_pet = pets[pet_id];
     } else {
-      history.push("/home");
+      history.push("/errors");
     }
   }
 

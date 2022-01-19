@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 
-import MealTracker from "../MealTracker";
+import MealTracker from "./MealTracker";
 import styles from "./PetPage.module.css";
 import default_dog from "../../assets/images/default_dog.png";
 import { delete_pet_thunk } from "../../store/pet";
@@ -14,6 +14,9 @@ const PetPage = () => {
   let current_pet;
   if (Object.values(pets).length > 0) {
     current_pet = pets[+pet_id];
+    if (!current_pet) {
+      history.push("/errors");
+    }
   }
 
   const delete_pet = async () => {

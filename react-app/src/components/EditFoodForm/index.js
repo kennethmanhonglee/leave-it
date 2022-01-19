@@ -15,7 +15,7 @@ const EditFoodForm = () => {
   let currentFood;
   if (foods) {
     currentFood = foods[food_id];
-    if (currentFood?.user_id !== currentUser?.id) history.push("/home");
+    if (currentFood?.user_id !== currentUser?.id) history.push("/errors");
   }
 
   const [food_name, setFood_name] = useState(currentFood?.food_name);

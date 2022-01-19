@@ -18,6 +18,8 @@ import CreateFoodForm from "./components/CreateFoodForm";
 import AddFoodForm from "./components/AddFoodForm";
 import EditFoodForm from "./components/EditFoodForm";
 import PetPage from "./components/PetPage";
+import ErrorPage from "./components/ErrorsPage";
+import UserPage from "./components/UserPage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -70,6 +72,9 @@ function App() {
         <ProtectedRoute path="/edit_food/:food_id" exact={true}>
           <EditFoodForm />
         </ProtectedRoute>
+        <ProtectedRoute path="/users/:user_id/edit" exact={true}>
+          <UserPage />
+        </ProtectedRoute>
         <Route path="/about" exact>
           <AboutPage />
         </Route>
@@ -77,7 +82,7 @@ function App() {
           <SplashPage />
         </Route>
         <Route path="/">
-          
+          <ErrorPage />
         </Route>
       </Switch>
     </BrowserRouter>

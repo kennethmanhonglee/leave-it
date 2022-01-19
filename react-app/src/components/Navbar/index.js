@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-import LogoutButton from "../LogoutButton";
+import LogoutButton from "./LogoutButton";
 import styles from "./Navbar.module.css";
 
 const NavBar = () => {
   const currentUser = useSelector((state) => state.session.user);
+
+  // below block is to allow different navbar styling on splash page and other pages
+  const { pathname } = useLocation();
+  let navbar_background =
+    pathname === "/"
+      ? null
+      : {
+          backgroundColor: "rgb(255, 140, 29)",
+          borderBottom: "1px solid rgba(0,0,0,0.2)",
+        };
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} style={navbar_background}>
       <ul>
         <div className={styles.home_links}>
           <li>

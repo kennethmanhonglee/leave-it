@@ -7,6 +7,8 @@ class Meal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'), nullable=False)
     food_id = db.Column(db.Integer, db.ForeignKey('foods.id'), nullable=False)
+    serving_size = db.Column(db.Integer, nullable=False)
+    calories = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.Date, nullable=False)
 
     pet = db.relationship('Pet', back_populates='meals', uselist=False)
@@ -17,6 +19,8 @@ class Meal(db.Model):
             'id': self.id,
             'pet_id': self.pet_id,
             'food_id': self.food_id,
+            'serving_size': self.serving_size,
+            'calories': self.calories,
             'created_at': self.created_at,
             'user_id': self.user_id
         }

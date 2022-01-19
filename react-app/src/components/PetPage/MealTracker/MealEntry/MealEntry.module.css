@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  height: 50px;
+  background-color: white;
+}
+
+.container div {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.button {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  padding: 5px 10px;
+  background-color: #ff9400;
+  color: white;
+}
+
+.button:hover {
+  transition: background-color 0.2s;
+  background-color: #ffab35;
+}

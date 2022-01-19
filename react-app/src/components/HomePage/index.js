@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import styles from "./HomePage.module.css";
 import { get_pets_thunk } from "../../store/pet";
 import { load_meals_thunk } from "../../store/meal";
-import PetCard from "../PetCard";
+import PetCard from "./PetCard";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,9 @@ const HomePage = () => {
             ))}
           </div>
         ) : (
-          <h1>Create a pet!</h1>
+          <Link className={styles.create_link} to="/add_a_pet">
+            Create a Pet!
+          </Link>
         )}
       </div>
     </div>

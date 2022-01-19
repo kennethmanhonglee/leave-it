@@ -23,24 +23,24 @@ const delete_meal = (meal_id) => ({
 });
 
 // thunks
-export const create_meal_thunk =
-  ({ food_id, pet_id }) =>
-  async (dispatch) => {
-    // make post request with food_id
-    const res = await fetch(`/api/meals`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ food_id, pet_id }),
-    });
-    const response = await res.json();
-    if (response.ok === false) {
-      return response.errors;
-    } else {
-      await dispatch(create_meal(response));
-    }
-  };
+export const create_meal_thunk = (newMeal) => async (dispatch) => {
+  // make post request with food_id
+  const res = await fetch(`/api/meals`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(newMeal),
+  });
+  const response = await res.json();
+  console.log(response);
+  if (response.ok === false) {
+    console.log("this is response.errors", response.errors);
+    return response.errors;
+  } else {
+    await dispatch(create_meal(response));
+  }
+};
 
 export const load_meals_thunk = () => async (dispatch) => {
   const res = await fetch(`/api/meals/today`);

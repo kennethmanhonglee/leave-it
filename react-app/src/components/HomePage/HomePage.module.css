@@ -21,6 +21,11 @@
   margin-bottom: 10px;
 }
 
+.create_link {
+  font-size: 2rem;
+  color: blue;
+}
+
 .pet_cards {
   width: 50%;
   height: 80%;

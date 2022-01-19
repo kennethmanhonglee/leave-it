@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./AddFoodForm.module.css";
 import { load_food_thunk } from "../../store/food";
-import FoodEntry from "../FoodEntry";
+import FoodEntry from "./FoodEntry";
 
 const AddFoodForm = () => {
   const history = useHistory();

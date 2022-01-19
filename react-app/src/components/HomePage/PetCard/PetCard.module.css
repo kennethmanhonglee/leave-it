@@ -1,0 +1,38 @@
+.pet_card {
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 40%;
+  height: 400px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  transition: box-shadow 0.2s;
+  background-color: #fff;
+}
+
+.pet_card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
+}
+
+.pet_image {
+  height: 200px;
+  width: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.pet_info {
+  width: 80%;
+  text-align: center;
+}
+
+.name {
+  font-size: 40px;
+  width: 100%;
+  overflow: hidden;
+}

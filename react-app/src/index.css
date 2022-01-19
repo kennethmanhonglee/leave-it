@@ -10,6 +10,7 @@ body {
 a {
   color: #00b7ff;
   text-decoration: none;
+  transition: text-decoration 0.2s;
 }
 
 a:hover {
@@ -60,6 +61,15 @@ h1 {
 
 input {
   border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
 }
 
 button {

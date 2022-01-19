@@ -1,0 +1,9 @@
+.button {
+  font-size: 1.5rem;
+  color: #275b9b;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.button:hover {
+  color: #183962;
+}
