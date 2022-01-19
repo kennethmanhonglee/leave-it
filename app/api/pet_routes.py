@@ -17,7 +17,6 @@ def pets():
     '''
     user_id = current_user.get_id()
     all_pets_for_user = Pet.query.filter(Pet.user_id == user_id).all()
-    p
     return {pet.id: pet.to_dict()for pet in all_pets_for_user}
 
 
