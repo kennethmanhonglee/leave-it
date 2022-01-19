@@ -21,9 +21,11 @@
   margin-bottom: 10px;
 }
 
-.create_link {
+.create_link,
+#user_link {
   font-size: 2rem;
   color: blue;
+  font-weight: 300;
 }
 
 .pet_cards {

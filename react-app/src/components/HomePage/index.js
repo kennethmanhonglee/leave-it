@@ -29,7 +29,12 @@ const HomePage = () => {
     <div className={styles.home_page}>
       <div className={styles.container}>
         <div className={styles.greetings}>
-          <h1>Welcome back, {currentUser.firstname}</h1>
+          <h1>
+            Welcome back,{" "}
+            <Link id={styles.user_link} to={`/users/${currentUser.id}`}>
+              {currentUser.firstname}
+            </Link>
+          </h1>
           <h1>{date.toLocaleDateString("en-US", date_options)}</h1>
         </div>
         {Object.values(pets).length > 0 ? (
