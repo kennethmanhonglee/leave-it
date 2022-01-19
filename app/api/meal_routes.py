@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from datetime import datetime
 from app.api.auth_routes import login
+from re import match
 
 from app.models import db, Meal, Food, Pet
 
@@ -38,6 +39,10 @@ def create_meal():
         return {'ok': False, 'errors': 'This food does not exist.'}
     if not pet:
         return {'ok': False, 'errors': 'This pet does not exist.'}
+
+    if not match(r"\d+", serving_size):
+        return {'ok': False, 'errors': f'Serving size for {food.food_name} must contain numbers only.'}
+    print('\n\n\n\n\n', serving_size, type(serving_size), '\n\n\n\n\n')
     if int(serving_size) > 500 or int(serving_size) < 0:
         return {'ok': False, 'errors': f'Serving size for {food.food_name} must be less than 500g.'}
 

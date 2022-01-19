@@ -18,7 +18,10 @@ const FoodEntry = ({ food }) => {
   const proportion = food.calories / food.serving_size;
   let calories = (proportion * serving_size).toFixed(2);
 
-  const changeServingSize = (e) => setServing_size(e.target.value);
+  const changeServingSize = (e) => {
+    console.log(typeof e.target.value);
+    setServing_size(e.target.value);
+  };
 
   useEffect(() => {
     if (serving_size > 500 || serving_size < 0) {
@@ -26,7 +29,7 @@ const FoodEntry = ({ food }) => {
     } else {
       setError("");
     }
-  }, [serving_size]);
+  }, [serving_size, food.food_name]);
 
   const addFood = async () => {
     const newMeal = {
