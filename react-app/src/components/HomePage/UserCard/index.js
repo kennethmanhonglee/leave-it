@@ -1,8 +1,12 @@
 import styles from "./UserCard.module.css";
+import LogoutButton from "../../Navbar/LogoutButton";
 
 const UserCard = ({ user, petsCount }) => {
   return (
     <div className={styles.container}>
+      <div className={styles.userCard_util}>
+        <LogoutButton />
+      </div>
       <div className={styles.user_card}>
         <h1>
           {user.firstname} {user.lastname}
