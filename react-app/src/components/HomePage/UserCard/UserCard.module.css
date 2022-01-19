@@ -3,12 +3,11 @@
   height: 80%;
   display: flex;
   justify-content: center;
-  /* align-items: space-around; */
-  gap: 200px;
+  align-items: space-around;
+  /* gap: 200px; */
 }
 
 .user_card {
-  border: 1px solid rgba(0, 0, 0, 0.5);
   height: 100px;
-  width: 100px;
+  margin: 25px;
 }

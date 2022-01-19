@@ -5,10 +5,10 @@ const UserCard = ({ user, petsCount }) => {
     <div className={styles.container}>
       <div className={styles.user_card}>
         <h1>
-          name: {user.firstname} {user.lastname}
+          {user.firstname} {user.lastname}
         </h1>
-        <h1>email: {user.email}</h1>
-        <h1>pets: {petsCount}</h1>
+        <p>email: {user.email}</p>
+        <p>pets: {petsCount}</p>
       </div>
     </div>
   );

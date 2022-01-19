@@ -29,7 +29,7 @@ const MealEntry = ({ meal }) => {
       <div>{meal.serving_size} g</div>
       <div className={styles.button_div}>
         <button onClick={deleteMeal} className={styles.button}>
-          delete
+          Delete
         </button>
       </div>
     </div>
