@@ -80,7 +80,7 @@ const EditPetForm = () => {
     } else {
       setImagePreview(null);
     }
-  }, [image]);
+  }, [image, imagePreview]);
 
   const updateName = (e) => setName(e.target.value);
   const updateUnit = (e) => setUnit(e.target.value);
