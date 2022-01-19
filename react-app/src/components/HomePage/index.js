@@ -6,6 +6,7 @@ import styles from "./HomePage.module.css";
 import { get_pets_thunk } from "../../store/pet";
 import { load_meals_thunk } from "../../store/meal";
 import PetCard from "./PetCard";
+import UserCard from "./UserCard";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -24,17 +25,14 @@ const HomePage = () => {
     month: "long",
     day: "numeric",
   };
-
   return (
     <div className={styles.home_page}>
+      <div className={styles.user_container}>
+        <UserCard user={currentUser} petsCount={Object.values(pets).length} />
+      </div>
       <div className={styles.container}>
         <div className={styles.greetings}>
-          <h1>
-            Welcome back,{" "}
-            <Link id={styles.user_link} to={`/users/${currentUser.id}`}>
-              {currentUser.firstname}
-            </Link>
-          </h1>
+          <h1>Welcome back, {currentUser.firstname}</h1>
           <h1>{date.toLocaleDateString("en-US", date_options)}</h1>
         </div>
         {Object.values(pets).length > 0 ? (

@@ -1,6 +1,6 @@
 .pet_card {
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 1px solid red;
+  /* border-radius: 3px; */
   width: 40%;
   height: 400px;
   margin-bottom: 30px;
