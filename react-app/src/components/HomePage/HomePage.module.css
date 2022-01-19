@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: 50%;
 }
 
 .greetings {
@@ -31,12 +32,14 @@
 }
 
 .pet_cards {
+  border: 1px solid red;
+  background-color: rgb(255, 255, 255);
   width: 50%;
-  height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  overflow-y: scroll;
+  align-items: center;
+  overflow-y: auto;
 }
 
 ::-webkit-scrollbar {
