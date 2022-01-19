@@ -1,5 +1,5 @@
 import styles from "./UserCard.module.css";
-import LogoutButton from "../../Navbar/LogoutButton";
+import LogoutButton from "./LogoutButton";
 
 const UserCard = ({ user, petsCount }) => {
   return (

@@ -1,12 +1,8 @@
-import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 
-import LogoutButton from "./LogoutButton";
 import styles from "./Navbar.module.css";
 
 const NavBar = () => {
-  const currentUser = useSelector((state) => state.session.user);
-
   // below block is to allow different navbar styling on splash page and other pages
   const { pathname } = useLocation();
   let navbar_background =
@@ -31,27 +27,13 @@ const NavBar = () => {
             </NavLink>
           </li>
         </div>
-        {!currentUser && (
-          <div className={styles.login_buttons}>
-            <li>
-              <NavLink to="/login" exact={true} activeClassName="active">
-                Login
-              </NavLink>
-            </li>
-          </div>
-        )}
-        {currentUser && (
-          <div className={styles.logged_in_buttons}>
-            <li>
-              <NavLink to="/add_a_pet" exact>
-                Add a pet
-              </NavLink>
-            </li>
-            <li>
-              <LogoutButton />
-            </li>
-          </div>
-        )}
+        <div className={styles.login_buttons}>
+          <li>
+            <NavLink to="/login" exact={true} activeClassName="active">
+              Login
+            </NavLink>
+          </li>
+        </div>
       </ul>
     </nav>
   );

@@ -1,9 +1,15 @@
 .button {
-  font-size: 1.5rem;
-  color: #275b9b;
+  font-size: 1rem;
   font-weight: 900;
+  color: #275b9b;
   letter-spacing: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  margin: 10px;
+  border-radius: 3px;
+  transition: box-shadow 0 500ms;
 }
 .button:hover {
   color: #183962;
+  box-shadow: 0 0 3px;
 }
