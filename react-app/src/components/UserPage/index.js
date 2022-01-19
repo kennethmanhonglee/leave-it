@@ -1,3 +1,5 @@
+// might not need this file, since I might not be making a user page. keep here just in case
+
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
@@ -20,7 +22,7 @@ const UserPage = () => {
   const changePassword = (e) => setPassword(e.target.value);
   const changeConfirmPassword = (e) => setConfirmPassword(e.target.value);
 
-  const checkPassword = () => {};
+  // const checkPassword = () => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
