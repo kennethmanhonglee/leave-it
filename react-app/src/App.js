@@ -72,6 +72,9 @@ function App() {
         <ProtectedRoute path="/edit_food/:food_id" exact={true}>
           <EditFoodForm />
         </ProtectedRoute>
+        <ProtectedRoute path="/users/:user_id/edit" exact={true}>
+          <UserPage />
+        </ProtectedRoute>
         <Route path="/about" exact>
           <AboutPage />
         </Route>

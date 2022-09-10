@@ -1,14 +1,11 @@
 .home_page {
   height: 100vh;
-  display: grid;
-  grid-template-columns: 0.6fr 1.4fr;
-  gap: 10px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 
@@ -31,13 +28,8 @@
 
 .pet_cards {
   width: 50%;
-  height: 100vh;
+  height: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  overflow-y: scroll;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
