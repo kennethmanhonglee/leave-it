@@ -1,10 +1,11 @@
-from .db import db
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from .db import db
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -14,9 +15,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # relationships
-    pets = db.relationship('Pet', back_populates='user',
-                           cascade='all, delete-orphan')
-    created_foods = db.relationship('Food', back_populates='user')
+    pets = db.relationship("Pet", back_populates="user", cascade="all, delete-orphan")
+    created_foods = db.relationship("Food", back_populates="user")
 
     @property
     def password(self):
@@ -31,9 +31,9 @@ class User(db.Model, UserMixin):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'username': self.username,
-            'firstname': self.firstname,
-            'lastname': self.lastname,
-            'email': self.email,
+            "id": self.id,
+            "username": self.username,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "email": self.email,
         }

@@ -6,8 +6,7 @@ const AboutPage = () => {
     <div className={styles.page}>
       <div className={styles.container}>
         <div className={styles.bio}>
-          <div
-            className={styles.bio_card}>
+          <div className={styles.bio_card}>
             {" "}
             <div
               style={{

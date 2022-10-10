@@ -1,26 +1,26 @@
-from random import randint
 from datetime import datetime
+from random import randint
 
-from app.models import db, Pet, PetWeight
 from app.forms.pet_form import ACCEPTED_GOALS
+from app.models import Pet, PetWeight, db
 
 PET_NAMES = [
-    'Quinnie',
-    'Yukon',
-    'Gazza',
-    'Kama',
-    'Yarin',
-    'Elinor',
-    'Lucius',
-    'Harmon',
-    'Kanobi',
-    'Parlo',
-    'Winston',
-    'Windsor',
-    'Hamilton',
-    'Zelda',
-    'Kaya',
-    'Askia'
+    "Quinnie",
+    "Yukon",
+    "Gazza",
+    "Kama",
+    "Yarin",
+    "Elinor",
+    "Lucius",
+    "Harmon",
+    "Kanobi",
+    "Parlo",
+    "Winston",
+    "Windsor",
+    "Hamilton",
+    "Zelda",
+    "Kaya",
+    "Askia",
 ]
 
 DOG_PICS = [
@@ -73,7 +73,7 @@ DOG_PICS = [
     "https://images.dog.ceo/breeds/setter-gordon/n02101006_772.jpg",
     "https://images.dog.ceo/breeds/setter-english/n02100735_4813.jpg",
     "https://images.dog.ceo/breeds/airedale/n02096051_2045.jpg",
-    "https://images.dog.ceo/breeds/pinscher-miniature/n02107312_2716.jpg"
+    "https://images.dog.ceo/breeds/pinscher-miniature/n02107312_2716.jpg",
 ]
 
 # 8 demo users
@@ -85,7 +85,7 @@ DOG_PICS = [
 def seed_pets():
     for i, name in enumerate(PET_NAMES):
         user_id = randint(1, 3)
-        unit = 'kg' if randint(1, 2) % 2 == 0 else 'lb'
+        unit = "kg" if randint(1, 2) % 2 == 0 else "lb"
         new_pet = Pet(
             name=name,
             user_id=user_id,
@@ -93,14 +93,15 @@ def seed_pets():
             ideal_weight=randint(4, 50),
             goal=ACCEPTED_GOALS[randint(0, 7)],
             image_url=DOG_PICS[randint(0, 49)],
-            unit=unit)
+            unit=unit,
+        )
         db.session.add(new_pet)
         db.session.commit()
         new_weight = PetWeight(
             pet_id=new_pet.id,
             weight=new_pet.current_weight,
             unit=unit,
-            created_at=datetime.today()
+            created_at=datetime.today(),
         )
         db.session.add(new_weight)
         db.session.commit()
@@ -112,5 +113,5 @@ def seed_pets():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_pets():
-    db.session.execute('TRUNCATE pets RESTART IDENTITY CASCADE;')
+    db.session.execute("TRUNCATE pets RESTART IDENTITY CASCADE;")
     db.session.commit()

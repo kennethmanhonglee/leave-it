@@ -30,7 +30,7 @@ const UserPage = () => {
       username,
       email,
       password,
-      confirmPassword
+      confirmPassword,
     );
   };
 

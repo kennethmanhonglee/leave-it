@@ -1,20 +1,21 @@
-from flask import Blueprint, request
-from flask_login import login_required, current_user
 from datetime import datetime
 
+from flask import Blueprint, request
+from flask_login import current_user, login_required
+
 from app.forms import CreateFoodForm
-from app.models import db, Food
+from app.models import Food, db
 from app.models.meal import Meal
 
-food_routes = Blueprint('foods', __name__)
+food_routes = Blueprint("foods", __name__)
 
 
-@food_routes.route('')
+@food_routes.route("")
 @login_required
 def get_foods():
-    '''
+    """
     GET /api/foods will return all food entries in the database
-    '''
+    """
     # user_id = current_user.get_id()
     # foods = Food.query.filter(Food.user_id == user_id)
     # return {food.id: food.to_dict() for food in foods}
@@ -25,68 +26,71 @@ def get_foods():
     return {food.id: food.to_dict() for food in foods}
 
 
-@food_routes.route('', methods=['POST'])
+@food_routes.route("", methods=["POST"])
 @login_required
 def create_food():
-    '''
+    """
     Take in data from form and create a food entry
-    '''
+    """
     form = CreateFoodForm()
     user_id = current_user.get_id()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if (form.validate_on_submit()):
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
         new_food = Food(
             user_id=user_id,
-            food_name=form.data['food_name'],
-            food_type=form.data['food_type'],
-            serving_size=form.data['serving_size'],
-            calories=form.data['calories'],
-            created_at=datetime.today()
+            food_name=form.data["food_name"],
+            food_type=form.data["food_type"],
+            serving_size=form.data["serving_size"],
+            calories=form.data["calories"],
+            created_at=datetime.today(),
         )
         db.session.add(new_food)
         db.session.commit()
         return new_food.to_dict()
     else:
-        return {'ok': False, 'errors': form.errors}
+        return {"ok": False, "errors": form.errors}
 
 
-@food_routes.route('/<int:food_id>', methods=['PUT'])
+@food_routes.route("/<int:food_id>", methods=["PUT"])
 @login_required
 def edit_food(food_id):
-    '''
+    """
     Take in data from form and edit a food entry with it
-    '''
+    """
     food_to_edit = Food.query.get(food_id)
     if not food_to_edit:
-        return {'ok': False, 'errors': 'This food does not exist.'}
+        return {"ok": False, "errors": "This food does not exist."}
 
     form = CreateFoodForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if (form.validate_on_submit()):
-        food_to_edit.food_name = form.data['food_name']
-        food_to_edit.food_type = form.data['food_type']
-        food_to_edit.serving_size = form.data['serving_size']
-        food_to_edit.calories = form.data['calories']
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        food_to_edit.food_name = form.data["food_name"]
+        food_to_edit.food_type = form.data["food_type"]
+        food_to_edit.serving_size = form.data["serving_size"]
+        food_to_edit.calories = form.data["calories"]
         food_to_edit.created_at = datetime.today()
 
         db.session.commit()
-        return {'ok': True, 'food': food_to_edit.to_dict()}
+        return {"ok": True, "food": food_to_edit.to_dict()}
     else:
-        return {'ok': False, 'errors': form.errors}
+        return {"ok": False, "errors": form.errors}
 
 
-@food_routes.route('/<int:food_id>', methods=['DELETE'])
+@food_routes.route("/<int:food_id>", methods=["DELETE"])
 @login_required
 def delete_food(food_id):
-    '''
+    """
     Query for food to delete, and delete it
-    '''
+    """
     food_to_delete = Food.query.get(food_id)
     if not food_to_delete:
-        return {'ok': False, 'errors': 'This food does not exists.'}
+        return {"ok": False, "errors": "This food does not exists."}
     meals_with_this_food = Meal.query.filter(Meal.food_id == food_id).all()
     if meals_with_this_food:
-        return {'ok': False, 'errors': 'This food cannot be deleted as it is used in a meal.'}
+        return {
+            "ok": False,
+            "errors": "This food cannot be deleted as it is used in a meal.",
+        }
     db.session.delete(food_to_delete)
     db.session.commit()
-    return {'ok': True, 'food_id': food_id}
+    return {"ok": True, "food_id": food_id}

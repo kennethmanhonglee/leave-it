@@ -38,7 +38,7 @@ const EditPetForm = () => {
   const [name, setName] = useState(current_pet?.name);
   const [unit, setUnit] = useState(current_pet?.unit);
   const [current_weight, setCurrentWeight] = useState(
-    current_pet?.current_weight
+    current_pet?.current_weight,
   );
   const [ideal_weight, setIdealWeight] = useState(current_pet?.ideal_weight);
   const [goal, setGoal] = useState(current_pet?.goal);

@@ -27,14 +27,14 @@ const MealTracker = ({ pet_id }) => {
   let currentPetMeals;
 
   currentPetMeals = Object.values(allMeals).filter(
-    (meal) => meal.pet_id === +pet_id
+    (meal) => meal.pet_id === +pet_id,
   );
   const foods = useSelector((state) => state.foods);
   current_calories =
     currentPetMeals.length !== 0
       ? currentPetMeals.reduce(
           (sum, meal) => (sum += foods[meal.food_id]?.calories),
-          0
+          0,
         )
       : "0";
 

@@ -26,11 +26,11 @@ const MealTracker = ({ pet_id }) => {
   let currentPetMeals;
 
   currentPetMeals = Object.values(allMeals).filter(
-    (meal) => meal.pet_id === +pet_id
+    (meal) => meal.pet_id === +pet_id,
   );
   const currentCalories = currentPetMeals.reduce(
     (sum, meal) => sum + meal.calories,
-    0
+    0,
   );
 
   useEffect(() => {
