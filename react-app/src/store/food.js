@@ -1,41 +1,41 @@
 // constants
-const CREATE_FOOD = "food/CREATE_FOOD";
-const LOAD_FOOD = "food/LOAD_FOOD";
-const REMOVE_FOODS = "food/REMOVE_FOODS";
-const EDIT_FOOD = "food/EDIT_FOOD";
-const DELETE_FOOD = "food/DELETE_FOOD";
+const CREATE_FOOD = 'food/CREATE_FOOD';
+const LOAD_FOOD = 'food/LOAD_FOOD';
+const REMOVE_FOODS = 'food/REMOVE_FOODS';
+const EDIT_FOOD = 'food/EDIT_FOOD';
+const DELETE_FOOD = 'food/DELETE_FOOD';
 
 // actions
-const create_food = (food) => ({
+const createFood = (food) => ({
   type: CREATE_FOOD,
   payload: food,
 });
 
-const load_food = (foods) => ({
+const loadFood = (foods) => ({
   type: LOAD_FOOD,
   payload: foods,
 });
 
-export const remove_foods = () => ({
+export const removeFoodss = () => ({
   type: REMOVE_FOODS,
 });
 
-const edit_food = (food) => ({
+const editFood = (food) => ({
   type: EDIT_FOOD,
   payload: food,
 });
 
-const delete_food = (food_id) => ({
+const deleteFood = (foodId) => ({
   type: DELETE_FOOD,
-  payload: food_id,
+  payload: foodId,
 });
 
 // thunks
-export const create_food_thunk = (food) => async (dispatch) => {
-  const res = await fetch(`/api/foods`, {
-    method: "POST",
+export const createFoodThunk = (food) => async (dispatch) => { // eslint-disable-line
+  const res = await fetch('/api/foods', {
+    method: 'POST',
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
     body: JSON.stringify(food),
   });
@@ -43,60 +43,56 @@ export const create_food_thunk = (food) => async (dispatch) => {
   if (!response.ok) {
     // response contains errors
     return response;
-  } else {
-    //   response contains food
-    await dispatch(create_food(response));
   }
+  //   response contains food
+  await dispatch(createFood(response));
 };
 
-export const load_food_thunk = () => async (dispatch) => {
-  const res = await fetch(`/api/foods`);
+export const loadFoodThunk = () => async (dispatch) => {
+  const res = await fetch('/api/foods');
   const response = await res.json();
-  await dispatch(load_food(response));
+  await dispatch(loadFood(response));
 };
 
-export const edit_food_thunk = (food_id, new_food) => async (dispatch) => {
-  const res = await fetch(`/api/foods/${food_id}`, {
-    method: "PUT",
+export const editFoodThunk = (foodId, newFood) => async (dispatch) => { // eslint-disable-line
+  const res = await fetch(`/api/foods/${foodId}`, {
+    method: 'PUT',
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
-    body: JSON.stringify(new_food),
+    body: JSON.stringify(newFood),
   });
   const response = await res.json();
   if (!response.ok) {
     return response;
-  } else {
-    const { food } = response;
-    await dispatch(edit_food(food));
   }
+  const { food } = response;
+  await dispatch(editFood(food));
 };
 
-export const delete_food_thunk = (food_id) => async (dispatch) => {
-  const res = await fetch(`/api/foods/${food_id}`, {
-    method: "DELETE",
+export const deleteFoodThunk = (foodId) => async (dispatch) => { // eslint-disable-line
+  const res = await fetch(`/api/foods/${foodId}`, {
+    method: 'DELETE',
   });
   const response = await res.json();
   if (!response.ok) {
     return response.errors;
-  } else {
-    await dispatch(delete_food(food_id));
   }
+  await dispatch(deleteFood(foodId));
 };
 
 // reducer
 const initialState = {};
-const reducer = (state = initialState, action) => {
-  let newState = Object.assign({}, state);
+const reducer = (state = initialState, action = {}) => {
+  const newState = { ...state };
   switch (action.type) {
     case CREATE_FOOD:
       newState[action.payload.id] = action.payload;
       return newState;
     case LOAD_FOOD:
-      const foods = action.payload;
-      for (let [id, food] of Object.entries(foods)) {
+      Object.entries(action.payload).forEach(([id, food]) => {
         newState[id] = food;
-      }
+      });
       return newState;
     case REMOVE_FOODS:
       return {};

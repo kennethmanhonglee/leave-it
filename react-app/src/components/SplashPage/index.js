@@ -1,20 +1,21 @@
-import { Link, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
-import styles from "./SplashPage.module.css";
-import logo from "../../assets/images/leaveit.png";
-import { login } from "../../store/session";
+import styles from './SplashPage.module.css';
+import logo from '../../assets/images/leaveit.png';
+import { login } from '../../store/session';
 
-const SplashPage = () => {
+function SplashPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const currentUser = useSelector((state) => state.session.user);
-  if (currentUser) history.push("/home");
+  if (currentUser) history.push('/home');
 
   const demoUser = async (e) => {
     e.preventDefault();
-    await dispatch(login("demo", "password"));
+    await dispatch(login('demo', 'password'));
   };
 
   return (
@@ -25,13 +26,15 @@ const SplashPage = () => {
             backgroundImage: `url(${logo})`,
           }}
           className={styles.logo}
-        ></div>
+        />
         <div className={styles.bio_and_link}>
           <div className={styles.slogan_container}>
             <div className={styles.slogan}>
               <h1>
-                <span className={styles.app_name}>Leaveit!</span> <br></br>The
-                Calorie Tracker for Dogs
+                <span className={styles.app_name}>Leaveit!</span>
+                {' '}
+                <br />
+                The Calorie Tracker for Dogs
               </h1>
               <h4>Track the foods your dog loves</h4>
             </div>
@@ -39,28 +42,20 @@ const SplashPage = () => {
               <Link className={styles.link} to="/sign-up">
                 <div className={styles.button}>Sign Up</div>
               </Link>
-              <button className={styles.button} onClick={demoUser}>
+              <button type="button" className={styles.button} onClick={demoUser}>
                 Demo
               </button>
             </div>
           </div>
           <div className={styles.bio}>
             <div className={styles.bio_div}>
-              <a
-                href="https://www.linkedin.com/in/kenneth-lee-75b870158/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <i className="fab fa-linkedin"></i>
+              <a href="https://www.linkedin.com/in/kenneth-lee-75b870158/" target="_blank" rel="noreferrer">
+                <i className="fab fa-linkedin" />
               </a>
             </div>
             <div className={styles.bio_div}>
-              <a
-                href="https://github.com/kennethmanhonglee"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <i className="fab fa-github-square"></i>
+              <a href="https://github.com/kennethmanhonglee" target="_blank" rel="noreferrer">
+                <i className="fab fa-github-square" />
               </a>
             </div>
           </div>
@@ -91,36 +86,27 @@ const SplashPage = () => {
         <div className={styles.step}>
           <div>
             <h1>Step 1: Create your pet</h1>
-            <p>
-              Upload a picture, type in the name of your pet, their current
-              weight, and goal weight.
-            </p>
+            <p>Upload a picture, type in the name of your pet, their current weight, and goal weight.</p>
           </div>
-          <div className={`${styles.picture} ${styles.picture_1}`}></div>
+          <div className={`${styles.picture} ${styles.picture_1}`} />
         </div>
         <div className={`${styles.step} ${styles.dark_background}`}>
-          <div className={`${styles.picture} ${styles.picture_2}`}></div>
+          <div className={`${styles.picture} ${styles.picture_2}`} />
           <div>
             <h1>Step 2: Create food items</h1>
-            <p>
-              Create your dog's food items in our database, or choose one of our
-              pre-built items from the list.
-            </p>
+            <p>Create your dog&apos;s food items in our database, or choose one of our pre-built items from the list.</p>
           </div>
         </div>
         <div className={styles.step}>
           <div>
             <h1>Step 3: Log food/weights daily</h1>
-            <p>
-              Track what your dog is eating daily, along with their daily
-              weight.
-            </p>
+            <p>Track what your dog is eating daily, along with their daily weight.</p>
           </div>
-          <div className={`${styles.picture} ${styles.picture_3}`}></div>
+          <div className={`${styles.picture} ${styles.picture_3}`} />
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default SplashPage;

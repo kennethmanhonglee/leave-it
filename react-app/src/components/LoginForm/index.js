@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import styles from "./LoginForm.module.css";
-import { login } from "../../store/session";
-import logo from "../../assets/images/logo_figma.png";
+import styles from './LoginForm.module.css';
+import { login } from '../../store/session';
+import logo from '../../assets/images/logo_figma.png';
 
-const LoginForm = () => {
+function LoginForm() {
   const [errors, setErrors] = useState([]);
-  const [login_param, setLogin_param] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginParam, setLoginParam] = useState('');
+  const [password, setPassword] = useState('');
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(login_param, password));
+    const data = await dispatch(login(loginParam, password));
     if (data) {
       setErrors(data);
     }
   };
 
   const demoUser = async () => {
-    await dispatch(login("demo", "password"));
+    await dispatch(login('demo', 'password'));
   };
 
   const updateLoginParam = (e) => {
-    setLogin_param(e.target.value);
+    setLoginParam(e.target.value);
   };
 
   const updatePassword = (e) => {
@@ -44,19 +44,19 @@ const LoginForm = () => {
         style={{
           backgroundImage: `url(${logo})`,
         }}
-      ></div>
+      />
       <form onSubmit={onLogin} className={styles.form}>
-        {errors.map((error, ind) => (
-          <div className={styles.errors} key={ind}>
+        {errors.map((error) => (
+          <div className={styles.errors} key={error}>
             {error}
           </div>
         ))}
         <div>
           <input
-            name="login_param"
+            name="loginParam"
             type="text"
             placeholder="Username/Email"
-            value={login_param}
+            value={loginParam}
             onChange={updateLoginParam}
             className={styles.input}
             required
@@ -74,9 +74,9 @@ const LoginForm = () => {
           />
         </div>
         <div className={styles.button_div}>
-          <div className={styles.button} onClick={demoUser}>
+          <button type="button" className={styles.button} onClick={demoUser}>
             Demo
-          </div>
+          </button>
           <button className={styles.button} type="submit">
             Login
           </button>
@@ -84,6 +84,6 @@ const LoginForm = () => {
       </form>
     </div>
   );
-};
+}
 
 export default LoginForm;

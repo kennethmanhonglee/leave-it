@@ -1,28 +1,28 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-import { create_pet_thunk } from "../../store/pet";
-import styles from "./PetForm.module.css";
+import { createPetThunk } from '../../store/pet';
+import styles from './PetForm.module.css';
 
-const PetForm = () => {
+function PetForm() {
   const dispatch = useDispatch(null);
   const history = useHistory();
   const [name, setName] = useState();
-  const [unit, setUnit] = useState("kg");
-  const [current_weight, setCurrentWeight] = useState();
-  const [ideal_weight, setIdealWeight] = useState();
-  const [goal, setGoal] = useState("Neutered Adult");
+  const [unit, setUnit] = useState('kg');
+  const [currentWeight, setCurrentWeight] = useState();
+  const [idealWeight, setIdealWeight] = useState();
+  const [goal, setGoal] = useState('Neutered Adult');
   const [errors, setErrors] = useState();
 
   // for picture upload
   const [image, setImage] = useState();
   const [imageLoading, setImageLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
-  const picture_label = useRef();
+  const pictureLabel = useRef();
 
   const clickedUpload = () => {
-    picture_label.current.click();
+    pictureLabel.current.click();
   };
 
   const updateImage = (e) => {
@@ -49,18 +49,18 @@ const PetForm = () => {
     }
   }, [image]);
 
-  const ACCEPTED_GOALS = [
-    "Neutered Adult",
-    "Intact Adult",
-    "Inactive/obese prone",
-    "Weight Loss",
-    "Weight Gain",
-    "Active, working dogs",
-    "Puppy 0-4 months",
-    "Puppy 4 months to adult",
+  const acceptedGoals = [
+    'Neutered Adult',
+    'Intact Adult',
+    'Inactive/obese prone',
+    'Weight Loss',
+    'Weight Gain',
+    'Active, working dogs',
+    'Puppy 0-4 months',
+    'Puppy 4 months to adult',
   ];
 
-  const ACCEPTED_UNITS = ["kg", "lb"];
+  const acceptedUnits = ['kg', 'lb'];
 
   const updateName = (e) => setName(e.target.value);
   const updateUnit = (e) => setUnit(e.target.value);
@@ -69,27 +69,27 @@ const PetForm = () => {
   const updateGoal = (e) => setGoal(e.target.value);
 
   const isEmptyForm = () => {
-    if (!name || !current_weight || !ideal_weight || !unit) return true;
+    if (!name || !currentWeight || !idealWeight || !unit) return true;
     return false;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => { // eslint-disable-line
     e.preventDefault();
     // call thunk and make request
     const newPet = new FormData();
-    newPet.append("name", name);
-    newPet.append("unit", unit);
-    newPet.append("current_weight", current_weight);
-    newPet.append("ideal_weight", ideal_weight);
-    newPet.append("goal", goal);
-    newPet.append("image", image);
+    newPet.append('name', name);
+    newPet.append('unit', unit);
+    newPet.append('currentWeight', currentWeight);
+    newPet.append('idealWeight', idealWeight);
+    newPet.append('goal', goal);
+    newPet.append('image', image);
     setImageLoading(true);
-    const data = await dispatch(create_pet_thunk(newPet));
+    const data = await dispatch(createPetThunk(newPet));
     if (data) {
       setErrors(data);
       setImageLoading(false);
     } else {
-      return history.push("/home");
+      return history.push('/home');
     }
   };
 
@@ -104,10 +104,10 @@ const PetForm = () => {
         <h2 className={styles.header}>Create a pet</h2>
         <div className={styles.pic_upload}>
           <label
-            className={`${styles.upload_label} ${styles.labels}`}
+            className={`${styles.uploadLabel} ${styles.labels}`}
             htmlFor="pet_image_upload"
-            ref={picture_label}
-          ></label>
+            ref={pictureLabel}
+          />
           {imagePreview ? (
             <>
               <div
@@ -117,75 +117,63 @@ const PetForm = () => {
                   backgroundImage: `url(${imagePreview})`,
                 }}
               >
-                <div className={styles.image_foreground}></div>
+                <div className={styles.image_foreground} />
               </div>
-              <div className={styles.remove_picture} onClick={removePicture}>
+              <div
+                className={styles.remove_picture}
+                onClick={removePicture}
+              >
                 Remove
               </div>
             </>
           ) : (
-            <div className={styles.upload_button} onClick={clickedUpload}>
+            <div
+              className={styles.upload_button}
+              onClick={clickedUpload}
+            >
               <h2>Add a picture</h2>
             </div>
           )}
-          <input
-            type="file"
-            accept="image/*"
-            id="pet_image_upload"
-            onChange={updateImage}
-          ></input>
+          <input type="file" accept="image/*" id="pet_image_upload" onChange={updateImage} />
         </div>
         <div>
           <label className={styles.labels} htmlFor="name">
             Name
           </label>
-          <input
-            type="text"
-            onChange={updateName}
-            className={styles.input}
-            id="name"
-          ></input>
-          {errors && <div className={styles.errors}>{errors["name"]}</div>}
+          <input type="text" onChange={updateName} className={styles.input} id="name" />
+          {errors && <div className={styles.errors}>{errors.name}</div>}
         </div>
         <div>
           <label className={styles.labels} htmlFor="goal">
             Goal
           </label>
-          <select
-            value={goal}
-            onChange={updateGoal}
-            className={styles.select}
-            id="goal"
-          >
-            {ACCEPTED_GOALS.map((goal) => (
-              <option key={goal} value={goal}>
-                {goal}
+          <select value={goal} onChange={updateGoal} className={styles.select} id="goal">
+            {acceptedGoals.map((acceptedGoal) => (
+              <option key={acceptedGoal} value={acceptedGoal}>
+                {acceptedGoal}
               </option>
             ))}
           </select>
-          {errors && <div className={styles.errors}>{errors["goal"]}</div>}
+          {errors && <div className={styles.errors}>{errors.goal}</div>}
         </div>
         <div>
           <label className={styles.labels} htmlFor="goal">
             Preferred Units
           </label>
-          <select
-            value={unit}
-            onChange={updateUnit}
-            className={styles.select}
-            id="unit"
-          >
-            {ACCEPTED_UNITS.map((unit) => (
-              <option key={unit} value={unit}>
-                {unit}
+          <select value={unit} onChange={updateUnit} className={styles.select} id="unit">
+            {acceptedUnits.map((acceptedUnit) => (
+              <option key={acceptedUnit} value={acceptedUnit}>
+                {acceptedUnit}
               </option>
             ))}
           </select>
-          {errors && <div className={styles.errors}>{errors["unit"]}</div>}
+          {errors && <div className={styles.errors}>{errors.unit}</div>}
         </div>
         <div>
           <label className={styles.labels} htmlFor="curr_weight">
-            Current Weight in {unit}
+            Current Weight in
+            {' '}
+            {unit}
           </label>
           <input
             type="number"
@@ -193,25 +181,23 @@ const PetForm = () => {
             onChange={updateCurrentWeight}
             className={styles.number}
             id="curr_weight"
-          ></input>
-          {errors && (
-            <div className={styles.errors}>{errors["current_weight"]}</div>
-          )}
+          />
+          {errors && <div className={styles.errors}>{errors.currentWeight}</div>}
         </div>
         <div>
-          <label className={styles.labels} htmlFor="ideal_weight">
-            Ideal Weight in {unit}
+          <label className={styles.labels} htmlFor="idealWeight">
+            Ideal Weight in
+            {' '}
+            {unit}
           </label>
           <input
             type="number"
             min="0"
             onChange={updateIdealWeight}
             className={styles.number}
-            id="ideal_weight"
-          ></input>
-          {errors && (
-            <div className={styles.errors}>{errors["ideal_weight"]}</div>
-          )}
+            id="idealWeight"
+          />
+          {errors && <div className={styles.errors}>{errors.idealWeight}</div>}
         </div>
         <button
           className={`${styles.button} ${isEmptyForm() ? styles.grey : null}`}
@@ -220,16 +206,13 @@ const PetForm = () => {
         >
           Add a pet
         </button>
-        <button
-          className={`${styles.button} ${styles.cancel_button}`}
-          onClick={clickedCancel}
-        >
+        <button type="button" className={`${styles.button} ${styles.cancel_button}`} onClick={clickedCancel}>
           Cancel
         </button>
         {imageLoading && <p className={styles.loading}>Loading...</p>}
       </form>
     </div>
   );
-};
+}
 
 export default PetForm;

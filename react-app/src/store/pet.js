@@ -1,116 +1,105 @@
 // constants
-const LOAD_PETS = "pets/LOAD_PETS";
-const CREATE_PET = "pets/CREATE_PET";
-const REMOVE_PETS = "pets/REMOVE_PETS";
-const DELETE_PET = "pets/DELETE_PET";
+const LOAD_PETS = 'pets/LOAD_PETS';
+const CREATE_PET = 'pets/CREATE_PET';
+const REMOVE_PETS = 'pets/REMOVE_PETS';
+const DELETE_PET = 'pets/DELETE_PET';
 
 // actions
-const load_pets = (pets) => ({
+const loadPets = (pets) => ({
   type: LOAD_PETS,
   payload: pets,
 });
-const add_pet = (pet) => ({
+const addPet = (pet) => ({
   type: CREATE_PET,
   payload: pet,
 });
-export const remove_pets = () => ({
+export const removePets = () => ({
   type: REMOVE_PETS,
 });
 
-const delete_pet = (pet_id) => ({
+const deletePet = (petId) => ({
   type: DELETE_PET,
-  payload: pet_id,
+  payload: petId,
 });
 
 // thunks
-export const get_pets_thunk = () => async (dispatch) => {
-  const res = await fetch(`/api/pets`);
-  const all_pets = await res.json();
-  await dispatch(load_pets(all_pets));
+export const getPetsThunk = () => async (dispatch) => {
+  const res = await fetch('/api/pets');
+  const allPets = await res.json();
+  await dispatch(loadPets(allPets));
   return true;
 };
 
-export const create_pet_thunk = (pet) => async (dispatch) => {
-  const res = await fetch(`/api/pets`, {
-    method: "POST",
+export const createPetThunk = (pet) => async (dispatch) => { // eslint-disable-line
+  const res = await fetch('/api/pets', {
+    method: 'POST',
     body: pet,
   });
   const response = await res.json();
   if (!response.ok) {
     return response.errors;
-  } else {
-    await dispatch(add_pet(response));
   }
+  await dispatch(addPet(response));
 };
-export const edit_pet_thunk =
-  ({ pet_id, newPetData }) =>
-  async (dispatch) => {
-    const res = await fetch(`/api/pets/${pet_id}`, {
-      method: "PATCH",
-      body: newPetData,
-    });
-    const response = await res.json();
-    if (!response.ok) {
-      return response.errors;
-    } else {
-      // edit does the same thing as adding a pet in terms of redux store state
-      await dispatch(add_pet(response.new_pet));
-    }
-  };
+export const editPetThunk = ({ petId, newPetData }) => async (dispatch) => { // eslint-disable-line
+  const res = await fetch(`/api/pets/${petId}`, {
+    method: 'PATCH',
+    body: newPetData,
+  });
+  const response = await res.json();
+  if (!response.ok) {
+    return response.errors;
+  }
+  // edit does the same thing as adding a pet in terms of redux store state
+  await dispatch(addPet(response.newPet));
+};
 
-export const new_weight_thunk =
-  ({ pet_id, current_weight }) =>
-  async (dispatch) => {
-    const res = await fetch(`/api/pets/${pet_id}/new_weight`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ pet_id, current_weight }),
-    });
+export const newWeightThunk = ({ petId, currentWeight }) => async (dispatch) => { // eslint-disable-line
+  const res = await fetch(`/api/pets/${petId}/new_weight`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ petId, currentWeight }),
+  });
 
-    const response = await res.json();
-    if (!response.ok) {
-      return response.errors;
-    } else {
-      // dispatch action to create pet - same as editing pet
-      await dispatch(add_pet(response.new_pet));
-    }
-  };
+  const response = await res.json();
+  if (!response.ok) {
+    return response.errors;
+  }
+  // dispatch action to create pet - same as editing pet
+  await dispatch(addPet(response.newPet));
+};
 
-export const delete_pet_thunk = (pet_id) => async (dispatch) => {
-  const res = await fetch(`/api/pets/${pet_id}`, {
-    method: "DELETE",
+export const deletePetThunk = (petId) => async (dispatch) => {
+  const res = await fetch(`/api/pets/${petId}`, {
+    method: 'DELETE',
   });
   const response = await res.json();
   if (response.deleted) {
-    await dispatch(delete_pet(pet_id));
+    await dispatch(deletePet(petId));
     return true;
-  } else {
-    return false;
   }
+  return false;
 };
 
 // reducer
 const initialState = {};
-const reducer = (state = initialState, action) => {
-  let newState = Object.assign({}, state);
+const reducer = (state = initialState, action = {}) => {
+  const newState = { ...state };
   switch (action.type) {
     case CREATE_PET:
-      let pet = action.payload;
-      newState[pet.id] = pet;
+      newState[action.payload.id] = action.payload;
       return newState;
     case LOAD_PETS:
-      const pets = action.payload;
-      Object.values(pets).forEach((pet) => {
+      Object.values(action.payload).forEach((pet) => {
         newState[pet.id] = pet;
       });
       return newState;
     case REMOVE_PETS:
       return {};
     case DELETE_PET:
-      const pet_id = action.payload;
-      delete newState[pet_id];
+      delete newState[action.payload];
       return newState;
     default:
       return state;

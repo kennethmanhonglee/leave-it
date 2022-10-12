@@ -1,33 +1,31 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import styles from "./SignupForm.module.css";
-import { signUp, login } from "../../store/session";
-import logo from "../../assets/images/logo_figma.png";
+import styles from './SignupForm.module.css';
+import { signUp, login } from '../../store/session';
+import logo from '../../assets/images/logo_figma.png';
 
-const SignUpForm = () => {
+function SignUpForm() {
   const [errors, setErrors] = useState([]);
-  const [username, setUsername] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(
-        signUp(username, firstname, lastname, email, password),
-      );
+      const data = await dispatch(signUp(username, firstname, lastname, email, password));
       if (data) {
         setErrors(data);
       }
     } else {
-      setErrors(["Password and Confirm Password must match."]);
+      setErrors(['Password and Confirm Password must match.']);
     }
   };
 
@@ -55,7 +53,7 @@ const SignUpForm = () => {
 
   const demoUser = async (e) => {
     e.preventDefault();
-    await dispatch(login("demo", "password"));
+    await dispatch(login('demo', 'password'));
   };
 
   if (user) {
@@ -69,10 +67,10 @@ const SignUpForm = () => {
         style={{
           backgroundImage: `url(${logo})`,
         }}
-      ></div>
+      />
       <form onSubmit={onSignUp} className={styles.form}>
-        {errors.map((error, ind) => (
-          <div className={styles.errors} key={ind}>
+        {errors.map((error) => (
+          <div className={styles.errors} key={error}>
             {error}
           </div>
         ))}
@@ -86,7 +84,7 @@ const SignUpForm = () => {
               value={firstname}
               className={styles.input}
               required
-            ></input>
+            />
           </div>
           <div>
             <input
@@ -97,7 +95,7 @@ const SignUpForm = () => {
               value={lastname}
               className={styles.input}
               required
-            ></input>
+            />
           </div>
         </div>
         <div>
@@ -109,7 +107,7 @@ const SignUpForm = () => {
             value={username}
             className={styles.input}
             required
-          ></input>
+          />
         </div>
         <div>
           <input
@@ -120,7 +118,7 @@ const SignUpForm = () => {
             value={email}
             className={styles.input}
             required
-          ></input>
+          />
         </div>
         <div>
           <input
@@ -131,7 +129,7 @@ const SignUpForm = () => {
             value={password}
             className={styles.input}
             required
-          ></input>
+          />
         </div>
         <div>
           <input
@@ -140,14 +138,14 @@ const SignUpForm = () => {
             name="repeat_password"
             onChange={updateRepeatPassword}
             value={repeatPassword}
-            required={true}
+            required
             className={styles.input}
-          ></input>
+          />
         </div>
         <div className={styles.button_div}>
-          <div className={styles.button} onClick={demoUser}>
+          <button type="button" className={styles.button} onClick={demoUser}>
             Demo
-          </div>
+          </button>
           <button className={styles.button} type="submit">
             Sign Up
           </button>
@@ -155,6 +153,6 @@ const SignUpForm = () => {
       </form>
     </div>
   );
-};
+}
 
 export default SignUpForm;

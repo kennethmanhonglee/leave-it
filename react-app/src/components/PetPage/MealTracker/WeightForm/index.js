@@ -1,32 +1,32 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { new_weight_thunk } from "../../../../store/pet";
-import styles from "./WeightForm.module.css";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { newWeightThunk } from '../../../../store/pet';
+import styles from './WeightForm.module.css';
 
-const WeightForm = ({ pet_id }) => {
+function WeightForm({ petId }) {
   const dispatch = useDispatch();
-  let pets, currentPet;
-  pets = useSelector((state) => state.pets);
+  let currentPet;
+  const pets = useSelector((state) => state.pets);
   if (pets) {
-    currentPet = pets[+pet_id];
+    currentPet = pets[+petId];
   }
 
-  const [weight, setWeight] = useState(currentPet.current_weight);
+  const [weight, setWeight] = useState(currentPet.currentWeight);
   const [error, setError] = useState();
 
   const updateWeight = (e) => setWeight(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const new_pet = {
-      pet_id,
-      current_weight: weight,
+    const newPet = {
+      petId,
+      currentWeight: weight,
     };
-    const errors = await dispatch(new_weight_thunk(new_pet));
+    const errors = await dispatch(newWeightThunk(newPet));
     if (errors) {
       setError(errors);
     } else {
-      setError("");
+      setError('');
     }
   };
 
@@ -35,25 +35,25 @@ const WeightForm = ({ pet_id }) => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.form_container}>
           <div>
-            <label htmlFor="weight">today's weight : </label>
-            <input
-              id="weight"
-              className={styles.weight_input}
-              type="number"
-              value={weight}
-              onChange={updateWeight}
-            ></input>
+            <label htmlFor="weight">
+              today&apos;s weight :
+              <input
+                id="weight"
+                className={styles.weight_input}
+                type="number"
+                value={weight}
+                onChange={updateWeight}
+              />
+            </label>
             <span className={styles.weight_unit}>{currentPet.unit}</span>
           </div>
-          {error && <h2 className={styles.error}>{error["current_weight"]}</h2>}
+          {error && <h2 className={styles.error}>{error.currentWeight}</h2>}
           <button
             // the ternary is used to check the last item in the weights list
             // if the last item in the weights list is recorded today,
             // highlight button green
             className={`${styles.button} ${
-              currentPet.weights[currentPet.weights.length - 1].recorded_today
-                ? styles.green
-                : null
+              currentPet.weights[currentPet.weights.length - 1].recorded_today ? styles.green : null
             }`}
             type="submit"
           >
@@ -63,6 +63,6 @@ const WeightForm = ({ pet_id }) => {
       </form>
     </div>
   );
-};
+}
 
 export default WeightForm;
