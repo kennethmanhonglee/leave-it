@@ -9,9 +9,10 @@ function WeightForm({ petId }) {
   const pets = useSelector((state) => state.pets);
   if (pets) {
     currentPet = pets[+petId];
+    console.log(currentPet);
   }
 
-  const [weight, setWeight] = useState(currentPet.currentWeight);
+  const [weight, setWeight] = useState(currentPet.current_weight);
   const [error, setError] = useState();
 
   const updateWeight = (e) => setWeight(e.target.value);
