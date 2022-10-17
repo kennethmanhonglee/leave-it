@@ -45,7 +45,6 @@ def login():
         )
         login_user(user)
         return user.to_dict()
-
     return {"errors": form.errors}, 401
 
 

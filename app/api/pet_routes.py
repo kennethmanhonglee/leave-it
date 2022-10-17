@@ -57,8 +57,8 @@ def create_pet():
             user_id=user_id,
             goal=form.data["goal"],
             unit=form.data["unit"],
-            current_weight=form.data["current_weight"],
-            ideal_weight=form.data["ideal_weight"],
+            current_weight=form.data["currentWeight"],
+            ideal_weight=form.data["idealWeight"],
             image_url=upload["url"] if upload is not None else None,
         )
         db.session.add(new_pet)
@@ -73,6 +73,7 @@ def create_pet():
         db.session.commit()
         return new_pet.to_dict()
     else:
+        print(form.data)
         return {"ok": False, "errors": form.errors}, 401
 
 
