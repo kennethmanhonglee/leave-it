@@ -23,6 +23,8 @@ function SignUpForm() {
       const data = await dispatch(signUp(username, firstname, lastname, email, password));
       if (data) {
         setErrors(data);
+        setPassword('');
+        setRepeatPassword('');
       }
     } else {
       setErrors(['Password and Confirm Password must match.']);
@@ -69,13 +71,16 @@ function SignUpForm() {
         }}
       />
       <form onSubmit={onSignUp} className={styles.form}>
-        {errors.map((error) => (
-          <div className={styles.errors} key={error}>
-            {error}
-          </div>
-        ))}
         <div className={styles.names}>
           <div>
+            {
+              errors?.firstname
+                ? errors.firstname.map((error) => (
+                  <div className={styles.errors} key={error}>
+                    {error}
+                  </div>
+                )) : null
+            }
             <input
               placeholder="First Name"
               type="text"
@@ -87,6 +92,14 @@ function SignUpForm() {
             />
           </div>
           <div>
+            {
+              errors?.lastname
+                ? errors.lastname.map((error) => (
+                  <div className={styles.errors} key={error}>
+                    {error}
+                  </div>
+                )) : null
+            }
             <input
               placeholder="Last Name"
               type="text"
@@ -99,6 +112,14 @@ function SignUpForm() {
           </div>
         </div>
         <div>
+          {
+              errors?.username
+                ? errors.username.map((error) => (
+                  <div className={styles.errors} key={error}>
+                    {error}
+                  </div>
+                )) : null
+            }
           <input
             placeholder="Username"
             type="text"
@@ -110,6 +131,14 @@ function SignUpForm() {
           />
         </div>
         <div>
+          {
+              errors?.email
+                ? errors.email.map((error) => (
+                  <div className={styles.errors} key={error}>
+                    {error}
+                  </div>
+                )) : null
+            }
           <input
             placeholder="Email"
             type="text"
@@ -121,6 +150,14 @@ function SignUpForm() {
           />
         </div>
         <div>
+          {
+              errors?.password
+                ? errors.password.map((error) => (
+                  <div className={styles.errors} key={error}>
+                    {error}
+                  </div>
+                )) : null
+            }
           <input
             placeholder="Password"
             type="password"
