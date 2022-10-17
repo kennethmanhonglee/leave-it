@@ -8,14 +8,15 @@ import { deleteFoodThunk } from '../../../store/food';
 
 // This component is for food entries in adding food into meals
 function FoodEntry({ food }) {
+  const { food_name: foodName, food_type: foodType } = food;
   const dispatch = useDispatch();
   const { petId } = useParams();
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
-  const [servingSize, setservingSize] = useState(food.servingSize);
+  const [servingSize, setservingSize] = useState(food.serving_size);
   const [error, setError] = useState('');
 
-  const proportion = food.calories / food.servingSize;
+  const proportion = food.calories / food.serving_size;
   const calories = (proportion * servingSize).toFixed(2);
 
   const changeServingSize = (e) => setservingSize(e.target.value);
@@ -56,10 +57,10 @@ function FoodEntry({ food }) {
       <div className={styles.food_and_buttons}>
         <div className={styles.food_info}>
           <div>
-            <h2>{food.foodName}</h2>
+            <h2>{foodName}</h2>
           </div>
           <div>
-            <h2>{food.foodType}</h2>
+            <h2>{foodType}</h2>
           </div>
           <div>
             <h2>
