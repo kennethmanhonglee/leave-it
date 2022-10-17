@@ -13,8 +13,13 @@ function PetPage() {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets);
   let currentPet;
+  let idealWeight;
+  let currentWeight;
+
   if (Object.values(pets).length > 0) {
     currentPet = pets[+petId];
+    idealWeight = currentPet.ideal_weight;
+    currentWeight = currentPet.current_weight;
     if (!currentPet) {
       history.push('/errors');
     }
@@ -61,7 +66,7 @@ function PetPage() {
             Current Weight:
             {' '}
             <span>
-              {currentPet.currentWeight}
+              {currentWeight}
               {currentPet.unit}
               {' '}
             </span>
@@ -70,7 +75,7 @@ function PetPage() {
             Ideal Weight:
             {' '}
             <span>
-              {currentPet.idealWeight}
+              {idealWeight}
               {currentPet.unit}
               {' '}
             </span>
