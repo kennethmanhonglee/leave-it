@@ -7,7 +7,7 @@ import { login } from '../../store/session';
 import logo from '../../assets/images/logo_figma.png';
 
 function LoginForm() {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [loginParam, setLoginParam] = useState('');
   const [password, setPassword] = useState('');
   const user = useSelector((state) => state.session.user);
@@ -46,12 +46,15 @@ function LoginForm() {
         }}
       />
       <form onSubmit={onLogin} className={styles.form}>
-        {errors.map((error) => (
-          <div className={styles.errors} key={error}>
-            {error}
-          </div>
-        ))}
         <div>
+          {
+            errors
+              ? errors?.loginParam?.map((error) => (
+                <div className={styles.errors} key={error}>
+                  {error}
+                </div>
+              )) : null
+          }
           <input
             name="loginParam"
             type="text"
@@ -63,6 +66,14 @@ function LoginForm() {
           />
         </div>
         <div>
+          {
+            errors
+              ? errors?.password?.map((error) => (
+                <div className={styles.errors} key={error}>
+                  {error}
+                </div>
+              )) : null
+          }
           <input
             name="password"
             type="password"
