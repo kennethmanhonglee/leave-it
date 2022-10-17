@@ -8,8 +8,14 @@ function PetCard({ petId }) {
   const history = useHistory();
   const pets = useSelector((state) => state.pets);
   let currentPet;
+  let currentWeight;
+  let unit;
+  let goal;
   if (Object.values(pets).length > 0) {
     currentPet = pets[+petId];
+    currentWeight = currentPet.current_weight;
+    unit = currentPet.unit;
+    goal = currentPet.goal;
   }
 
   const redirectToPetPage = () => {
@@ -33,13 +39,13 @@ function PetCard({ petId }) {
         <div className={styles.goal}>
           <p>
             Goal:
-            {currentPet.goal}
+            {goal}
           </p>
         </div>
         <div className={styles.weight}>
           <p>
-            {currentPet.currentWeight}
-            {currentPet.unit}
+            {currentWeight}
+            {unit}
           </p>
         </div>
       </div>
