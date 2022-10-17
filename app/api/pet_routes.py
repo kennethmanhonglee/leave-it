@@ -73,7 +73,6 @@ def create_pet():
         db.session.commit()
         return new_pet.to_dict()
     else:
-        print(form.data)
         return {"ok": False, "errors": form.errors}, 401
 
 
