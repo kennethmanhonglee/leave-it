@@ -57,8 +57,8 @@ def create_pet():
             user_id=user_id,
             goal=form.data["goal"],
             unit=form.data["unit"],
-            current_weight=form.data["current_weight"],
-            ideal_weight=form.data["ideal_weight"],
+            current_weight=form.data["currentWeight"],
+            ideal_weight=form.data["idealWeight"],
             image_url=upload["url"] if upload is not None else None,
         )
         db.session.add(new_pet)
@@ -123,15 +123,15 @@ def edit_pet(pet_id):
         existing_pet.name = form.data["name"]
         existing_pet.unit = form.data["unit"]
         existing_pet.goal = form.data["goal"]
-        existing_pet.current_weight = form.data["current_weight"]
-        existing_pet.ideal_weight = form.data["ideal_weight"]
+        existing_pet.current_weight = form.data["currentWeight"]
+        existing_pet.ideal_weight = form.data["idealWeight"]
         existing_pet.image_url = new_image_url
         db.session.commit()
         pet_weights = PetWeight.query.filter(PetWeight.pet_id == pet_id).all()
         # this is the most recently made pet weight
         weight_to_change = pet_weights[-1]
         weight_to_change.unit = form.data["unit"]
-        weight_to_change.weight = form.data["current_weight"]
+        weight_to_change.weight = form.data["currentWeight"]
         weight_to_change.created_at = datetime.today()
         db.session.add(weight_to_change)
         db.session.commit()
@@ -169,16 +169,16 @@ def new_weight(pet_id):
     if form.validate_on_submit():
         new_pet_weight = PetWeight(
             pet_id=existing_pet.id,
-            weight=form.data["current_weight"],
+            weight=form.data["currentWeight"],
             unit=existing_pet.unit,
             created_at=datetime.today(),
         )
 
-        existing_pet.current_weight = form.data["current_weight"]
+        existing_pet.current_weight = form.data["currentWeight"]
 
         db.session.add(new_pet_weight)
         db.session.add(existing_pet)
         db.session.commit()
 
         return {"ok": True, "new_pet": existing_pet.to_dict()}
-    return {"ok": False, "errors": form.errors}
+    return {"ok": False, "errors": form.errors}, 409

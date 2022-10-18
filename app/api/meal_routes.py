@@ -16,9 +16,9 @@ def create_meal():
     uses request.get_json() since the data was sent as json
     """
     user_id = current_user.get_id()
-    food_id = request.get_json()["food_id"]
-    pet_id = request.get_json()["pet_id"]
-    serving_size = request.get_json()["serving_size"]
+    food_id = request.get_json()["foodId"]
+    pet_id = request.get_json()["petId"]
+    serving_size = request.get_json()["servingSize"]
     calories = request.get_json()["calories"]
     food = Food.query.get(food_id)
     pet = Pet.query.get(pet_id)

@@ -1,44 +1,44 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 
-import styles from "./EditFoodForm.module.css";
-import { edit_food_thunk } from "../../store/food";
+import styles from './EditFoodForm.module.css';
+import { editFoodThunk } from '../../store/food';
 
-const EditFoodForm = () => {
+function EditFoodForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { food_id } = useParams();
+  const { foodId } = useParams();
   const foods = useSelector((state) => state.foods);
   const currentUser = useSelector((state) => state.session.user);
 
   let currentFood;
   if (foods) {
-    currentFood = foods[food_id];
-    if (currentFood?.user_id !== currentUser?.id) history.push("/errors");
+    currentFood = foods[foodId];
+    if (currentFood?.user_id !== currentUser?.id) history.push('/errors');
   }
 
-  const [food_name, setFood_name] = useState(currentFood?.food_name);
-  const [food_type, setFood_type] = useState(currentFood?.food_type);
+  const [foodName, setFoodName] = useState(currentFood?.food_name);
+  const [foodType, setFoodType] = useState(currentFood?.food_type);
   const [calories, setCalories] = useState(currentFood?.calories);
-  const [serving_size, setServing_size] = useState(currentFood?.serving_size);
+  const [servingSize, setServingSize] = useState(currentFood?.serving_size);
   const [errors, setErrors] = useState();
 
-  const updateFoodName = (e) => setFood_name(e.target.value);
-  const updateFoodType = (e) => setFood_type(e.target.value);
+  const updateFoodName = (e) => setFoodName(e.target.value);
+  const updateFoodType = (e) => setFoodType(e.target.value);
   const updateCalories = (e) => setCalories(e.target.value);
-  const updateServingSize = (e) => setServing_size(e.target.value);
+  const updateServingSize = (e) => setServingSize(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const new_food = {
-      food_name,
-      food_type,
+    const newFood = {
+      foodName,
+      foodType,
       calories,
-      serving_size,
+      servingSize,
     };
 
-    const data = await dispatch(edit_food_thunk(food_id, new_food));
+    const data = await dispatch(editFoodThunk(foodId, newFood));
     if (data && data.errors) {
       setErrors(data.errors);
     } else {
@@ -50,7 +50,7 @@ const EditFoodForm = () => {
   };
 
   const isEmptyForm = () => {
-    if (!food_name || !calories || !serving_size) return true;
+    if (!foodName || !calories || !servingSize) return true;
     return false;
   };
 
@@ -58,73 +58,72 @@ const EditFoodForm = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h2 className={styles.header}> Edit {currentFood.food_name}</h2>
+        <h2 className={styles.header}>
+          {' '}
+          Edit
+          {currentFood.foodName}
+        </h2>
         <div>
-          <label htmlFor="food_name">Food Name</label>
-          <input
-            id="food_name"
-            type="text"
-            placeholder="Food"
-            onChange={updateFoodName}
-            value={food_name}
-            className={styles.input}
-          ></input>
-          {errors && errors["food_name"] && (
-            <div className={styles.errors}>{errors["food_name"]}</div>
-          )}
+          <label htmlFor="foodName">
+            Food Name
+            <input
+              id="foodName"
+              type="text"
+              placeholder="Food"
+              onChange={updateFoodName}
+              value={foodName}
+              className={styles.input}
+            />
+          </label>
+          {errors && errors.foodName && <div className={styles.errors}>{errors.foodName}</div>}
         </div>
         <div>
-          <label htmlFor="food_type">Food Type</label>
-          <select
-            id="food_type"
-            onChange={updateFoodType}
-            value={food_type}
-            className={styles.select}
-          >
-            <option onSelect={updateFoodType} value={"Kibbles"}>
-              Kibbles
-            </option>
-            <option onSelect={updateFoodType} value={"Fresh Food"}>
-              Fresh Food
-            </option>
-            <option onSelect={updateFoodType} value={"Raw Meat"}>
-              Raw Meat
-            </option>
-            <option onSelect={updateFoodType} value={"Others"}>
-              Others
-            </option>
-          </select>
-          {errors && errors["food_type"] && (
-            <div className={styles.errors}>{errors["food_type"]}</div>
-          )}
+          <label htmlFor="foodType">
+            Food Type
+            <select id="foodType" onChange={updateFoodType} value={foodType} className={styles.select}>
+              <option onSelect={updateFoodType} value="Kibbles">
+                Kibbles
+              </option>
+              <option onSelect={updateFoodType} value="Fresh Food">
+                Fresh Food
+              </option>
+              <option onSelect={updateFoodType} value="Raw Meat">
+                Raw Meat
+              </option>
+              <option onSelect={updateFoodType} value="Others">
+                Others
+              </option>
+            </select>
+          </label>
+          {errors && errors.foodType && <div className={styles.errors}>{errors.foodType}</div>}
         </div>
         <div>
-          <label htmlFor="serving_size">Serving Size in Grams</label>
-          <input
-            type="number"
-            id="serving_size"
-            placeholder="Serving Size in Grams"
-            onChange={updateServingSize}
-            value={serving_size}
-            className={styles.number}
-          ></input>
-          {errors && errors["serving_size"] && (
-            <div className={styles.errors}>{errors["serving_size"]}</div>
-          )}
+          <label htmlFor="servingSize">
+            Serving Size in Grams
+            <input
+              type="number"
+              id="servingSize"
+              placeholder="Serving Size in Grams"
+              onChange={updateServingSize}
+              value={servingSize}
+              className={styles.number}
+            />
+          </label>
+          {errors && errors.servingSize && <div className={styles.errors}>{errors.servingSize}</div>}
         </div>
         <div>
-          <label htmlFor="calories">Calories</label>
-          <input
-            type="number"
-            id="calories"
-            placeholder="calories"
-            onChange={updateCalories}
-            value={calories}
-            className={styles.number}
-          ></input>
-          {errors && errors["calories"] && (
-            <div className={styles.errors}>{errors["calories"]}</div>
-          )}
+          <label htmlFor="calories">
+            Calories
+            <input
+              type="number"
+              id="calories"
+              placeholder="calories"
+              onChange={updateCalories}
+              value={calories}
+              className={styles.number}
+            />
+          </label>
+          {errors && errors.calories && <div className={styles.errors}>{errors.calories}</div>}
         </div>
         <button
           type="submit"
@@ -136,6 +135,6 @@ const EditFoodForm = () => {
       </form>
     </div>
   );
-};
+}
 
 export default EditFoodForm;

@@ -3,9 +3,9 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 650px 400px auto;
   grid-template-areas:
-    "header header"
-    "three_features three_features"
-    "instructions instructions";
+    'header header'
+    'three_features three_features'
+    'instructions instructions';
   gap: 50px 0;
   margin-bottom: 50px;
 }

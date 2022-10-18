@@ -4,7 +4,7 @@ body {
   font-size: 14px;
   background-color: rgb(250, 250, 250);
   color: #455555;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 a {
@@ -67,15 +67,15 @@ input:focus {
   outline: none;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   appearance: none;
 }
 
 button {
   border: none;
   background-color: transparent;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 button:hover {

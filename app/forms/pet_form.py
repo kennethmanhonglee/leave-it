@@ -47,11 +47,11 @@ def is_long(form, field):
 
 class PetForm(FlaskForm):
     name = StringField("name", validators=[DataRequired(), is_long])
-    current_weight = FloatField(
-        "current_weight", validators=[DataRequired(), weight_accepted]
+    currentWeight = FloatField(
+        "currentWeight", validators=[DataRequired(), weight_accepted]
     )
-    ideal_weight = FloatField(
-        "ideal_weight", validators=[DataRequired(), weight_accepted]
+    idealWeight = FloatField(
+        "idealWeight", validators=[DataRequired(), weight_accepted]
     )
     goal = StringField("goal", validators=[DataRequired(), goal_accepted])
     unit = StringField("unit", validators=[DataRequired(), unit_accepted])

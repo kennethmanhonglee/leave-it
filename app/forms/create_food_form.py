@@ -33,9 +33,9 @@ def is_long(form, field):
 
 
 class CreateFoodForm(FlaskForm):
-    food_name = StringField("food_name", validators=[DataRequired(), is_long])
-    food_type = StringField("food_type", validators=[DataRequired(), type_accepted])
+    foodName = StringField("foodName", validators=[DataRequired(), is_long])
+    foodType = StringField("foodType", validators=[DataRequired(), type_accepted])
     calories = IntegerField("calories", validators=[DataRequired(), cal_accepted])
-    serving_size = FloatField(
-        "serving_size", validators=[DataRequired(), serving_accepted]
+    servingSize = FloatField(
+        "servingSize", validators=[DataRequired(), serving_accepted]
     )

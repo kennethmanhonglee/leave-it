@@ -1,78 +1,74 @@
 // constants
-const CREATE_MEAL = "meals/CREATE_MEAL";
-const LOAD_MEALS = "meals/LOAD_MEALS";
-const REMOVE_MEALS = "meals/REMOVE_MEALS";
-const DELETE_MEAL = "meals/DELETE_MEAL";
+const CREATE_MEAL = 'meals/CREATE_MEAL';
+const LOAD_MEALS = 'meals/LOAD_MEALS';
+const REMOVE_MEALS = 'meals/REMOVE_MEALS';
+const DELETE_MEAL = 'meals/DELETE_MEAL';
 
 // actions
-const create_meal = (meal) => ({
+const createMeal = (meal) => ({
   type: CREATE_MEAL,
   payload: meal,
 });
 
-const load_meals = (meals) => ({
+const loadMeals = (meals) => ({
   type: LOAD_MEALS,
   payload: meals,
 });
-export const remove_meals = () => ({
+export const removeMeals = () => ({
   type: REMOVE_MEALS,
 });
-const delete_meal = (meal_id) => ({
+const deleteMeal = (mealId) => ({
   type: DELETE_MEAL,
-  payload: meal_id,
+  payload: mealId,
 });
 
 // thunks
-export const create_meal_thunk = (newMeal) => async (dispatch) => {
-  // make post request with food_id
-  const res = await fetch(`/api/meals`, {
-    method: "POST",
+export const createMealThunk = (newMeal) => async (dispatch) => { // eslint-disable-line
+  // make post request with foodId
+  const res = await fetch('/api/meals', {
+    method: 'POST',
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
     body: JSON.stringify(newMeal),
   });
   const response = await res.json();
-  console.log(response);
   if (response.ok === false) {
-    console.log("this is response.errors", response.errors);
     return response.errors;
-  } else {
-    await dispatch(create_meal(response));
   }
+  await dispatch(createMeal(response));
 };
 
-export const load_meals_thunk = () => async (dispatch) => {
-  const res = await fetch(`/api/meals/today`);
+export const loadMealsThunk = () => async (dispatch) => { // eslint-disable-line consistent-return
+  const res = await fetch('/api/meals/today');
   const response = await res.json();
-  await dispatch(load_meals(response));
+  await dispatch(loadMeals(response));
 };
 
-export const delete_meal_thunk = (meal_id) => async (dispatch) => {
-  const res = await fetch(`/api/meals/${meal_id}`, {
-    method: "DELETE",
+export const deleteMealThunk = (mealId) => async (dispatch) => { // eslint-disable-line
+  const res = await fetch(`/api/meals/${mealId}`, {
+    method: 'DELETE',
   });
   const response = await res.json();
   if (!response.ok) {
     return response.errors;
-  } else {
-    await dispatch(delete_meal(meal_id));
   }
+  await dispatch(deleteMeal(mealId));
 };
 
 // reducer
 const initialState = {};
 
-const reducer = (state = initialState, action) => {
-  let newState = Object.assign({}, state);
+const reducer = (state = initialState, action = {}) => {
+  const newState = { ...state };
   switch (action.type) {
     case CREATE_MEAL:
       newState[action.payload.id] = action.payload;
       return newState;
     case LOAD_MEALS:
-      for (let [id, meal] of Object.entries(action.payload)) {
+      Object.entries(action.payload).forEach(([id, meal]) => {
         newState[id] = meal;
-      }
+      });
       return newState;
     case REMOVE_MEALS:
       return {};

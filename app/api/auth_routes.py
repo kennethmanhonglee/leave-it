@@ -40,14 +40,12 @@ def login():
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = (
-            User.query.filter(User.email == form.data["login_param"]).first()
-            or User.query.filter(User.username == form.data["login_param"]).first()
+            User.query.filter(User.email == form.data["loginParam"]).first()
+            or User.query.filter(User.username == form.data["loginParam"]).first()
         )
         login_user(user)
         return user.to_dict()
-    errors = validation_errors_to_error_messages(form.errors)
-    new_errors = [error.split(":")[1] for error in errors]
-    return {"errors": new_errors}, 401
+    return {"errors": form.errors}, 401
 
 
 @auth_routes.route("/logout")
@@ -78,9 +76,8 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    errors = validation_errors_to_error_messages(form.errors)
-    new_errors = [error.split(":")[1] for error in errors]
-    return {"errors": new_errors}, 401
+
+    return {"errors": form.errors}, 401
 
 
 @auth_routes.route("/unauthorized")

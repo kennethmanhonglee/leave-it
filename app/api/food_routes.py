@@ -38,9 +38,9 @@ def create_food():
     if form.validate_on_submit():
         new_food = Food(
             user_id=user_id,
-            food_name=form.data["food_name"],
-            food_type=form.data["food_type"],
-            serving_size=form.data["serving_size"],
+            food_name=form.data["foodName"],
+            food_type=form.data["foodType"],
+            serving_size=form.data["servingSize"],
             calories=form.data["calories"],
             created_at=datetime.today(),
         )
@@ -64,16 +64,16 @@ def edit_food(food_id):
     form = CreateFoodForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        food_to_edit.food_name = form.data["food_name"]
-        food_to_edit.food_type = form.data["food_type"]
-        food_to_edit.serving_size = form.data["serving_size"]
+        food_to_edit.food_name = form.data["foodName"]
+        food_to_edit.food_type = form.data["foodType"]
+        food_to_edit.serving_size = form.data["servingSize"]
         food_to_edit.calories = form.data["calories"]
         food_to_edit.created_at = datetime.today()
 
         db.session.commit()
         return {"ok": True, "food": food_to_edit.to_dict()}
     else:
-        return {"ok": False, "errors": form.errors}
+        return {"ok": False, "errors": form.errors}, 409
 
 
 @food_routes.route("/<int:food_id>", methods=["DELETE"])

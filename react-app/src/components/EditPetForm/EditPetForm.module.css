@@ -54,7 +54,7 @@
   margin-bottom: 20px;
 }
 
-.upload_label {
+.uploadLabel {
   display: none;
 }
 
@@ -105,7 +105,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  content: "Add a different picture";
+  content: 'Add a different picture';
   color: white;
   font-weight: 500;
   font-size: 1.2rem;
@@ -122,7 +122,7 @@
   background-color: rgba(255, 0, 0, 0.5);
 }
 
-input[type="file"] {
+input[type='file'] {
   display: none;
   background-color: red;
 }

@@ -1,41 +1,42 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 
-import styles from "./FoodEntry.module.css";
-import { create_meal_thunk } from "../../../store/meal";
-import { delete_food_thunk } from "../../../store/food";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import styles from './FoodEntry.module.css';
+import { createMealThunk } from '../../../store/meal';
+import { deleteFoodThunk } from '../../../store/food';
 
 // This component is for food entries in adding food into meals
-const FoodEntry = ({ food }) => {
+function FoodEntry({ food }) {
+  const { food_name: foodName, food_type: foodType } = food;
   const dispatch = useDispatch();
-  const { pet_id } = useParams();
+  const { petId } = useParams();
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
-  const [serving_size, setServing_size] = useState(food.serving_size);
-  const [error, setError] = useState("");
+  const [servingSize, setservingSize] = useState(food.serving_size);
+  const [error, setError] = useState('');
 
   const proportion = food.calories / food.serving_size;
-  let calories = (proportion * serving_size).toFixed(2);
+  const calories = (proportion * servingSize).toFixed(2);
 
-  const changeServingSize = (e) => setServing_size(e.target.value);
+  const changeServingSize = (e) => setservingSize(e.target.value);
 
   useEffect(() => {
-    if (serving_size > 500 || serving_size < 0) {
-      setError(`Serving size for ${food.food_name} must be less than 500g.`);
+    if (servingSize > 500 || servingSize < 0) {
+      setError(`Serving size for ${food.foodName} must be less than 500g.`);
     } else {
-      setError("");
+      setError('');
     }
-  }, [serving_size]);
+  }, [servingSize]);
 
   const addFood = async () => {
     const newMeal = {
-      food_id: food.id,
-      pet_id,
-      serving_size,
+      foodId: food.id,
+      petId,
+      servingSize,
       calories,
     };
-    const errors = await dispatch(create_meal_thunk(newMeal));
+    const errors = await dispatch(createMealThunk(newMeal));
     if (errors) {
       setError(errors);
     } else {
@@ -44,7 +45,7 @@ const FoodEntry = ({ food }) => {
   };
 
   const deleteFood = async () => {
-    const data = await dispatch(delete_food_thunk(food.id));
+    const data = await dispatch(deleteFoodThunk(food.id));
     if (data) {
       setError(data);
     }
@@ -56,23 +57,27 @@ const FoodEntry = ({ food }) => {
       <div className={styles.food_and_buttons}>
         <div className={styles.food_info}>
           <div>
-            <h2>{food.food_name}</h2>
+            <h2>{foodName}</h2>
           </div>
           <div>
-            <h2>{food.food_type}</h2>
+            <h2>{foodType}</h2>
           </div>
           <div>
-            <h2>{calories} cal</h2>
+            <h2>
+              {calories}
+              {' '}
+              cal
+            </h2>
           </div>
           <div>
             <input
               type="number"
-              value={serving_size}
+              value={servingSize}
               onChange={changeServingSize}
               max="500"
               min="0"
               className={styles.food_entry_serving_input}
-            ></input>
+            />
             <h2>g</h2>
           </div>
         </div>
@@ -80,24 +85,21 @@ const FoodEntry = ({ food }) => {
           {/* placeholder, will likely use a fontawesome icon later */}
           {currentUser && food.user_id === currentUser.id && (
             <>
-              <button
-                className={styles.button}
-                onClick={() => history.push(`/edit_food/${food.id}`)}
-              >
+              <button type="button" className={styles.button} onClick={() => history.push(`/editFood/${food.id}`)}>
                 Edit
               </button>
-              <button className={styles.button} onClick={deleteFood}>
+              <button type="button" className={styles.button} onClick={deleteFood}>
                 Delete
               </button>
             </>
           )}
-          <button onClick={addFood} className={styles.button}>
+          <button type="button" onClick={addFood} className={styles.button}>
             Add
           </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default FoodEntry;
