@@ -51,16 +51,16 @@ export const editPetThunk = ({ petId, newPetData }) => async (dispatch) => { // 
     return response.errors;
   }
   // edit does the same thing as adding a pet in terms of redux store state
-  await dispatch(addPet(response.newPet));
+  await dispatch(addPet(response.new_pet));
 };
 
-export const newWeightThunk = ({ petId, currentWeight }) => async (dispatch) => { // eslint-disable-line
+export const newWeightThunk = ({ petId, currentWeight, unit }) => async (dispatch) => { // eslint-disable-line
   const res = await fetch(`/api/pets/${petId}/new_weight`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ petId, currentWeight }),
+    body: JSON.stringify({ petId, currentWeight, unit }),
   });
 
   const response = await res.json();
@@ -68,7 +68,7 @@ export const newWeightThunk = ({ petId, currentWeight }) => async (dispatch) => 
     return response.errors;
   }
   // dispatch action to create pet - same as editing pet
-  await dispatch(addPet(response.newPet));
+  await dispatch(addPet(response.new_pet));
 };
 
 export const deletePetThunk = (petId) => async (dispatch) => {

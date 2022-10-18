@@ -8,8 +8,13 @@ function MealEntry({ meal }) {
   const dispatch = useDispatch();
   const foods = useSelector((state) => state.foods);
   let currentFood;
+  let foodName;
+  let foodType;
+  const servingSize = meal.serving_size;
   if (foods) {
-    currentFood = foods[meal.foodId];
+    currentFood = foods[meal.food_id];
+    foodName = currentFood.food_name;
+    foodType = currentFood.food_type;
   }
 
   const deleteMeal = async () => {
@@ -23,8 +28,8 @@ function MealEntry({ meal }) {
   if (!currentFood) return null;
   return (
     <div className={styles.container}>
-      <div>{currentFood.foodType}</div>
-      <div>{currentFood.foodName}</div>
+      <div>{foodType}</div>
+      <div>{foodName}</div>
       {/* calories calculated from food cal * meal serving size / food serving size */}
       <div>
         {meal.calories}
@@ -32,7 +37,7 @@ function MealEntry({ meal }) {
         calories
       </div>
       <div>
-        {meal.servingSize}
+        {servingSize}
         {' '}
         g
       </div>

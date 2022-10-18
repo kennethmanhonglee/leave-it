@@ -20,7 +20,8 @@ function WeightForm({ petId }) {
     e.preventDefault();
     const newPet = {
       petId,
-      currentWeight: weight,
+      currentWeight: +weight,
+      unit: currentPet.unit,
     };
     const errors = await dispatch(newWeightThunk(newPet));
     if (errors) {

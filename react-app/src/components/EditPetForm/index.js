@@ -37,8 +37,8 @@ function EditPetForm() {
 
   const [name, setName] = useState(currentPet?.name);
   const [unit, setUnit] = useState(currentPet?.unit);
-  const [currentWeight, setCurrentWeight] = useState(currentPet?.currentWeight);
-  const [idealWeight, setIdealWeight] = useState(currentPet?.idealWeight);
+  const [currentWeight, setCurrentWeight] = useState(currentPet?.current_weight);
+  const [idealWeight, setIdealWeight] = useState(currentPet?.ideal_weight);
   const [goal, setGoal] = useState(currentPet?.goal);
   const [errors, setErrors] = useState();
   // for editing image
@@ -123,7 +123,7 @@ function EditPetForm() {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
           <h2 className={styles.header}>
-            Edit
+            Edit &nbsp;
             {currentPet?.name}
           </h2>
         </div>

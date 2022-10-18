@@ -23,7 +23,7 @@ function MealTracker({ petId }) {
     currentPet = pets[petId];
   }
   const goalCalories = Math.floor(currentPet?.goal_calories);
-  const currentPetMeals = Object.values(allMeals).filter((meal) => meal.petId === +petId);
+  const currentPetMeals = Object.values(allMeals).filter((meal) => meal.pet_id === +petId);
   const currentCalories = currentPetMeals.reduce((sum, meal) => sum + meal.calories, 0);
 
   useEffect(() => {
