@@ -16,6 +16,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'max-len': 'warn',
     'react/prop-types': 'off',
+    'no-trailing-spaces': 'warn',
   },
   overrides: [
     {
