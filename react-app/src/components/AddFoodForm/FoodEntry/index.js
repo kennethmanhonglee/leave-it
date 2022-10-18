@@ -83,7 +83,7 @@ function FoodEntry({ food }) {
         </div>
         <div className={styles.add_button_div}>
           {/* placeholder, will likely use a fontawesome icon later */}
-          {currentUser && food.userId === currentUser.id && (
+          {currentUser && food.user_id === currentUser.id && (
             <>
               <button type="button" className={styles.button} onClick={() => history.push(`/editFood/${food.id}`)}>
                 Edit

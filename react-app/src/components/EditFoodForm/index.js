@@ -15,13 +15,13 @@ function EditFoodForm() {
   let currentFood;
   if (foods) {
     currentFood = foods[foodId];
-    if (currentFood?.userId !== currentUser?.id) history.push('/errors');
+    if (currentFood?.user_id !== currentUser?.id) history.push('/errors');
   }
 
-  const [foodName, setFoodName] = useState(currentFood?.foodName);
-  const [foodType, setFoodType] = useState(currentFood?.foodType);
+  const [foodName, setFoodName] = useState(currentFood?.food_name);
+  const [foodType, setFoodType] = useState(currentFood?.food_type);
   const [calories, setCalories] = useState(currentFood?.calories);
-  const [servingSize, setServingSize] = useState(currentFood?.servingSize);
+  const [servingSize, setServingSize] = useState(currentFood?.serving_size);
   const [errors, setErrors] = useState();
 
   const updateFoodName = (e) => setFoodName(e.target.value);
